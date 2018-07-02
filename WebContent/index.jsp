@@ -6,8 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>모아모아</title>
 <style type="text/css">
+	body{
+		background : rgb(18, 32, 56);
+		color : white;
+	}
 	nav{
-		background : yellow;
+		border:1px solid white;
 		overflow : auto;
 		width : 1200px;
 		height : auto;
@@ -26,7 +30,7 @@
 	padding : 0px 20px;
 	}
 	.itemList{
-		background : green;
+		border : 2px dotted yellow;
 		width : 900px;
 		height: auto;
 	}
@@ -39,8 +43,7 @@
 	padding:0;
 	width : 250px;
 	height : auto;
-	background : grey;
-	color : blue;
+	border : 2px dotted yellow;
 	font-size : 18px;
 	position : fixed;
 	right : 50px;
@@ -50,7 +53,7 @@
 </head>
 <body>
 <!--헤더, 로고  -->
-<h1>모아모아</h1>
+<h1>moamoa</h1>
 <!--메뉴  -->
 <nav>
 	<ul class="dirList">
