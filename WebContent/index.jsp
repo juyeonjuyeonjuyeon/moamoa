@@ -114,9 +114,7 @@
 			<p class="itemPrice">1,000</p>
 			</td>
 			<td class="item">
-			<img src="" alt="그림" class="itemImg">
-			<p class = "itemName" >ddd</p>
-			<p class="itemPrice">1,000</p>
+			<button>아이템 추가하기</button>
 			</td>
 		</tr>
 	</table>
