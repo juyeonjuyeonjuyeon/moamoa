@@ -5,64 +5,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>모아모아</title>
-<style type="text/css">
-	body{
-		background : rgb(18, 32, 56);
-		color : white;
-	}
-	nav{
-		border:1px solid white;
-		overflow : auto;
-		width : 1200px;
-		height : auto;
-		padding:0;
-		
-	}
-	nav li{
-	list-style-type : none;
-	}
-	.dirList li{
-	float:left;
-	padding : 0px 20px;
-	}
-	.menu li{
-	float:right;
-	padding : 0px 20px;
-	}
-	.itemList{
-		border : 2px dotted yellow;
-		width : 900px;
-		height: auto;
-	}
-	.item{
-	border : 2px solid orange;
-	width : 246px;
-	height : 246px;
-	}	
-	.todoList{
-	padding:0;
-	width : 250px;
-	height : auto;
-	border : 2px dotted yellow;
-	font-size : 18px;
-	position : fixed;
-	right : 50px;
-	top : 150px;
-	}
-</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	/* $(document).ready(function(){
+	    $("#addDir").click(function(){
+	        $("#dirList").prepend("<li><a href="#">새폴더</a></li>");
+	    });
+	}); */
+</script>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <!--헤더, 로고  -->
-<h1>moamoa</h1>
+<header>
+	<h1>ʕ•ﻌ•ʔmoamoaʕ•ﻌ•ʔ</h1>
+</header>
+
 <!--메뉴  -->
 <nav>
-	<ul class="dirList">
+	<ul id="dirList">
+		<li><a href="#" class ="dir" >폴더 1</a></li>
 		<li><button id="addDir">폴더 추가</button></li>
 	</ul>
 	
-	<ul class="menu">
+	<ul id="menu">
 		<li><button id="login" >로그인</button></li>
-		<li>정렬</li>
+		<li><button id="order">정렬</button></li>
 	</ul>
 </nav>
 
@@ -73,46 +41,46 @@
 	<table>
 		<tr>
 			<td class="item">
-			<img src="" alt="그림" class="itemImg">
+			<img src="item1.jpg" alt="그림" class="itemImg">
 			<p class = "itemName" >ddd</p>
 			<p class="itemPrice">1,000</p>
 			</td>
 			<td class="item">
-			<img src="" alt="그림" class="itemImg">
+			<img src="item1.jpg" alt="그림" class="itemImg">
 			<p class = "itemName" >ddd</p>
 			<p class="itemPrice">1,000</p>
 			</td>
 			<td class="item">
-			<img src="" alt="그림" class="itemImg">
-			<p class = "itemName" >ddd</p>
-			<p class="itemPrice">1,000</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="item">
-			<img src="" alt="그림" class="itemImg">
-			<p class = "itemName" >ddd</p>
-			<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-			<img src="" alt="그림" class="itemImg">
-			<p class = "itemName" >ddd</p>
-			<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-			<img src="" alt="그림" class="itemImg">
+			<img src="item1.jpg" alt="그림" class="itemImg">
 			<p class = "itemName" >ddd</p>
 			<p class="itemPrice">1,000</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="item">
-			<img src="" alt="그림" class="itemImg">
+			<img src="item1.jpg" alt="그림" class="itemImg">
 			<p class = "itemName" >ddd</p>
 			<p class="itemPrice">1,000</p>
 			</td>
 			<td class="item">
-			<img src="" alt="그림" class="itemImg">
+			<img src="item1.jpg" alt="그림" class="itemImg">
+			<p class = "itemName" >ddd</p>
+			<p class="itemPrice">1,000</p>
+			</td>
+			<td class="item">
+			<img src="item1.jpg" alt="그림" class="itemImg">
+			<p class = "itemName" >ddd</p>
+			<p class="itemPrice">1,000</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="item">
+			<img src="item1.jpg" alt="그림" class="itemImg">
+			<p class = "itemName" >ddd</p>
+			<p class="itemPrice">1,000</p>
+			</td>
+			<td class="item">
+			<img src="item1.jpg" alt="그림" class="itemImg">
 			<p class = "itemName" >ddd</p>
 			<p class="itemPrice">1,000</p>
 			</td>
