@@ -25,7 +25,7 @@ int item = 0;
 <body>
 <!--헤더, 로고  -->
 <header>
-	<h1><a href="#">ʕ•ﻌ•ʔmoamoaʕ•ﻌ•ʔ</a></h1>
+	<h1><a href="<%=path%>/main/main.jsp" >ʕ•ﻌ•ʔmoamoaʕ•ﻌ•ʔ</a></h1>
 </header>
 
 <!--메뉴 -->
@@ -37,15 +37,15 @@ int item = 0;
 		<ul>
 			<li><a href="#" id="add">추가</a></li>
 			<li><a href="#" id="edit">편집</a></li>
-			<li><a href="#" id="login">로그아웃</a></li>
-			<li><a href="<%=path%>/main/main.jsp" id="login">홈</a></li>
+			<li><a href="#" id="logout">로그아웃</a></li>
+			<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
 		</ul>
 		<ul id="tagList">
-			<li><a href="#" id="redTag"><span class="red"></span>태그1</a></li>
-			<li><a href="#" id="orangeTag"><span class="orange"></span>태그2</a></li>
-			<li><a href="#" id="greenTag"><span class="green"></span>태그3</a></li>
-			<li><a href="#" id="blueTag"><span class="blue"></span>태그4</a></li>
-			<li><a href="#" id="violetTag"><span class="violet"></span>태그5</a></li>
+			<li><a href="#" id="redTag"><span class="Red"></span>태그1</a></li>
+			<li><a href="#" id="orangeTag"><span class="Orange"></span>태그2</a></li>
+			<li><a href="#" id="greenTag"><span class="Green"></span>태그3</a></li>
+			<li><a href="#" id="blueTag"><span class="Blue"></span>태그4</a></li>
+			<li><a href="#" id="violetTag"><span class="Violet"></span>태그5</a></li>
 		</ul>
 	</div>
 </nav>
