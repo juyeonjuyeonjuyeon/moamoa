@@ -1,12 +1,21 @@
 @charset "UTF-8";
+*{
+box-sizing : border-box;
+}
 body{
-		background : rgb(18, 32, 56);
+		background : #14356b;
 		color : white;
 	}
-	
+
+
 	/* 헤더  */
 header{
 	text-align : center;
+}
+header a{
+	color : white;
+	text-decoration: none;
+	
 }
 	/* 메뉴 */
 nav{
@@ -37,7 +46,7 @@ nav a {
 	text-decoration: none;
 	}
 nav a:hover {
-	background : rgb(18, 32, 56);
+	background : #14356b;
 	color : white
 }
 /* 메뉴 - 태그들 모음*/
