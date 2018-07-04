@@ -1,4 +1,4 @@
-package com.team0.servlet;
+package com.team1.servlet;
 
 import java.io.IOException;
 

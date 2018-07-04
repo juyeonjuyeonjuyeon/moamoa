@@ -1,4 +1,4 @@
-package com.team0.servlet;
+package com.team1.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.team0.dao.UserDAO;
-import com.team0.vo.UserVO;
+import com.team1.dao.UserDAO;
+import com.team1.vo.UserVO;
 
 /**
  * Servlet implementation class JoinUsProc

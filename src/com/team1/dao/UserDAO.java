@@ -1,4 +1,4 @@
-package com.team0.dao;
+package com.team1.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
-import com.team0.db.DBConn;
-import com.team0.vo.UserVO;
+import com.team1.db.DBConn;
+import com.team1.vo.UserVO;
 
 /*
  * 수정 쿼리

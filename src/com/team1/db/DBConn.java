@@ -1,4 +1,4 @@
-package com.team0.db;
+package com.team1.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

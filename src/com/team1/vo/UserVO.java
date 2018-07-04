@@ -1,4 +1,4 @@
-package com.team0.vo;
+package com.team1.vo;
 
 public class UserVO {
 
