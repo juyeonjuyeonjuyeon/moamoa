@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<head>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
@@ -73,20 +73,27 @@ button:hover {
     }
 }
 </style>
+<script>
+	function close(){
+		window.close();
+	}
+</script>
+</head>
 <body>
+
 
 <form action="/action_page.php" style="border:1px solid #ccc">
   <div class="container">
     <h1>회원가입</h1>
     <p> 계정을 생성합니다.</p>
     <hr>
-
-    <label for="아이디">아이디</label>
-    <input type="text" placeholder="ID 입력" name="ID" required>
     
     <label for="닉네임">닉네임</label>
     <input type="text" placeholder="Nickname 입력" name="Nickname" required>
 
+    <label for="아이디">아이디</label>
+    <input type="text" placeholder="ID 입력" name="ID" required>
+    
     <label for="비밀번호">비밀번호</label>
     <input type="password" placeholder="Password 입력" name="psw" required>
 
@@ -94,7 +101,7 @@ button:hover {
     <input type="password" placeholder="Password 재입력" name="psw-repeat" required>
     
     <div class="clearfix">
-      <button type="button" class="cancelbtn">취소</button>
+      <button type="button" class="cancelbtn" onclick="close()">취소</button>
       <button type="submit" class="signupbtn">가입하기</button>
     </div>
   </div>
