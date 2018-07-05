@@ -7,7 +7,7 @@ public class ItemVO {
 	private String itemName;  // 상품 이름
 	private int itemPrice; // 상품가격
 	private String tagColor; // 태그 컬러(1-red,2- orange,3- green,4-blue,5-violet)
-	private int bookmark; //북마크 체크 여부
+	private int bookmark; //북마크 체크 여부(0-false, 1-true)
 	
 	public int getItem_idx() {
 		return item_idx;

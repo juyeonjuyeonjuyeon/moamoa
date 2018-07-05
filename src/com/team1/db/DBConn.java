@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DBConn {
 	public static Connection getConnection() throws Exception {
 		// Mysql DB 연결 시
-		String url = "jdbc:mysql://203.250.32.44:3306/team0";   // team0 은 각 조 DB명 
+		String url = "jdbc:mysql://203.250.32.44:3306/team1";   // team0 은 각 조 DB명 
 		String driver = "com.mysql.jdbc.Driver";
 		// 오라클 DB 연결 시
 		// String url = "jdbc:oracle:thin:@localhost:1521:xe";

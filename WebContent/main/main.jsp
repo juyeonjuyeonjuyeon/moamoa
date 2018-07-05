@@ -27,6 +27,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 <div id="night">
 <div id="moon"></div>
 </div>
+<!-- 로그인 부분 -->
 <div id="loginPage">
 	<form action="" method="post">
 	<h3>login</h3>
@@ -44,6 +45,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 	<!-- ********************팝업창으로 join.jsp띄우기**************************** -->
 	</form>
 </div>
+<!-- 아이템 추가 부분 -->
 <div id="wishPage">
 
 	<form action="" method="post">
