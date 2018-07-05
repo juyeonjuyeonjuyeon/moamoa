@@ -6,8 +6,6 @@ body{
 		background : #14356b;
 		color : white;
 	}
-
-
 	/* 헤더  */
 header{
 	text-align : center;
@@ -29,9 +27,8 @@ nav{
 nav ul{
 	margin:0;
 	padding:0;
-	
 }
-ul li{
+nav li{
 	float : left;
 	list-style-type : none;	
 }
@@ -105,11 +102,11 @@ nav a:hover {
 	}
 .item{
 	border : 2px solid orange;
-	width : 246px;
-	height : 246px;
+	width : 250px;
+	height : 280x;
 	text-align : center;
 }	
-.item img{
+.itemImg img{
 	width : 150px;
 	height : 150px;
 }

@@ -6,6 +6,7 @@ public class UserVO {
 	private String name;  // 유저 이름
 	private String email; // 이메일
 	private String pw;    // 비밀번호
+	private String phone;    // 비밀번호
 	
 	public int getU_idx() {
 		return u_idx;
@@ -30,6 +31,12 @@ public class UserVO {
 	}
 	public void setPw(String pw) {
 		this.pw = pw;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 }

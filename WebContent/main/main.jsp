@@ -39,7 +39,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 	<td><input type="password" name="userPw" placeholder="비밀번호를 입력해주세요" required></td>
 	</tr>
 	</table>
-	<a class="btn joinBtn" href="javascript:window.open('<%=path%>/join/join.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');">회원가입</a>
+	<a class="btn joinBtn" href="javascript:window.open('<%=path%>/join.jsp','join us','width=500,height=500,location=no,status=no,scrollbars=yes');">회원가입</a>
 	</form>
 </div>
 <!-- 아이템 추가 부분 -->

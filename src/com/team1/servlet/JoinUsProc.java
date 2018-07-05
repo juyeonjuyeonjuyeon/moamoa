@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team1.dao.ItemDAO;
 import com.team1.dao.UserDAO;
+import com.team1.vo.ItemVO;
 import com.team1.vo.UserVO;
 
 /**
@@ -28,61 +30,39 @@ public class JoinUsProc extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		// name, phone, email, pw
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
-		String pw = request.getParameter("pw");
-		
-		// 확인용
-		System.out.println("이름: " + name);
-		
-		UserVO uvo = new UserVO();
-		uvo.setName(name);
-		uvo.setEmail(email);
-		uvo.setPw(pw);
-		
-		// static 으로 만들어서 바로 사용 가능
-		// 원래는 객체 생성 후 만듬.
-		//response.setContentType("text/plain; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		try {
-			UserDAO.InsertUser(uvo);
-			out.println("OK");			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			out.println("이름: " + name +  "<br>");
-			e.printStackTrace();
-		}
-		
-		// DB 연결 해서 데이터 삽입 
-		// DB 커넥터 (jar 파일 라이브러리 )
-		// 우리 DB는 Mysql 이다.
-		// DAO(클래스) 를 만들어서 데이터 삽입 쿼리를 넣는 
-		// 실행 매소드 생성
-		// 이 클래스 안에는 테이블 정보(컬럼값)을 담는
-		// 클래스가 필요(VO / DTO)
-		
-//		response.setContentType("text/html; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//		out.println("이름: " + name +  "<br>");
-//		out.println("메일: " + email +  "<br>");
-//		out.println("비번: " + pw +  "<br>");
-
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		/*한글 깨짐 해결*/
+		request.setCharacterEncoding("UTF-8");//한글 깨짐 해결
+		
+		/*input에서 String으로 받아옴*/
+		// name, phone, email, pw
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		
+		/*서블릿 확인 출력*/
+		response.setCharacterEncoding("UTF-8");//???해결
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		System.out.println("이름: " + name);
+		/*DB연결*/
+		UserVO uvo = new UserVO();
+		uvo.setName(name);
+		uvo.setPhone(phone);
+		uvo.setEmail(userId);
+		uvo.setPw(userPw);
+		
+		/*DB 성공여부 테스트 출력*/
+		try {
+			UserDAO.InsertUser(uvo);
+			out.println("<h1>아이템 저장 성공</h1>");			
+		} catch (Exception e) {
+			out.println("실패: " + name +  "<br>");
+			e.printStackTrace();
+		}
 	}
 
 }

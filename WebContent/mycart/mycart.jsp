@@ -53,79 +53,101 @@ int item = 0;
 
 <!--본문 예시. 실제로는 추가되는 것만큼 표시  -->
 <div class="main">
-<div class="itemList">
-	<!-- <div class="remoteBtn"> -->
-	<!-- <button id="leftBtn">왼쪽</button>
-		<button id="rightBtn">오른쪽</button> -->
-	<!-- </div> -->
+	<div class="itemList">
+		<!-- <div class="remoteBtn"> -->
+		<!-- <button id="leftBtn">왼쪽</button>
+			<button id="rightBtn">오른쪽</button> -->
+		<!-- </div> -->
+		<ul>
+			<li>
+			<div class="item">
+				<div class="itemImg">
+					<a href="#"><!-- href="아이템 링크(DB)-link" -->
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					</a>
+				</div>
+				<div class="item_info">
+					<p class ="itemName">ddd</p>
+					<p class="itemPrice">1,000<span class="won">원</span></p>
+					<div class="tagColor Red" style="width :10px; height: 10px;background : red;"></div>
+				</div>
+			</div>
+			</li>
+		</ul>
+			
+		<!-- <table>
+			<tr>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+				<td class="item">
+					<img src="item1.jpg" alt="그림" class="itemImg">
+					<p class = "itemName" >ddd</p>
+					<p class="itemPrice">1,000</p>
+				</td>
+			</tr>
+		</table> -->
+	</div>
+	<div class="pageList">
+		<ul>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+		</ul>
+	</div>
 	
-	<table>
-		<tr>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-			<td class="item">
-				<img src="item1.jpg" alt="그림" class="itemImg">
-				<p class = "itemName" >ddd</p>
-				<p class="itemPrice">1,000</p>
-			</td>
-		</tr>
-	</table>
-	<ul id="pageList">
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-	</ul>
-</div>
+	
+	
 
-	<div class = "sideMenu">
-		<form action="" method="">
-			<label><input type="radio" name="align" value="highPrice" >높은 가격 순</label><br>
-			<label><input type="radio" name="align" value="lowPrice" >낮은 가격 순</label><br>
-			<label><input type="radio" name="align" value="starCheck" >북마크</label><br>
-			<button>적용</button>
-		</form>
+
+<div class = "sideMenu">
+	<form action="" method="">
+		<label><input type="radio" name="align" value="highPrice" >높은 가격 순</label><br>
+		<label><input type="radio" name="align" value="lowPrice" >낮은 가격 순</label><br>
+		<label><input type="radio" name="align" value="starCheck" >북마크</label><br>
+		<button>적용</button>
+	</form>
 		
 	<!-- 태그 모음 : 자바스크립트 이용, 태그 누르면 해당 태그 아이템 출력-->
 	<!-- 	<div id="tagList">
@@ -135,7 +157,7 @@ int item = 0;
 		<a href="#" id="blueTag">태그4</a><br>
 		<a href="#" id="pinkTag">태그5</a>
 		</div> -->
-	</div>
+</div>
 </div>
 </body>
 </html>
