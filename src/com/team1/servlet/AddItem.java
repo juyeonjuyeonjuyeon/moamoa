@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team1.dao.ItemDAO;
+import com.team1.dao.UserDAO;
+import com.team1.vo.ItemVO;
+
 /**
  * Servlet implementation class AddItem
  */
@@ -23,19 +27,13 @@ public class AddItem extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}*/
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*한글 깨짐 해결*/
-		response.setCharacterEncoding("euc-kr");//???해결
 		request.setCharacterEncoding("UTF-8");//한글 깨짐 해결
 		
 		/*input에서 String으로 받아옴*/
@@ -45,10 +43,29 @@ public class AddItem extends HttpServlet {
 		String tagColor = request.getParameter("tagColor");
 		String bookmark = request.getParameter("bookmark");
 		
-		/*서블릿 출력*/
-		response.setContentType("text/html);charset=UTF-8");
+		/*서블릿 확인 출력*/
+		response.setCharacterEncoding("UTF-8");//???해결
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("link-"+link+"\n name-"+itemName+"\n price-"+itemPrice+"\n tag-"+tagColor+"\n bookmark-"+bookmark);
+		if(bookmark == null) {
+			bookmark = "0";
+		}
+		/*DB연결*/
+		ItemVO ivo = new ItemVO();
+		ivo.setLink(link);
+		ivo.setItemName(itemName);
+		ivo.setItemPrice(Integer.parseInt(itemPrice));
+		ivo.setTagColor(tagColor);
+		ivo.setBookmark(Integer.parseInt(bookmark));
+		/*DB 성공여부 테스트 출력*/
+		try {
+			ItemDAO.InsertItem(ivo);
+			out.println("<h1>아이템 저장 성공</h1>");			
+		} catch (Exception e) {
+			out.println("실패: " + itemName +  "<br>");
+			e.printStackTrace();
+		}
 		
 	}
 

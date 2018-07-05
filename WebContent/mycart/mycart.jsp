@@ -35,7 +35,7 @@ int item = 0;
 	</div>
 	<div id="menu">
 		<ul>
-			<li><a href="#" id="add">추가</a></li>
+			<li><a href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" id="add">추가</a></li>
 			<li><a href="#" id="edit">편집</a></li>
 			<li><a href="#" id="logout">로그아웃</a></li>
 			<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
@@ -55,8 +55,8 @@ int item = 0;
 <div class="main">
 <div class="itemList">
 	<!-- <div class="remoteBtn"> -->
-		<button id="leftBtn">왼쪽</button>
-		<button id="rightBtn">오른쪽</button>
+	<!-- <button id="leftBtn">왼쪽</button>
+		<button id="rightBtn">오른쪽</button> -->
 	<!-- </div> -->
 	
 	<table>

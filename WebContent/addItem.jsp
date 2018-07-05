@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+		String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,8 +120,8 @@ span{
 	</ul>
 	<br>
 	
-	<input class="btn addBtn" type="submit" value="○">
-	<input class="btn cancelBtn" type="button" value="X">
+	<input class="btn addBtn" type="submit" value="O">
+	<input class="btn cancelBtn" type="button" value="X" onClick='self.close()'> 
 	</form>
 </div>
 </body>

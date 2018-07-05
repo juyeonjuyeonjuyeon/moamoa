@@ -43,6 +43,7 @@ public class LoginProc extends HttpServlet {
 		UserVO vo = new UserVO();
 		vo.setEmail(email);
 		vo.setPw(pw);
+		
 		String path = request.getContextPath();
 		PrintWriter out = response.getWriter();  // 화면 출력
 		try {

@@ -12,8 +12,8 @@ public class DBConn {
 		// String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		// String driver = "oracle.jdbc.driver.OracleDriver";
 
-		String user = "team0"; // java
-		String pw = "team0!"; // java
+		String user = "root"; // java
+		String pw = "1234!"; // java
 		
 		// 드라이버 로딩(jar 파일 로드)
 		Class.forName(driver);

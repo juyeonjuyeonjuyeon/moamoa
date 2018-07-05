@@ -46,7 +46,7 @@ public class ItemVO {
 	public void setTagColor(String tagColor) {
 		this.tagColor = tagColor;
 	}
-	public int isBookmark() {
+	public int getBookmark() {
 		return bookmark;
 	}
 	public void setBookmark(int bookmark) {
