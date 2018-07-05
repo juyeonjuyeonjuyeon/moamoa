@@ -34,13 +34,18 @@ public class AddItem extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		/*한글 깨짐 해결*/
+		response.setCharacterEncoding("euc-kr");//???해결
+		request.setCharacterEncoding("UTF-8");//한글 깨짐 해결
+		
+		/*input에서 String으로 받아옴*/
 		String link = request.getParameter("link");
 		String itemName = request.getParameter("itemName");
 		String itemPrice = request.getParameter("itemPrice");
 		String tagColor = request.getParameter("tagColor");
 		String bookmark = request.getParameter("bookmark");
 		
+		/*서블릿 출력*/
 		response.setContentType("text/html);charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("link-"+link+"\n name-"+itemName+"\n price-"+itemPrice+"\n tag-"+tagColor+"\n bookmark-"+bookmark);
