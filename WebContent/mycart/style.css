@@ -101,6 +101,7 @@ nav a:hover {
 		
 	}
 .item{
+	position : relative;
 	border : 2px solid orange;
 	width : 250px;
 	height : 280x;
@@ -109,6 +110,9 @@ nav a:hover {
 .itemImg img{
 	width : 150px;
 	height : 150px;
+}
+.bookmark{
+	
 }
 	
 	/* 사이드 */

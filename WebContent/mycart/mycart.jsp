@@ -1,9 +1,28 @@
+<%@page import="com.team1.dao.ItemDAO"%>
+<%@page import="com.team1.vo.ItemVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-		String path = request.getContextPath();
+	String path = request.getContextPath();
+/*private int item_idx;    // 자동 증가 상품 등록순 번호
+	private String link;  // 링크
+	private String imgSrc;    // 이미지 주소
+	private String itemName;  // 상품 이름
+	private int itemPrice; // 상품가격
+	private String tagColor; // 태그 컬러(1-red,2- orange,3- green,4-blue,5-violet)
+	private int bookmark; //북마크 체크 여부(0-false, 1-true)*/
+
+	//아이템 태그 색깔 : 데이터베이스에서 가져오기
+	String link = "#";
+	String imgSrc = "item1.jpg";
+	String itemName = "name";
+	int itemPrice = 100;
+	String tagColor = "redTag";
+	int bookmark = 0;
+	
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -51,83 +70,70 @@ int item = 0;
 </nav>
 
 
-<!--본문 예시. 실제로는 추가되는 것만큼 표시  -->
+<!--본문  -->
 <div class="main">
 	<div class="itemList">
 		<!-- <div class="remoteBtn"> -->
 		<!-- <button id="leftBtn">왼쪽</button>
 			<button id="rightBtn">오른쪽</button> -->
 		<!-- </div> -->
+		
 		<ul>
-			<li>
+		<%	
+			ArrayList<ItemVO> getList = ItemDAO.getItem();
+		  	for (ItemVO vo : getList) { 
+		%>
+		  	<li>
+			<!-- item 박스 -->
 			<div class="item">
-				<div class="itemImg">
-					<a href="#"><!-- href="아이템 링크(DB)-link" -->
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					</a>
-				</div>
-				<div class="item_info">
-					<p class ="itemName">ddd</p>
-					<p class="itemPrice">1,000<span class="won">원</span></p>
+		<%
+		 	link = vo.getLink();
+		 	imgSrc = vo.getImgSrc();
+		 	itemName = vo.getItemName();
+		 	itemPrice = vo.getItemPrice();
+		 	tagColor = vo.getTagColor();
+		 	bookmark = vo.getBookmark();
+		 %>
+		 	<!-- item 북마크 : 토글버튼 구현하기 -->
+		<%if(bookmark == 0){%>
+			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">☆</span>
+		<%}else{%>
+			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">★</span>
+		<%} %>
+			<!-- item 이미지 영역 -->
+			<div class="itemImg">
+				<a href="<%=link%>">
+				<img src="<%=imgSrc%>" alt="그림" class="itemImg">
+				</a>
+			</div>
+			<!-- item 정보 영역 -->
+			<div class="item_info">
+			<!-- item 정보 : 이름 -->
+				<p class ="itemName"><%=itemName %></p>
+			<!-- item 정보 : 가격 -->
+				<p class="itemPrice"><%=itemPrice %><span class="won">원</span></p>
+			<!-- item 정보 : 태그 -->
+				<%if(tagColor.equals("redTag")){%>
 					<div class="tagColor Red" style="width :10px; height: 10px;background : red;"></div>
-				</div>
+				<%}else if(tagColor.equals("orangeTag")){%>
+					<div class="tagColor Orange" style="width :10px; height: 10px;background : orange;"></div>
+				<%}else if(tagColor.equals("greenTag")){%>
+					<div class="tagColor Green" style="width :10px; height: 10px;background : green;"></div>
+				<%}else if(tagColor.equals("blueTag")){%>
+					<div class="tagColor Blue" style="width :10px; height: 10px;background : blue;"></div>
+				<%}else{%>
+					<div class="tagColor Violet" style="width :10px; height: 10px;background : #8000ff;"></div>
+				<%} %>
+					
+			</div>
 			</div>
 			</li>
+		<%} %>
+		
+			
+				
 		</ul>
 			
-		<!-- <table>
-			<tr>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-			</tr>
-			<tr>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-			</tr>
-			<tr>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-				<td class="item">
-					<img src="item1.jpg" alt="그림" class="itemImg">
-					<p class = "itemName" >ddd</p>
-					<p class="itemPrice">1,000</p>
-				</td>
-			</tr>
-		</table> -->
 	</div>
 	<div class="pageList">
 		<ul>

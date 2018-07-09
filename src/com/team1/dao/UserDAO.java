@@ -129,6 +129,7 @@ public class UserDAO {
 			vo = new UserVO();
 			vo.setName(rs.getString("name"));
 			vo.setEmail(rs.getString("email"));
+			vo.setPw(rs.getString("pw"));
 		}	
 		db.close();
 		return vo;
@@ -140,6 +141,8 @@ public class UserDAO {
 		Connection db = DBConn.getConnection();
 		// 쿼리 날려서 유저 정보를 검색
 		// select * from user where email = ?
+		
+		System.out.println(vo);
 		String sql  = "select * from user where email = ?";
 //		String sql  = "select * from user where email = ? and pw = ?";
 		PreparedStatement pstmt = db.prepareStatement(sql);

@@ -19,6 +19,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 
 <div id="buttons">
 	<!-- <button id="addWish" onclick="goReplace('mycart/mycart.jsp')">add wish</button> -->
+	
 	<a id="addWish" href="#wishPage">add wish</a>
 	<a id="goCart" href="<%=path%>/mycart/mycart.jsp">my cart</a>
 	<a id="login" href="#loginPage">login</a>
@@ -28,12 +29,12 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 </div>
 <!-- 로그인 부분 -->
 <div id="loginPage">
-	<form action="" method="post">
+	<form action="<%=path %>/LoginProc" method="post">
 	<h3>login</h3>
 	<table>
 	<tr>
-	<td><input type="email" name="userId" placeholder="이메일을 입력해주세요" required></td>
-	<td rowspan="2"><input class="btn loginBtn" type="button" value="로그인"></td>
+	<td><input type="text" name="userId" placeholder="이메일을 입력해주세요" required></td>
+	<td rowspan="2"><input class="btn loginBtn" type="submit" value="로그인"></td>
 	</tr>
 	<tr>
 	<td><input type="password" name="userPw" placeholder="비밀번호를 입력해주세요" required></td>
@@ -42,6 +43,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 	<a class="btn joinBtn" href="javascript:window.open('<%=path%>/join.jsp','join us','width=500,height=500,location=no,status=no,scrollbars=yes');">회원가입</a>
 	</form>
 </div>
+    
 <!-- 아이템 추가 부분 -->
 <div id="wishPage">
 
