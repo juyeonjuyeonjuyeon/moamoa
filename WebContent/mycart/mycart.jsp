@@ -39,7 +39,7 @@
     });
 }); */
 </script>
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css?ver=2">
 
 </head>
 <body>
@@ -94,6 +94,10 @@
 		 	itemPrice = vo.getItemPrice();
 		 	tagColor = vo.getTagColor();
 		 	bookmark = vo.getBookmark();
+		 	/* 이미지 소스를 불러오지 못햇을 경우 */
+		 	if(imgSrc == null){
+		 		imgSrc = "sample.jpg";
+		 	}
 		 %>
 		 	<!-- item 북마크 : 토글버튼 구현하기 -->
 		<%if(bookmark == 0){%>
@@ -103,7 +107,7 @@
 		<%} %>
 		<!-- item 이미지 영역 -->
 			<div class="itemImg">
-				<a href="<%=link%>">
+				<a href="<%=path%>/<%=link%>">
 				<img src="<%=imgSrc%>" alt="그림" class="itemImg">
 				</a>
 			</div>
@@ -138,11 +142,8 @@
 			<li><a href="#">3</a></li>
 		</ul>
 	</div> -->
-	
-	
-	
 
-
+</div>
 <div class = "sideMenu">
 	<form action="" method="">
 		<label><input type="radio" name="align" value="highPrice" >높은 가격 순</label><br>
@@ -159,7 +160,6 @@
 		<a href="#" id="blueTag">태그4</a><br>
 		<a href="#" id="pinkTag">태그5</a>
 		</div> -->
-</div>
 </div>
 </body>
 </html>

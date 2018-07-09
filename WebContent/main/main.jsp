@@ -8,10 +8,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MOAMOA</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css?ver=2">
 </head>
 <body>
-
+<div class="test" 
+style="position : fixed; top:5px;left:500px; width : 100px;
+height : 100px; background : red;z-index:0;">+</div>
 <!-- <script type="text/javascript"> 
 var str = "http://localhost/moamoa/mycart/mycart.jsp";
 function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycart.jsp"); } 
