@@ -25,7 +25,11 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 	<a id="login" href="#loginPage">login</a>
 </div>
 <div id="night">
-<div id="moon"></div>
+
+<div id="moon">
+	<div id="moonShadow"></div>
+</div>
+
 </div>
 <!-- 로그인 부분 -->
 <div id="loginPage">

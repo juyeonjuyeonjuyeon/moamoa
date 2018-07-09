@@ -22,6 +22,10 @@
 	int bookmark = 0;
 	
 %>
+<%
+	String userName = "홍길동";  
+	int item = 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +40,7 @@
 }); */
 </script>
 <link rel="stylesheet" type="text/css" href="style.css">
-<%
-String userName = "홍길동";  
-int item = 0;
-%>
+
 </head>
 <body>
 <!--헤더, 로고  -->
@@ -78,14 +79,14 @@ int item = 0;
 			<button id="rightBtn">오른쪽</button> -->
 		<!-- </div> -->
 		
-		<ul>
+		
 		<%	
 			ArrayList<ItemVO> getList = ItemDAO.getItem();
 		  	for (ItemVO vo : getList) { 
 		%>
-		  	<li>
-			<!-- item 박스 -->
-			<div class="item">
+		  
+		<!-- item 박스 -->
+		<div class="item">
 		<%
 		 	link = vo.getLink();
 		 	imgSrc = vo.getImgSrc();
@@ -100,13 +101,13 @@ int item = 0;
 		<%}else{%>
 			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">★</span>
 		<%} %>
-			<!-- item 이미지 영역 -->
+		<!-- item 이미지 영역 -->
 			<div class="itemImg">
 				<a href="<%=link%>">
 				<img src="<%=imgSrc%>" alt="그림" class="itemImg">
 				</a>
 			</div>
-			<!-- item 정보 영역 -->
+		<!-- item 정보 영역 -->
 			<div class="item_info">
 			<!-- item 정보 : 이름 -->
 				<p class ="itemName"><%=itemName %></p>
@@ -124,24 +125,19 @@ int item = 0;
 				<%}else{%>
 					<div class="tagColor Violet" style="width :10px; height: 10px;background : #8000ff;"></div>
 				<%} %>
-					
 			</div>
-			</div>
-			</li>
-		<%} %>
-		
+		</div>
 			
-				
-		</ul>
+		<%} %>
 			
 	</div>
-	<div class="pageList">
+	<!-- <div class="pageList">
 		<ul>
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
 		</ul>
-	</div>
+	</div> -->
 	
 	
 	
