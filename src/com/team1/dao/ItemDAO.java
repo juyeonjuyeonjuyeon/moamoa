@@ -86,6 +86,7 @@ AUTO_INCREMENT=2
 		while (rs.next()) {
 			ItemVO vo = new ItemVO();
 			vo.setItem_idx(rs.getInt("item_idx"));
+			vo.setLink(rs.getString("link"));
 			vo.setImgSrc(rs.getString("imgSrc"));
 			vo.setItemName(rs.getString("itemName"));
 			vo.setItemPrice(rs.getInt("itemPrice"));

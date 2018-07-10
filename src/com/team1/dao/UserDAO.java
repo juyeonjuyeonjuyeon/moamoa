@@ -1,11 +1,11 @@
 package com.team1.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.team1.db.DBConn;
 import com.team1.vo.UserVO;
 
@@ -27,11 +27,13 @@ public class UserDAO {
 		Connection db = DBConn.getConnection();
 		// 쿼리 날려서 유저 정보를 삽입
 		// insert into user (name, email, pw) values ('이름', 'a@a.com', '1234')
-		String sql  = "insert into user (name, phone, email, pw) values (?, ?, ?)";
+		String sql  = "insert into user (name, phone, email, pw) values (?, ?, ?, ?)";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
-		pstmt.setString(2, vo.getEmail());
-		pstmt.setString(3, vo.getPw());
+		pstmt.setString(2, vo.getPhone());
+		pstmt.setString(3, vo.getEmail());
+		pstmt.setString(4, vo.getPw());
+		
 		
 		// 쿼리 실행
 		pstmt.executeUpdate();

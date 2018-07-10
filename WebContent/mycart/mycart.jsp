@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
+	String name = (String) session.getAttribute("name");
 /*private int item_idx;    // 자동 증가 상품 등록순 번호
 	private String link;  // 링크
 	private String imgSrc;    // 이미지 주소
@@ -23,8 +24,8 @@
 	
 %>
 <%
-	String userName = "홍길동";  
-	int item = 0;
+	//String userName = "홍길동";  
+	int item_idx = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -51,13 +52,13 @@
 <!--메뉴 -->
 <nav>
 	<div id="comment">
-		<p>안녕하세요. <%=userName%> 님. 총 <%=item%>개의 상품이 담겨있습니다.</p>
+		<p>안녕하세요. <%=name%> 님. 총 <%=item_idx%>개의 상품이 담겨있습니다.</p>
 	</div>
 	<div id="menu">
 		<ul>
 			<li><a href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" id="add">추가</a></li>
 			<li><a href="#" id="edit">편집</a></li>
-			<li><a href="#" id="logout">로그아웃</a></li>
+			<li><a href="<%=path%>/LogoutServlet" id="logout">로그아웃</a></li>
 			<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
 		</ul>
 		<ul id="tagList">
@@ -89,7 +90,9 @@
 		<div class="item">
 		<%
 		 	link = vo.getLink();
+		System.out.println(link);
 		 	imgSrc = vo.getImgSrc();
+		 	System.out.println(imgSrc);
 		 	itemName = vo.getItemName();
 		 	itemPrice = vo.getItemPrice();
 		 	tagColor = vo.getTagColor();
@@ -107,7 +110,7 @@
 		<%} %>
 		<!-- item 이미지 영역 -->
 			<div class="itemImg">
-				<a href="<%=path%>/<%=link%>">
+				<a href="<%=link%>" target="_blank">
 				<img src="<%=imgSrc%>" alt="그림" class="itemImg">
 				</a>
 			</div>
