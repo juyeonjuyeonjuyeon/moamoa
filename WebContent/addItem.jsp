@@ -75,9 +75,9 @@ span{
 	height : 15px;
 }
 .bookmark{
-	/* position:absolute;
+	position:absolute;
 	top:25px;
-	right : 20px; */
+	right : 25px; 
 	padding : 0;
 	margin : 0;
 	font-weight:bold;
@@ -96,16 +96,14 @@ span{
 	<form action="AddItem" method="post">
 	<h3>write your wish</h3>
 	<div id="btn_group">
-		
 		 <!--처음 보여지는 버튼-->
-    	<button id="onBookmark" class="bookmark">☆</button>
+    	<button id="onBookmark" class="bookmark" onclick="onCheck(this)">☆</button>
     	<!--다음 보여지는 버튼-->
-    	<button id="offBookmark" class="bookmark hide" >★</button>
+    	<button id="offBookmark"  class="bookmark hide" onclick="offCheck(this)">★</button>
     	<!--Hide Checkbox-->
-    	<input id="bookmark" name="bookmark" type="checkbox" value="1" />
+    	<input id="bookmark" class="hide" name="bookmark" type="checkbox" value="1" />
 	</div>
 	
-	<!-- <label id="bookmark"><input name="bookmark" type="checkbox" value="1" >★</label><br>체크되면 1로 반환 : true -->
 	<label>링크<input type="text" name="link" required></label>
 	<button>ok</button><br>
 	<label>이름<input type="text" name="itemName"></label><br>
@@ -148,34 +146,27 @@ span{
 	</form>
 </div>
 <script>
-(function ($) {
-    $.fn.simpleToggleBtn = function () {
-	console.log("ok");
-        var btns = $(this).find("button"), // 버튼 그룹 내 버튼들;
-            checkBox = $("input:checkbox");
-	console.log(btns);
-            
-
-        btns.on("click", function () { // 버튼들 중 클릭한 버튼에 함수;
-            $(this).addClass("hide");
-            $(this).siblings("button").removeClass("hide");
-            // 첫번째 버튼 기준으로 input 요소 체크!
-            $(this).first().hasClass("hide") ? checkBox.attr("checked",true) : checkBox.attr("checked",false);
-        });
-    }
-}(jQuery));
-
-// 실행
-$("#btn_group").simpleToggleBtn();
-
-/* function checkOn(this){
-	var btns = $(this).find("button"), // 버튼 그룹 내 버튼들;
-    checkbox = $("input:checkbox");
-	$(this).addClass("hide");
-    $(this).siblings("button").removeClass("hide");
-	$("#onBookmark").hasClass("hide") ? checkbox.attr("checked",true) : checkbox.attr("checked",false);
-} */
-
+/* 북마크 버튼 작동 함수  */
+function onCheck(obj){
+	var checkbox = document.getElementById("bookmark"),
+	other = document.getElementById("offBookmark");
+	
+	document.getElementById("bookmark").checked = true;
+	document.getElementById("bookmark").value = "1";
+	
+	obj.style.display = "none";
+	other.style.display = "inline-block";
+}
+function offCheck(obj){
+	var checkbox = document.getElementById("bookmark"),
+	other = document.getElementById("onBookmark");
+	
+	document.getElementById("bookmark").checked = false;
+	document.getElementById("bookmark").value = "0";
+	
+	obj.style.display = "none";
+	other.style.display = "inline-block";
+}
 
 </script>
 </body>
