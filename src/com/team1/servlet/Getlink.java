@@ -3,6 +3,8 @@ package com.team1.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * Servlet implementation class Getlink
@@ -31,38 +34,53 @@ public class Getlink extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *//*
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
+		*/
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());*/
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*한글 깨짐 해결*/
+		request.setCharacterEncoding("UTF-8");
+		
+		/*input에서 String으로 받아옴*/
+		String link = request.getParameter("link");
+		
+		/*link에서 값 가져오기*/
 		Connection.Response resp = 
-				Jsoup.connect("http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1734818337&cls=613&trTypeCd=200")
-                .method(Connection.Method.GET)
+				Jsoup.connect(link)
+                .method(Connection.Method.POST)
                 .execute();
 		Document document = resp.parse();
+
+		String imgSrc = document.select("div.thumbBox img").attr("src");
+		
+		Element name = document.select("div.heading h2").first();
+		String strName = name.text();
 
 		Element price = document.select("strong.sale_price").first();
 		String strPrice = price.text();
 		
-		System.out.println(strPrice);
-		/*String btnKValue = btnK.attr("value");*/
-		/*String html = document.html();
-		String text = document.text();
-		response.setContentType("text/html; charset=UTF-8");
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
-		out.println(text);
-		System.out.println(html);*/
+		/*itemPrice 정수화
+		String[] array = strPrice.split(",");
+		strPrice = array.toString();*/
 		
+		System.out.println(imgSrc);
+		System.out.println(strName);
+		System.out.println(strPrice);
+		
+		request.setAttribute("imgSrc", imgSrc);
+		request.setAttribute("itemName", imgSrc);
+		request.setAttribute("itmePrice", imgSrc);
+		
+		ServletContext context = getServletContext();
+		RequestDispatcher dispatcher = context.getRequestDispatcher("/addItem.jsp");
+		dispatcher.forward(request, response);
 		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 *//*
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}*/
-
+		
 }
+

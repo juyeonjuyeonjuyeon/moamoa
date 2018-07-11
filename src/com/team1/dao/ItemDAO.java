@@ -97,4 +97,17 @@ AUTO_INCREMENT=2
 		db.close();  // db 연결 정보 닫기
 		return itemList;   // 사용자 정보 리스트를 메소드 외부로 보내기
 	}
+	
+	/*//테이블 행 개수 출력
+	public static ItemVO countItem() throws Exception {
+		// DB 접속
+		Connection db = DBConn.getConnection();
+		// 쿼리 날려서 아이템 정보를 검색
+		String sql  = "SELECT COUNT(*) as cnt FROM item";
+		PreparedStatement pstmt = db.prepareStatement(sql);  // sql 관리 객체
+		
+		
+		db.close();
+		return vo;
+	}*/
 }

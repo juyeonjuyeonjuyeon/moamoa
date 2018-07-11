@@ -4,8 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String path = request.getContextPath();
-	String name = (String) session.getAttribute("name");
 /*private int item_idx;    // 자동 증가 상품 등록순 번호
 	private String link;  // 링크
 	private String imgSrc;    // 이미지 주소
@@ -15,6 +13,11 @@
 	private int bookmark; //북마크 체크 여부(0-false, 1-true)*/
 
 	//아이템 태그 색깔 : 데이터베이스에서 가져오기
+	
+	String path = request.getContextPath();
+	String userName = (String) session.getAttribute("name");
+	int itemCnt = 0;
+	
 	String link = "#";
 	String imgSrc = "item1.jpg";
 	String itemName = "name";
@@ -22,24 +25,18 @@
 	String tagColor = "redTag";
 	int bookmark = 0;
 	
+	
 %>
-<%
-	//String userName = "홍길동";  
-	int item_idx = 0;
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MOAMOA</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-/* $(document).addDIR(function(){
-    $("#addDir").click(function(){
-        $("#dirList").prepend("<li>새폴더</li>");
-    });
-}); */
-</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		alert(document.getElementsByName("");
+	</script>
 <link rel="stylesheet" type="text/css" href="style.css?ver=2">
 
 </head>
@@ -52,7 +49,7 @@
 <!--메뉴 -->
 <nav>
 	<div id="comment">
-		<p>안녕하세요. <%=name%> 님. 총 <%=item_idx%>개의 상품이 담겨있습니다.</p>
+		<p>안녕하세요. <%=userName%> 님. 총 <%=itemCnt%>개의 상품이 담겨있습니다.</p>
 	</div>
 	<div id="menu">
 		<ul>
@@ -84,31 +81,28 @@
 		<%	
 			ArrayList<ItemVO> getList = ItemDAO.getItem();
 		  	for (ItemVO vo : getList) { 
-		%>
-		  
-		<!-- item 박스 -->
-		<div class="item">
-		<%
+			itemCnt++;
 		 	link = vo.getLink();
-		System.out.println(link);
 		 	imgSrc = vo.getImgSrc();
-		 	System.out.println(imgSrc);
 		 	itemName = vo.getItemName();
 		 	itemPrice = vo.getItemPrice();
 		 	tagColor = vo.getTagColor();
 		 	bookmark = vo.getBookmark();
+		 	
 		 	/* 이미지 소스를 불러오지 못햇을 경우 */
 		 	if(imgSrc == null){
 		 		imgSrc = "sample.jpg";
 		 	}
 		 %>
+		<!-- item 박스 -->
+		<div class="item">
 		 	<!-- item 북마크 : 토글버튼 구현하기 -->
 		<%if(bookmark == 0){%>
 			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">☆</span>
 		<%}else{%>
 			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">★</span>
 		<%} %>
-		<!-- item 이미지 영역 -->
+			<!-- item 이미지 영역 -->
 			<div class="itemImg">
 				<a href="<%=link%>" target="_blank">
 				<img src="<%=imgSrc%>" alt="그림" class="itemImg">

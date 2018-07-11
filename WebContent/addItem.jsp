@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-		String path = request.getContextPath();
+	String path = request.getContextPath();
+	String imgSrc = (String)request.getAttribute("imgSrc");
+	String itemName = (String)request.getAttribute("itemName");
+	String itemPrice = (String)request.getAttribute("itemPrice");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -76,8 +80,8 @@ span{
 }
 .bookmark{
 	position:absolute;
-	top:25px;
-	right : 25px; 
+	top:0px;
+	right : 0px; 
 	padding : 0;
 	margin : 0;
 	font-weight:bold;
@@ -89,25 +93,30 @@ span{
 .hide{
 	display : none;
 }
+#itemImg{
+	width:100px;
+	height : 100px;
+	margin : auto;
+}
 </style>
 </head>
 <body>
 	<div id="wishPage">
-	<form action="AddItem" method="post">
+		
 	<h3>write your wish</h3>
-	<div id="btn_group">
-		 <!--처음 보여지는 버튼-->
-    	<button id="onBookmark" class="bookmark" onclick="onCheck(this)">☆</button>
-    	<!--다음 보여지는 버튼-->
-    	<button id="offBookmark"  class="bookmark hide" onclick="offCheck(this)">★</button>
-    	<!--Hide Checkbox-->
-    	<input id="bookmark" class="hide" name="bookmark" type="checkbox" value="1" />
-	</div>
-	
-	<label>링크<input type="text" name="link" required></label>
-	<button>ok</button><br>
-	<label>이름<input type="text" name="itemName"></label><br>
-	<label>가격<input type="number" name="itemPrice"></label><br>
+	<form action="AddItem" method="post">
+	<!-- 북마크 버튼 -->
+    <button type="button" id="onBookmark" class="bookmark" onclick="onCheck(this)">☆</button>
+    <button	type="button" id="offBookmark"  class="bookmark hide" onclick="offCheck(this)">★</button>
+    <input id="bookmark" class="hide" name="bookmark" type="checkbox" value="1" />
+	<!-- 링크 -->
+	<label>링크<input type="text" id="itemLink" name="link" required></label>
+	<button type="button" onclick="getLink()">ok</button><br>
+	<!-- 이미지 -->
+	<img id="itemImg" src="<%=path %>/mycart/sample.jpg" alt="상품이미지"><br>
+	<!-- 이름 -->
+	<label>이름<input id="itemName" type="text" name="itemName"></label><br>
+	<label>가격<input id="itemPrice" type="text" name="itemPrice"></label><br>
 	<ul id="tagList">
 			<li>
 				<label>
@@ -167,6 +176,39 @@ function offCheck(obj){
 	obj.style.display = "none";
 	other.style.display = "inline-block";
 }
+
+function getLink() {
+	var path = '/' + location.pathname.split('/')[1];
+	var postUrl = path + "/Getlink";
+	var link = $("#itemLink").val();
+	var src=<%=imgSrc%>
+		,name=<%=itemName%>
+		,price=<%=itemPrice%>;
+	$.ajax({
+		  type: 'POST',
+		  url: postUrl,
+		  data: {link : link},
+		  
+		  success: function(data){
+			  
+			   $("#itemImg").attr("src",src);
+			  $("#itemName").val(name);
+			  $("#itemPrice").val(price);
+	    	console.log("data: " + data);
+	    	if (data.trim() == "YES") {
+	    		console.log("이미 있는");
+	    		$('#err-text').val('yes');
+	    		console.log('errcheck값: ' + $('#errcheck').val());
+//	    		$('#control-email').val('email');
+//	    		location.href= path +"/login.tm0";
+	    	} else {
+	    		console.log("없음");
+	    		$('#errcheck').val('no');
+	    	}
+	    },
+		  async:false
+		});
+	}
 
 </script>
 </body>
