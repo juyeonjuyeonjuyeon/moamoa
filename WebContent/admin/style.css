@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Jua');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script');
+@import url('https://fonts.googleapis.com/css?family=Handlee');
+@import url('https://fonts.googleapis.com/css?family=Chela+One');
+@import url('https://fonts.googleapis.com/css?family=Fugaz+One');
+
 *{
 box-sizing : border-box;
 }
@@ -8,6 +14,21 @@ body{
 	margin : 0;
 	padding : 0;
 }
+header{
+	background : none;
+	height : 100px;
+}
+a{
+	color : white;
+	text-decoration: none;
+}
+#neonsign{
+	position : fixed;
+	top : 0px;
+	left: 20px;
+	font-family: 'Fugaz One', cursive;
+	color : white;
+}
 
 /* 메뉴바 */
 #buttons{
@@ -17,7 +38,8 @@ body{
 	width : 300px;
 	height : 900px;;
 	position: relative;
-	background: grey;
+	background: #002c57;
+	font-family: 'Fugaz One', cursive;
 }
 #buttons button{
 	width : 100px;
@@ -226,4 +248,78 @@ span{
 		right : 120;
 	}
 	
+}
+
+/* 바닥글 */
+footer{
+	height : 900px;
+}
+#moamoaPage{
+	margin : auto;
+	width : 100%;
+	height : 850px;
+	color: white;
+	background: rgba(47, 64, 145, 0.5);
+}
+
+
+#moamoaPage h2{
+	text-align: center;
+	font-family: 'Handlee', cursive;
+	font-size: 40px;
+	text-shadow: blue;
+}
+
+#info_page {
+	left: 5%;
+	right: 5%;
+	margin: auto;
+}
+
+#info_page div{
+	float:left;
+	font-family: 'Jua', sans-serif;
+	font-size: 20px;
+	text-shadow: black;
+}
+
+#info_page h4 {
+	text-align: center;
+	font-family: 'Jua', sans-serif;
+	font-size: 30px;
+}
+
+#how_to_use{
+	margin-left: 5%;
+	width: 30%;
+}
+
+#use_info{
+	padding-left: 80px;
+}
+
+#disposable_site_list{
+	width: 30%;
+}
+
+#site_info{
+	padding-left: 80px;
+}
+
+#connect_to_team{
+	width: 30%;
+	margin-right: 5%;
+}
+
+#connect_info{
+	padding-left: 100px;
+}
+
+#member_info {
+	clear : both;
+	margin:0;
+	height : 100px;
+	background : #203a77;	
+	text-align: center;
+	color: white;
 }
