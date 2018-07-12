@@ -5,7 +5,6 @@
 	String imgSrc = (String)request.getAttribute("imgSrc");
 	String itemName = (String)request.getAttribute("itemName");
 	String itemPrice = (String)request.getAttribute("itemPrice");
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -105,18 +104,22 @@ span{
 		
 	<h3>write your wish</h3>
 	<form action="AddItem" method="post">
-	<!-- 북마크 버튼 -->
+	
+<!-- 북마크 버튼 -->
     <button type="button" id="onBookmark" class="bookmark" onclick="onCheck(this)">☆</button>
     <button	type="button" id="offBookmark"  class="bookmark hide" onclick="offCheck(this)">★</button>
     <input id="bookmark" class="hide" name="bookmark" type="checkbox" value="1" />
-	<!-- 링크 -->
-	<label>링크<input type="text" id="itemLink" name="link" required></label>
+<!-- 링크 -->
+	<label>링크<input name="link" type="text" id="itemLink"  required></label>
 	<button type="button" onclick="getLink()">ok</button><br>
-	<!-- 이미지 -->
+<!-- 이미지 (출력부분과 전송부분)-->
 	<img id="itemImg" src="<%=path %>/mycart/sample.jpg" alt="상품이미지"><br>
-	<!-- 이름 -->
-	<label>이름<input id="itemName" type="text" name="itemName"></label><br>
-	<label>가격<input id="itemPrice" type="text" name="itemPrice"></label><br>
+	<input id="imgSrc" name="imgSrc" type="text" class="hide">
+<!-- 이름 -->
+	<label>이름<input name="itemName" id="itemName" type="text" ></label><br>
+<!-- 가격 -->
+	<label>가격<input name="itemPrice" id="itemPrice" type="text" ></label><br>
+<!-- 태그 -->
 	<ul id="tagList">
 			<li>
 				<label>
@@ -179,34 +182,28 @@ function offCheck(obj){
 
 function getLink() {
 	var path = '/' + location.pathname.split('/')[1];
-	var postUrl = path + "/Getlink";
-	var link = $("#itemLink").val();
-	var src=<%=imgSrc%>
-		,name=<%=itemName%>
-		,price=<%=itemPrice%>;
+	var postUrl = path + "/Getlink"; //서버주소
+	var link = $("#itemLink").val(), //서버로 전송하는 데이터
+		img=$("#itemImg"),
+		imgSrc=$("#imgSrc"),
+		name=$("#itemName"), 
+		price=$("#itemPrice"); // 받아올 데이터
+		
 	$.ajax({
-		  type: 'POST',
+		  type: "POST",
 		  url: postUrl,
 		  data: {link : link},
 		  
 		  success: function(data){
-			  
-			   $("#itemImg").attr("src",src);
-			  $("#itemName").val(name);
-			  $("#itemPrice").val(price);
-	    	console.log("data: " + data);
-	    	if (data.trim() == "YES") {
-	    		console.log("이미 있는");
-	    		$('#err-text').val('yes');
-	    		console.log('errcheck값: ' + $('#errcheck').val());
-//	    		$('#control-email').val('email');
-//	    		location.href= path +"/login.tm0";
-	    	} else {
-	    		console.log("없음");
-	    		$('#errcheck').val('no');
-	    	}
-	    },
-		  async:false
+			 console.log(data.itemName);
+			 console.log(data.imgSrc);
+			 console.log(data.itemPrice);
+			 
+			 img.attr("src",data.imgSrc);
+			 imgSrc.val(data.imgSrc);
+			 name.val(data.itemName);
+			 price.val(data.itemPrice);
+	    }
 		});
 	}
 

@@ -41,21 +41,21 @@ public class AddItem extends HttpServlet {
 		
 		/*input에서 String으로 받아옴*/
 		String link = request.getParameter("link");
+		String imgSrc = request.getParameter("imgSrc");
 		String itemName = request.getParameter("itemName");
 		String itemPrice = request.getParameter("itemPrice");
 		String tagColor = request.getParameter("tagColor");
 		String bookmark = request.getParameter("bookmark");
+		if(bookmark == null) {
+			bookmark = "0";
+		}
 
 		
 		/*서블릿 확인 출력*/
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		//out.println("<img src=' "+imgSrc+" '>");
-		if(bookmark == null) {
-			bookmark = "0";
-		}
-		out.println("link-"+link+"\n name-"+itemName+"\n price-"+itemPrice+"\n tag-"+tagColor+"\n bookmark-"+bookmark);
+		
 		
 		/*itemPrice 정수화
 		String[] array = itemPrice.split(",");
@@ -64,7 +64,7 @@ public class AddItem extends HttpServlet {
 		/*DB연결*/
 		ItemVO ivo = new ItemVO();
 		ivo.setLink(link);
-		//ivo.setImgSrc(imgSrc);
+		ivo.setImgSrc(imgSrc);
 		ivo.setItemName(itemName);
 		ivo.setItemPrice(Integer.parseInt(itemPrice));
 		ivo.setTagColor(tagColor);
@@ -72,9 +72,24 @@ public class AddItem extends HttpServlet {
 		/*DB 성공여부 테스트 출력*/
 		try {
 			ItemDAO.InsertItem(ivo);
-			out.println("<h1>아이템 저장 성공</h1>");			
+			out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"
+					+ "아이템 저장 성공</a></h1>");	
+			out.println("<img src=' "+imgSrc+" '><br><br>"+
+					"link-"+link+
+					"<br><br> name-"+itemName+
+					"<br><br> price-"+itemPrice+
+					"<br><br> tag-"+tagColor+
+					"<br><br> bookmark-"+bookmark);
+			
 		} catch (Exception e) {
-			out.println("실패: " + itemName +  "<br>");
+			out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"
+					+ "아이템 저장 실패</a></h1>");	
+			out.println("<img src=' "+imgSrc+" '><br><br>"+
+					"link-"+link+
+					"<br><br> name-"+itemName+
+					"<br><br> price-"+itemPrice+
+					"<br><br> tag-"+tagColor+
+					"<br><br> bookmark-"+bookmark);
 			e.printStackTrace();
 		}
 		

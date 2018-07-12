@@ -53,7 +53,7 @@
 	</div>
 	<div id="menu">
 		<ul>
-			<li><a href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" id="add">추가</a></li>
+			<li><a id="add" href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" >추가</a></li>
 			<li><a href="#" id="edit">편집</a></li>
 			<li><a href="<%=path%>/LogoutServlet" id="logout">로그아웃</a></li>
 			<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>

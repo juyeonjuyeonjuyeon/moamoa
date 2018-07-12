@@ -17,6 +17,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.gson.Gson;
+import com.team1.vo.ItemVO;
+
 /**
  * Servlet implementation class Getlink
  */
@@ -48,37 +51,77 @@ public class Getlink extends HttpServlet {
 		
 		/*input에서 String으로 받아옴*/
 		String link = request.getParameter("link");
-		
+/*-------------------------------추가 : link 값에 http://없을 때 붙여주는 메서드
+ * ------------------------------추가 : link 에러 나면 else로 넘기기-------------------------------*/
 		/*link에서 값 가져오기*/
+		
 		Connection.Response resp = 
 				Jsoup.connect(link)
                 .method(Connection.Method.POST)
                 .execute();
 		Document document = resp.parse();
-
-		String imgSrc = document.select("div.thumbBox img").attr("src");
 		
-		Element name = document.select("div.heading h2").first();
-		String strName = name.text();
-
-		Element price = document.select("strong.sale_price").first();
-		String strPrice = price.text();
+		String imgSrc, itemName, itemPrice;
+		Element img,name,price;
+		//11번가 -ok
+		if(link.contains("11st.co.kr")) {
+			imgSrc = document.select("div.thumbBox img").attr("src");
+			itemName = document.select("div.heading h2").first().text();
+			itemPrice = document.select("strong.sale_price").first().text();
+		//옥션-no
+		}else if(link.contains("auction.co.kr")) {
+			imgSrc = document.select("div.thumb-gallery li.on img").first().attr("src");
+			itemName = document.select("title").first().text();
+			itemPrice = document.select("span.price_original").first().text();
+			
+		//지마켓-no
+		}else if(link.contains("gmarket.co.kr")) {
+			imgSrc = document.select("div.thumb-gallery li.on img").first().attr("src");
+			itemName = document.select("title").first().text();
+			itemPrice = document.select("span.price_original").first().text();
+		//자라 -no
+		}else if(link.contains("zara.com")) {
+			//div#plain-image img
+			imgSrc = document.select("img.image-big").last().attr("src");
+			itemName = document.select("h1.product-name").first().text();
+			itemPrice = document.select("div.price span").first().text();
 		
-		/*itemPrice 정수화
-		String[] array = strPrice.split(",");
-		strPrice = array.toString();*/
+		//그외 쇼핑몰
+		}else {
+			imgSrc = "<%=path %>/mycart/sample.jpg";
+			itemName = "직접 입력해 주세요";
+			itemPrice = "0";
+		}
+		
+		/*imgSrc = document.select("div#plain-image img").attr("src");
+
+		itemName = document.select("h1.product-name").first().text();
+		
+		itemPrice = document.select("div.price span").first().text();*/
+	
+				
+			
+		/*itemPrice ,없애기 */
+		itemPrice = itemPrice.replace(",", "");
 		
 		System.out.println(imgSrc);
-		System.out.println(strName);
-		System.out.println(strPrice);
+		System.out.println(itemName);
+		System.out.println(itemPrice);
 		
-		request.setAttribute("imgSrc", imgSrc);
-		request.setAttribute("itemName", imgSrc);
-		request.setAttribute("itmePrice", imgSrc);
+		/*json화*/
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json); charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		
-		ServletContext context = getServletContext();
-		RequestDispatcher dispatcher = context.getRequestDispatcher("/addItem.jsp");
-		dispatcher.forward(request, response);
+		ItemVO vo = new ItemVO();
+		vo.setImgSrc(imgSrc);
+		vo.setItemName(itemName);
+		vo.setItemPrice( Integer.parseInt(itemPrice));
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(vo);
+		out.print(json);
+		
 		
 	}
 		
