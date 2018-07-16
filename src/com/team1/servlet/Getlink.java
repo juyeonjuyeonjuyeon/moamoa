@@ -55,14 +55,17 @@ public class Getlink extends HttpServlet {
  * ------------------------------추가 : link 에러 나면 else로 넘기기-------------------------------*/
 		/*link에서 값 가져오기*/
 		
-		Connection.Response resp = 
+		/*Connection.Response resp = 
 				Jsoup.connect(link)
                 .method(Connection.Method.POST)
                 .execute();
-		Document document = resp.parse();
+		Document document = resp.parse();*/
+		String agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/67.0.3396.99 Safari/537.36";
+		Document document = Jsoup.connect(link).userAgent(agent).get();
 		
 		String imgSrc, itemName, itemPrice;
 		Element img,name,price;
+		
 		//11번가 -ok
 		if(link.contains("11st.co.kr")) {
 			imgSrc = document.select("div.thumbBox img").attr("src");
@@ -79,13 +82,20 @@ public class Getlink extends HttpServlet {
 			imgSrc = document.select("div.thumb-gallery li.on img").first().attr("src");
 			itemName = document.select("title").first().text();
 			itemPrice = document.select("span.price_original").first().text();
-		//자라 -no
+		//자라 -가격 no
 		}else if(link.contains("zara.com")) {
 			//div#plain-image img
-			imgSrc = document.select("img.image-big").last().attr("src");
-			itemName = document.select("h1.product-name").first().text();
-			itemPrice = document.select("div.price span").first().text();
-		
+			imgSrc = "http:"+ document.select("a._seoImg").last().attr("href");
+			itemName = document.select("h1.product-name").text();
+			itemPrice = document.select("div._product-price span").text();
+			itemName = itemName.replace("세부 사항", "");
+			itemPrice = itemPrice.replace(" 원", "");
+		// 쿠팡 - ok
+		}else if(link.contains("coupang.com")) {
+			itemName = document.select("h2.prod-buy-header__title").text();
+			itemPrice = document.select("span.total-price strong").text();
+			imgSrc = "http:"+ document.select("img.prod-image__detail").attr("src");
+			itemPrice = itemPrice.replace("원", "");
 		//그외 쇼핑몰
 		}else {
 			imgSrc = "<%=path %>/mycart/sample.jpg";
@@ -116,7 +126,7 @@ public class Getlink extends HttpServlet {
 		ItemVO vo = new ItemVO();
 		vo.setImgSrc(imgSrc);
 		vo.setItemName(itemName);
-		vo.setItemPrice( Integer.parseInt(itemPrice));
+		vo.setItemPrice( Integer.parseInt(itemPrice.trim()));
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(vo);

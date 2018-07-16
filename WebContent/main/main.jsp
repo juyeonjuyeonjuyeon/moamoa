@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MOAMOA</title>
-<link rel="stylesheet" type="text/css" href="<%=path%>/main/style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="<%=path%>/main/style.css?ver=1">
 
 </head>
 <body>
@@ -36,10 +36,9 @@
 <!-- 메인 페이지 -->
 <div id="buttons">
 	<!-- <button id="addWish" onclick="goReplace('mycart/mycart.jsp')">add wish</button> -->
-	
-	<a id="goInfo" href="#moamoaPage">moa moa</a>
-	<a id="goCart" href="<%=path%>/mycart/mycart.jsp">my cart</a>
-	<a id="login" href="#loginPage">login</a>
+	<a class="window" id="goInfo" href="#moamoaPage">moa moa</a>
+	<div class="window" id="goCart"></div>
+	<a class="window" id="login" href="#loginPage">login</a>
 </div>
 
 
@@ -52,16 +51,21 @@
 	<form action="<%=path %>/LoginProc" method="post">
 	<h3>login</h3>
 	<table>
+		<tr>
+		<td><input type="text" name="userId" placeholder="이메일을 입력해주세요" required></td>
+		<td rowspan="2"><input class="btn loginBtn" type="submit" value="login"></td>
+		</tr>
 	<tr>
-	<td><input type="text" name="userId" placeholder="이메일을 입력해주세요" required></td>
-	<td rowspan="2"><input class="btn loginBtn" type="submit" value="로그인"></td>
-	</tr>
-	<tr>
-	<td><input type="password" name="userPw" placeholder="비밀번호를 입력해주세요" required></td>
+		<td><input type="password" name="userPw" placeholder="비밀번호를 입력해주세요" required></td>
 	</tr>
 	</table>
-	<a class="btn joinBtn" href="javascript:window.open('<%=path%>/join.jsp','join us','width=500,height=500,location=no,status=no,scrollbars=yes');">회원가입</a>
+	<button class="btn joinBtn" onclick="goJoin()">join</button>
 	</form>
+	<script>
+		function goJoin(){
+			window.open('<%=path%>/join.jsp','join us','width=500,height=500,location=no,status=no,scrollbars=yes');
+		}
+	</script>
 </div>
 <!--모아모아 정보 페이지 -->
 <footer>

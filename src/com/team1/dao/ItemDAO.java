@@ -27,6 +27,8 @@ AUTO_INCREMENT=2
 ;
 
 	 * */
+	
+	/*아이템 삽입*/
 	public static void InsertItem(ItemVO vo) throws Exception {
 		// DB 접속
 		Connection db = DBConn.getConnection();
@@ -47,6 +49,7 @@ AUTO_INCREMENT=2
 		db.close();
 	}
 	
+	/*아이템 가져오기*/
 	public static ItemVO getItemInfo(String item_idx) throws Exception {
 		// DB 접속
 		Connection db = DBConn.getConnection();
@@ -70,6 +73,7 @@ AUTO_INCREMENT=2
 		return vo;
 	}
 	
+	/*아이템 가져오기*/
 	public static ArrayList<ItemVO> getItem() throws Exception {
 		// DB 접속
 		Connection db = DBConn.getConnection();
@@ -96,6 +100,20 @@ AUTO_INCREMENT=2
 		}	
 		db.close();  // db 연결 정보 닫기
 		return itemList;   // 사용자 정보 리스트를 메소드 외부로 보내기
+	}
+	
+	/*아이템 삭제*/
+	public static void delItem(String item_idx) throws Exception {
+		// DB 접속
+		Connection db = DBConn.getConnection();
+		
+		String sql  = "delete from item where item_idx = ?";
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		pstmt.setString(1, item_idx);
+		
+		// 쿼리 실행
+		pstmt.executeUpdate();
+		db.close();
 	}
 	
 	/*//테이블 행 개수 출력

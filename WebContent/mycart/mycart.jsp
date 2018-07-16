@@ -16,8 +16,14 @@
 	
 	String path = request.getContextPath();
 	String userName = (String) session.getAttribute("name");
+
+	/* 아이템 개수 구하기 */
 	int itemCnt = 0;
-	
+	ArrayList<ItemVO> getList = ItemDAO.getItem();
+  	for (ItemVO vo : getList) {itemCnt++;}
+  	
+  	/*아이템 정보 변수 초기화*/
+	int item_idx = -1;
 	String link = "#";
 	String imgSrc = "item1.jpg";
 	String itemName = "name";
@@ -25,25 +31,58 @@
 	String tagColor = "redTag";
 	int bookmark = 0;
 	
-	
 %>
-
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<script>
+/* 아이템 삭제 */
+	function delItem(item_idx){
+		var item = $("#item"+item_idx);
+		item.css("display","none");
+		
+		/* var item_idx = $('input[name=opt]:checked').val(); */
+		alert(item_idx + " 정보를 삭제 하시겠습니까? ");
+		// ajax 사용
+		var path = '/' + location.pathname.split('/')[1];
+		var postUrl = path + "/DelItem"; //서버주소
+	    $.ajax({
+	        type: 'POST',
+	        url: 'postUrl',
+	        data: {
+	            "item_idx" : item_idx
+	        },
+	        success: function(data){
+	        	console.log(data);
+	            if($.trim(data) == 'OK'){
+	            	console.log('삭제완료');
+	            	alert("삭제 되었습니다.");
+	            	location.reload();   // 페이지 새로 고침
+	            } else { 
+	            	console.log('서버 에러');
+	            }
+	        }, 
+	    });    //end ajax 
+	}
+	/* 편집창 불러오기 */
+	function modify(){
+	$(".modify").fadeToggle(950);
+	}
+</script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MOAMOA</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		alert(document.getElementsByName("");
-	</script>
-<link rel="stylesheet" type="text/css" href="style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="style.css?ver=3">
 
 </head>
 <body>
 <!--헤더, 로고  -->
 <header>
-	<h1><a href="<%=path%>/main/main.jsp" >ʕ•ﻌ•ʔmoamoaʕ•ﻌ•ʔ</a></h1>
+	<h1><a href="<%=path%>/main/main.jsp" >MOA MOA</a></h1>
 </header>
 
 <!--메뉴 -->
@@ -54,7 +93,7 @@
 	<div id="menu">
 		<ul>
 			<li><a id="add" href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" >추가</a></li>
-			<li><a href="#" id="edit">편집</a></li>
+			<li><a href="#" onclick="modify()" id="edit">편집</a></li>
 			<li><a href="<%=path%>/LogoutServlet" id="logout">로그아웃</a></li>
 			<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
 		</ul>
@@ -76,18 +115,16 @@
 		<!-- <button id="leftBtn">왼쪽</button>
 			<button id="rightBtn">오른쪽</button> -->
 		<!-- </div> -->
-		
-		
 		<%	
-			ArrayList<ItemVO> getList = ItemDAO.getItem();
+			getList = ItemDAO.getItem();
 		  	for (ItemVO vo : getList) { 
-			itemCnt++;
-		 	link = vo.getLink();
-		 	imgSrc = vo.getImgSrc();
-		 	itemName = vo.getItemName();
-		 	itemPrice = vo.getItemPrice();
-		 	tagColor = vo.getTagColor();
-		 	bookmark = vo.getBookmark();
+		  		item_idx = vo.getItem_idx();
+		 		link = vo.getLink();
+		 		imgSrc = vo.getImgSrc();
+		 		itemName = vo.getItemName();
+		 		itemPrice = vo.getItemPrice();
+		 		tagColor = vo.getTagColor();
+		 		bookmark = vo.getBookmark();
 		 	
 		 	/* 이미지 소스를 불러오지 못햇을 경우 */
 		 	if(imgSrc == null){
@@ -95,26 +132,37 @@
 		 	}
 		 %>
 		<!-- item 박스 -->
-		<div class="item">
-		 	<!-- item 북마크 : 토글버튼 구현하기 -->
-		<%if(bookmark == 0){%>
-			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">☆</span>
-		<%}else{%>
-			<span class="bookmark" style="color : red; font-size:25px; font-wieght : bole;">★</span>
-		<%} %>
+		<div class="item" id="item<%=item_idx%>">
+		<!-- 편집 상자 -->
+		<div class="modify">
+			<p><%=item_idx%></p>
+			<button class="btn" id="<%=item_idx%>" type="button" onclick="delItem(this.id)">삭제</button>
+			<button class="btn" id="goLink" type="button">구매하기</button>
+		</div>
 			<!-- item 이미지 영역 -->
 			<div class="itemImg">
 				<a href="<%=link%>" target="_blank">
-				<img src="<%=imgSrc%>" alt="그림" class="itemImg">
+				<img src="<%=imgSrc%>" alt="그림">
 				</a>
 			</div>
 		<!-- item 정보 영역 -->
-			<div class="item_info">
+		<div class="item_info">
+			 
 			<!-- item 정보 : 이름 -->
-				<p class ="itemName"><%=itemName %></p>
+			<div class="itemName">
+				<!-- item 북마크 : 토글버튼 구현하기 -->
+			<%if(bookmark == 0){%>
+				<span class="bookmark <%=tagColor %>">☆</span>
+			<%}else{%>
+				<span class="bookmark <%=tagColor %>">★</span>
+			<%} %>
+				<a href="<%=link%>" target="_blank"><%=itemName %></a>
+			</div>
 			<!-- item 정보 : 가격 -->
+			<div lass="itemPrice">
 				<p class="itemPrice"><%=itemPrice %><span class="won">원</span></p>
-			<!-- item 정보 : 태그 -->
+			</div>
+			<%-- <!-- item 정보 : 태그 -->
 				<%if(tagColor.equals("redTag")){%>
 					<div class="tagColor Red" style="width :10px; height: 10px;background : red;"></div>
 				<%}else if(tagColor.equals("orangeTag")){%>
@@ -125,7 +173,7 @@
 					<div class="tagColor Blue" style="width :10px; height: 10px;background : blue;"></div>
 				<%}else{%>
 					<div class="tagColor Violet" style="width :10px; height: 10px;background : #8000ff;"></div>
-				<%} %>
+				<%} %> --%>
 			</div>
 		</div>
 			
