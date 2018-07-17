@@ -21,7 +21,6 @@ public class DelItem extends HttpServlet {
      */
     public DelItem() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	

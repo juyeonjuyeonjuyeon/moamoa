@@ -38,7 +38,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css?ver=4">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=4">
 	<script
   		src="https://code.jquery.com/jquery-3.3.1.js"
   		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -97,13 +97,19 @@
 				<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
 			</ul>
 			<ul id="tagList">
-				<li><a href="#" id="redTag"><span class="Red"></span>태그1</a></li>
-				<li><a href="#" id="orangeTag"><span class="Orange"></span>태그2</a></li>
-				<li><a href="#" id="greenTag"><span class="Green"></span>태그3</a></li>
-				<li><a href="#" id="blueTag"><span class="Blue"></span>태그4</a></li>
-				<li><a href="#" id="violetTag"><span class="Violet"></span>태그5</a></li>
+				<li><a href="<%=path%>/SortServlet?sort=4" id="redTag"><span class="Red"></span>태그1</a></li>
+			<li><a href="<%=path%>/SortServlet?sort=5" id="orangeTag"><span class="Orange"></span>태그2</a></li>
+			<li><a href="<%=path%>/SortServlet?sort=6" id="greenTag"><span class="Green"></span>태그3</a></li>
+			<li><a href="<%=path%>/SortServlet?sort=7" id="blueTag"><span class="Blue"></span>태그4</a></li>
+			<li><a href="<%=path%>/SortServlet?sort=8" id="violetTag"><span class="Violet"></span>태그5</a></li>
+			<li><a href="/moamoa/SortServlet?sort=1">높은가격 정렬</a></li>
+			<li><a href="/moamoa/SortServlet?sort=2">낮은가격 정렬</a></li>
+			<li><a href="/moamoa/SortServlet?sort=3">북마크 정렬</a></li>
 			</ul>
 		</div>
+		
+		
+		
 	</nav>
 	
 	
@@ -175,22 +181,6 @@
 			</ul>
 		</div> -->
 	</div>
-	<div class = "sideMenu">
-		<form action="" method="">
-			<label><input type="radio" name="align" value="highPrice" >높은 가격 순</label><br>
-			<label><input type="radio" name="align" value="lowPrice" >낮은 가격 순</label><br>
-			<label><input type="radio" name="align" value="starCheck" >북마크</label><br>
-			<button>적용</button>
-		</form>
-			
-		<!-- 태그 모음 : 자바스크립트 이용, 태그 누르면 해당 태그 아이템 출력-->
-		<!-- 	<div id="tagList">
-			<a href="#" id="redTag">태그1</a><br>
-			<a href="#" id="orangeTag">태그2</a><br>
-			<a href="#" id="greenTag">태그3</a><br>
-			<a href="#" id="blueTag">태그4</a><br>
-			<a href="#" id="pinkTag">태그5</a>
-			</div> -->
-	</div>
+	
 </body>
 </html>
