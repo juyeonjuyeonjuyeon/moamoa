@@ -19,8 +19,8 @@
 
 	/* 아이템 개수 구하기 */
 	int itemCnt = 0;
-	ArrayList<ItemVO> getList = ItemDAO.getItem();
-  	for (ItemVO vo : getList) {itemCnt++;}
+	ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();
+  	for (ItemVO vo : getItemCnt) {itemCnt++;}
   	
   	/*아이템 정보 변수 초기화*/
 	int item_idx = -1;
@@ -72,10 +72,21 @@
 	        }, 
 	    });    //end ajax 
 	}
-	/* 편집창 불러오기 */
+/* 편집창 불러오기 */
 	function modify(){
 	$(".modify").fadeToggle(950);
 	}
+/*페이지 슬라이드*/
+	/*이전버튼*/
+	function goUp(){
+		$(".item").animate({top:"-=220"},500);
+	}  
+	/*다음버튼*/
+	function goDown(){
+		$(".item").animate({top:"+=220"},500);
+	} 
+	
+ 
 </script>
 </head>
 <body>
@@ -108,22 +119,21 @@
 			</ul>
 		</div>
 		
-		
-		
 	</nav>
-	
-	
 <!--본문  -->
 	<div class="main">
 	<!-- 이전,다음 버튼 -->
 		<div class="remoteBtn">
-			<div class="pre btn">◀</div>
-			<div class="next btn">▶</div>
+			<div class="pre btn" onclick="goDown()">◀</div>
+			<div class="next btn" onclick="goUp()">▶</div>
 		</div>
 	<!-- item -->
 		<div class="itemList">
+		<!-- 아이템 끝 -->
+			<div class="end"></div>
 			<%	
-			getList = ItemDAO.getItem();
+			//ArrayList<ItemVO> getList = ItemDAO.getItem();
+			ArrayList<ItemVO> getList = (ArrayList<ItemVO>)request.getAttribute("itemList");
 			  for (ItemVO vo : getList) { 
 			  	item_idx = vo.getItem_idx();
 			 	link = vo.getLink();
@@ -172,6 +182,8 @@
 				</div>
 			</div>
 			<%} %>
+			<!-- 아이템 끝 -->
+			<div class="end"></div>
 		</div>
 		<!-- <div class="pageList">
 			<ul>

@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MOAMOA</title>
-<link rel="stylesheet" type="text/css" href="<%=path%>/admin/style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="<%=path%>/admin/style.css?ver=1">
 <%
 	System.out.println(path);
 %>
@@ -30,7 +30,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 	<!-- <button id="addWish" onclick="goReplace('mycart/mycart.jsp')">add wish</button> -->
 	
 	<a id="addWish" href="#moamoaPage">moa moa</a>
-	<a id="goCart" href="<%=path%>/mycart/mycart.jsp">my cart</a>
+	<a id="goCart" href="<%=path%>/SortServlet">my cart</a>
 	<a id="logout" href="<%=path%>/LogoutServlet">log out</a>
 	
 </div>
@@ -60,14 +60,14 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 		<div id = "disposable_site_list">
 			<h4>이용가능한 사이트 목록</h4>
 			<div id = "site_info">
-				♧ 옥션<br>
-				♧ 지마켓<br>
-				♧ 11번가<br>
-				♧ 쿠팡<br>
-				♧ 티몬<br>
-				<br>
-				♣ 이 외의 사이트는 직접 입력<br>
-				♣ 추후 업데이트<br>
+				<a href="http://www.auction.co.kr/" target="_blank">♧ 옥션</a>
+				<a href="http://www.gmarket.co.kr/" target="_blank">♧ 지마켓</a>
+				<a href="http://www.11st.co.kr/html/main.html" target="_blank">♧ 11번가</a>
+				<a href="http://www.coupang.com/" target="_blank">♧ 쿠팡</a>
+				<a href="http://www.ticketmonster.co.kr/home" target="_blank">♧ 티몬</a>
+				<a href="https://www.zara.com/kr/#utm_referrer=https%3A%2F%2Fwww.google.co.kr%2F" target="_blank">♧ ZARA</a>
+				<br>♣ 이 외의 사이트는 직접 입력
+				<br>♣ 추후 업데이트
 			</div>
 		</div>
 		

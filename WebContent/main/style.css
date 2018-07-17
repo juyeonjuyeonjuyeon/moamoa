@@ -50,7 +50,7 @@ a{
 	font-size: 30px;
 }
 #buttons button:hover{
-	background: yellow;
+	background: #fbe47b;
 	color:black;
 }
 .window{
@@ -235,7 +235,15 @@ footer{
 }
 
 #site_info{
-	padding-left: 80px;
+	padding-left: 50px;
+}
+#site_info a{
+	display : block;
+	clear : both;
+}
+#site_info a:hover{
+	color : #fbe47b;
+	
 }
 
 #connect_to_team{
