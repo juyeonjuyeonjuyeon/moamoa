@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fugaz+One');
 @charset "UTF-8";
 *{
-box-sizing : border-box;
+	box-sizing : border-box;
 }
 body{
 		background : #14356b;
@@ -24,8 +24,6 @@ header{
 }
 header a{
 	color : white;
-	text-decoration: none;
-	
 }
 	/* 메뉴 */
 nav{
@@ -54,7 +52,6 @@ nav a {
 	padding : 0 10px;
 	height : 40px;
 	font-weight : bold;
-	text-decoration: none;
 	}
 nav a:hover {
 	background : #14356b;
@@ -82,34 +79,51 @@ nav a:hover {
 .main{
 	position:relative;
 	width:1200px;
-	height:900px;
+	height:660px;
 	background : white;
 	color : black;
 	margin:auto;
 }
+.remoteBtn {
+	position : absolute;
+	top : 315px;
+	left : -45px;
+	z-index : 10000;
+	width : 1300px;
+	height: 50px;
+}
+.remoteBtn .btn{
+	/* border : 1px solid black; */
+	cursor: pointer;
+	display : inline-block;
+	margin : 0;
+	padding :0;
+	width : 50px;
+	height : 50px;
+	font-family: 'Jua', cursive;
+	font-size : 40px;
+	color : rgba(0,0,0,0.2);
+}
+.remoteBtn .btn:hover{
+	color : white;
+}
+.pre{
+	position : absolute;
+	top:0;
+	left:0;
+}
+.next{
+	position : absolute;
+	top:0;
+	right:0;
+}
 
-/* .itemList button{
-	width :60px;
-	height :60px;
-	background : rgba(255,255,255,0.5);
-}
-#leftBtn{
-	position : absolute;
-	top:350px;
-	left:-60px;
-}
-#rightBtn{
-	position : absolute;
-	top:350px;
-	left:760px; */
-}
 .itemList{
 	/* position:absolute;
 	left:70px;
 	top:0; */
-	width : 1100px;
-	height: auto;
-	margin : 10px 50px;
+	width : 1200px;
+	height: 660px;
 	}
 /* 편집박스 */
 .modify{
@@ -121,10 +135,11 @@ nav a:hover {
 	height : 300px;
 	border : 1px solid white;
 	padding-top : 80px;
-	background : rgba(0,0,0,0.5);
+	background : rgba(0,0,0,0.8);
 	color : white;
 }
 .modify .btn{
+	font-size : 18px;
 	background : none;
 	color : white;
 	border : none;
@@ -135,12 +150,14 @@ nav a:hover {
 }
 /* 아이템박스 */
 .item{
+	border : 1px solid red;
 	position : relative;
 	width : 200px;
-	height : 300px;
+	height : 210px;
 	text-align : center;
-	margin-bottom : 20px;
+	margin-bottom : 10px;
 	float : left;
+	overflow : hidden;
 }	
 .bookmark{
 	font-family: 'Jua', cursive;
@@ -150,9 +167,9 @@ nav a:hover {
 }
 .itemName{
 	margin : auto;
-	padding-left: 2px;
+	padding-left: 3px;
 	border : 1px solid black;
-	width : 190px;
+	width : 200px;
 	height : 30px;
 	text-align:left;
 	overflow : hidden;
@@ -167,6 +184,15 @@ nav a:hover {
 .itemName a{
 	color : black;
 }
+.itemPrice{
+	border : 1px solid black;
+	margin : auto;
+	padding : 5px;
+	width:200px;
+	height: 30px;
+	overflow : hidden;
+	font-size : 15px;
+}
 .itemImg{
 	width : 150px;
 	height : 150px;
@@ -180,7 +206,6 @@ nav a:hover {
 .tagColor{
 	margin : auto;
 }
-
 	/* 사이드 */
 .sideMenu{
 	z-index : -1000;
