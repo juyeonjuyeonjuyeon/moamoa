@@ -17,11 +17,8 @@
 	String path = request.getContextPath();
 	String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
 	String email = (String) session.getAttribute("email"); // 로그인한 유저메일
-	/* 아이템 개수 구하기 */
-	int itemCnt = 0;
-	ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();
-  	for (ItemVO vo : getItemCnt) {itemCnt++;}
-  	
+	int itemCnt = 0;//아이템 개수
+	
   	/*아이템 정보 변수 초기화*/
 	int item_idx = -1;
 	String link = "#";
@@ -32,6 +29,17 @@
 	int bookmark = 0;
 	String userMail = "0";//아이템에 저장된 유저메일
 	
+	/*아이템 개수 구하기*/
+	ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();
+  	for (ItemVO vo : getItemCnt) {
+  		userMail = vo.getUserMail();
+	 	if(!userMail.equals(email)){
+	 		continue;
+	 	}
+  		itemCnt++;
+  	}
+  	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +47,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=1">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=2">
 	<script
   		src="https://code.jquery.com/jquery-3.3.1.js"
   		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -48,6 +56,10 @@
 /*메뉴 탭 css*/
 
 /* 아이템 삭제 */
+
+	function reload(){
+		location.reload();
+	}
 	function delItem(item_idx){
 		var item = $("#item"+item_idx);
 		item.css("display","none");
@@ -108,17 +120,17 @@
 				<li><a id="add" href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" >추가</a></li>
 				<li><a href="#" onclick="modify()" id="edit">편집</a></li>
 				<li><a href="<%=path%>/LogoutServlet" id="logout">로그아웃</a></li>
-				<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
 			</ul>
-			<ul id="tagList">
+			<ul id="sort">
+				<li><a href="#" id="home">최신 순</a></li>
 				<li><a class="tab" href="<%=path%>/SortServlet?sort=4" id="redTag"><span class="Red"></span>태그1</a></li>
 				<li><a href="<%=path%>/SortServlet?sort=5" id="orangeTag"><span class="Orange"></span>태그2</a></li>
 				<li><a href="<%=path%>/SortServlet?sort=6" id="greenTag"><span class="Green"></span>태그3</a></li>
 				<li><a href="<%=path%>/SortServlet?sort=7" id="blueTag"><span class="Blue"></span>태그4</a></li>
 				<li><a href="<%=path%>/SortServlet?sort=8" id="violetTag"><span class="Violet"></span>태그5</a></li>
-				<li><a onClick="clicks(this)" href="/moamoa/SortServlet?sort=1">높은가격 정렬</a></li>
-				<li><a class="tab" href="/moamoa/SortServlet?sort=2">낮은가격 정렬</a></li>
-				<li><a class="tab" href="/moamoa/SortServlet?sort=3">북마크 정렬</a></li>
+				<li><a onClick="clicks(this)" href="/moamoa/SortServlet?sort=1">높은 가격 순</a></li>
+				<li><a class="tab" href="/moamoa/SortServlet?sort=2">낮은 가격 순</a></li>
+				<li><a class="tab" href="/moamoa/SortServlet?sort=3">북마크</a></li>
 			</ul>
 		</div>
 	</nav>

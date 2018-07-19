@@ -4,9 +4,9 @@ public class UserVO {
 
 	private int u_idx;    // 자동 증가 유저 번호
 	private String name;  // 유저 이름
+	private String phone;    // 비밀번호
 	private String email; // 이메일
 	private String pw;    // 비밀번호
-	private String phone;    // 비밀번호
 	
 	public int getU_idx() {
 		return u_idx;

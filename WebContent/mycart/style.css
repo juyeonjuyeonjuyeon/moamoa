@@ -84,7 +84,7 @@ nav a:hover {
 	color : black;
 }
 /* 메뉴 - 태그들 모음*/
-#tagList span{
+#sort span{
 	display: inline-block;
 	border-radius : 50%;
 	width : 10px;

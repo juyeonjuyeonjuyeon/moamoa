@@ -63,7 +63,7 @@
 	</form>
 	<script>
 		function goJoin(){
-			window.open('<%=path%>/join.jsp','join us','width=500,height=500,location=no,status=no,scrollbars=yes');
+			window.open('<%=path%>/join/join.jsp','join us','width=500,height=500,location=no,status=no,scrollbars=yes');
 		}
 	</script>
 </div>

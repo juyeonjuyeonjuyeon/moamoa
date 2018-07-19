@@ -168,17 +168,18 @@ ul li{
 	<!-- 링크 -->
 		<tr><td class="label">링크
 		<input name="link" type="text" id="itemLink" placeholder=" 붙여넣기" required></td>
-		<td id="okShadow"><button class="ok btn" type="button" onclick="getLink()">ok</button></td>
+		<td><button class="ok btn" type="button" onclick="getLink()">ok</button></td>
 		</tr>
 		<!-- 이름 -->
 		<tr><td class="label">상품이름
-		<input name="itemName" id="itemName" type="text" placeholder="적어주세요"></td>
+		<input name="itemName" id="itemName" type="text" placeholder="적어주세요" required></td>
 		</tr>
 		<!-- 가격 -->
 		<tr><td class="label">가격
-		<input name="itemPrice" id="itemPrice" type="text" placeholder="얼마인가요?"></td>
+		<input name="itemPrice" id="itemPrice" type="text" placeholder="얼마인가요?" required></td>
 		</tr>
 	</table>
+	
 <!-- 태그 -->
 	<ul id="tagList">
 			<li>
@@ -217,13 +218,11 @@ ul li{
 		<input class="btn" type="button" value="닫기" onClick='self.close()'> 
 	</div>
 	<!-- hide -->
-	<input type="text" name="userMail" value="<%=userMail%>">
+	<input class="hide" type="text" name="userMail" value="<%=userMail%>">
 	<!--  -->
 </form>
 <script>
 /* 북마크 버튼 작동 함수  */
- 
-
 function onCheck(obj){
 	var checkbox = document.getElementById("bookmark"),
 	other = document.getElementById("offBookmark");
@@ -244,13 +243,13 @@ function offCheck(obj){
 	obj.style.display = "none";
 	other.style.display = "inline-block";
 }
-
+/*링크 따오기*/
 function getLink() {
 	var path = '/' + location.pathname.split('/')[1];
 	var postUrl = path + "/Getlink"; //서버주소
 	var link = $("#itemLink").val(), //서버로 전송하는 데이터
-		img=$("#itemImg"),
-		imgSrc=$("#imgSrc"),
+		img=$("#itemImg"), // 이미지 출력
+		imgSrc=$("#imgSrc"), //저장할 이미지 소스
 		name=$("#itemName"), 
 		price=$("#itemPrice"); // 받아올 데이터
 		
@@ -263,16 +262,21 @@ function getLink() {
 			 console.log(data.itemName);
 			 console.log(data.imgSrc);
 			 console.log(data.itemPrice);
-			 
+			/*  //이미지
+			 if(data.imgSrc == 0){
+				imgSrc.val("sample.jpg");
+				img.attr("src","sample.jpg");
+			 }else{ */
+				imgSrc.val(data.imgSrc);
+				img.attr("src",data.imgSrc);
+			/*  } */
+			 //이름
 			 if(data.itemName == 0){
 				 name.attr("placeholder","직접입력해 주세요");
 			 }else{
 				 name.val(data.itemName);
 			 }
-			 
-			img.attr("src",data.imgSrc);
-			imgSrc.val(data.imgSrc);
-			
+			//가격
 			 if(data.itemPrice == 0){
 				 price.attr("placeholder","직접입력해 주세요");
 			 }else{

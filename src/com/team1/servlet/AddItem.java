@@ -47,10 +47,19 @@ public class AddItem extends HttpServlet {
 		String tagColor = request.getParameter("tagColor");
 		String bookmark = request.getParameter("bookmark");
 		String userMail = request.getParameter("userMail");
-		if(bookmark == null) {
+		if(imgSrc.equals("0")) {
+			imgSrc = "sample.jpg";
+		}
+		if(itemName.equals("0")) {
+			itemName = "이름이 뭐지?";
+		}
+		if(itemPrice.equals("0")) {
+			itemPrice = "0";
+		}
+		/*if(bookmark == null) {
 			bookmark = "0";
 		}
-
+*/
 		
 		/*서블릿 확인 출력*/
 		response.setCharacterEncoding("UTF-8");

@@ -21,12 +21,10 @@ import com.team1.vo.UserVO;
 	values ('빅데이터', '010-1111-1111', 'aa@aa.com', '123')
  */
 
+/*유저 저장*/
 public class UserDAO {
 	public static void InsertUser(UserVO vo) throws Exception {
-		// DB 접속
 		Connection db = DBConn.getConnection();
-		// 쿼리 날려서 유저 정보를 삽입
-		// insert into user (name, email, pw) values ('이름', 'a@a.com', '1234')
 		String sql  = "insert into user (name, phone, email, pw) values (?, ?, ?, ?)";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
@@ -34,8 +32,6 @@ public class UserDAO {
 		pstmt.setString(3, vo.getEmail());
 		pstmt.setString(4, vo.getPw());
 		
-		
-		// 쿼리 실행
 		pstmt.executeUpdate();
 		db.close();
 	}
