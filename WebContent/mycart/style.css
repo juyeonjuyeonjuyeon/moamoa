@@ -8,15 +8,21 @@
 	box-sizing : border-box;
 }
 body{
-		/* background : #14356b; */
-		background-image : url("galaxy.gif");
-		color : white;
+	/* background : #14356b; */
+	background-image : url("galaxy.gif");
+	color : white;
 	}
 a{
 	text-decoration: none;
 }
 ul li{
 	list-style-type : none;
+}
+.clear{
+	clear : both;
+}
+.hide{
+	display : none;
 }
 	/* 헤더  */
 header{
@@ -30,21 +36,21 @@ header a{
 nav{
 	margin:auto;
 	position:relative; 
-	padding:0px;
+	padding:0;
 	border:1px solid white;
-	overflow : auto;
 	width : 1200px;
 	/* height : 40px; */
 	overflow : hidden;
 }
 #comment {
-	margin : 0px 20px;
+	background : grey;
+	margin : 0;
+	padding : 0 20px;
 	font-weight : bold;
 	}
 .menu{
 	width : 1200px;
 	height : 50px;
-	/* background: white; */
 	overflow : hidden;
 }
 nav ul{
@@ -52,20 +58,27 @@ nav ul{
 	padding:0;
 }
 nav li{
-	float : left;
+	border : 1px solid green;
 	list-style-type : none;	
+	margin : 0;
+	padding : 0;
+	float : left;
 }
 nav a {
 	display : inline-block;
-	color : white;
-	padding : 0 0 0 40px;
+	background : none;	
+	padding : 0 20px;
 	height : 40px;
-	font-size : 15px;
+	font-size : 16px;
+	color : white;
 	}
 nav a:hover {
 	background : none;
-	font-weight : bold;
-	font-size : 17px;
+	color : yellow;
+}
+nav a.active{
+	background : white;
+	color : #4a527b;
 }
 .tab button{
 	background : inherit;
@@ -84,7 +97,7 @@ nav a:hover {
 	color : black;
 }
 /* 메뉴 - 태그들 모음*/
-#sort span{
+nav span{
 	display: inline-block;
 	border-radius : 50%;
 	width : 10px;
@@ -103,6 +116,7 @@ nav a:hover {
 
 /* 본문 */
 .main{
+	border : 1px solid purple;
 	position:relative;
 	width:1200px;
 	height:660px;

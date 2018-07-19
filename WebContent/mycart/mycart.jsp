@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="com.team1.dao.ItemDAO"%>
 <%@page import="com.team1.vo.ItemVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -46,8 +47,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=3">
+	<style>
+		.selecTab{
+			background : white;
+			color : black;
+		}
+	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=2">
 	<script
   		src="https://code.jquery.com/jquery-3.3.1.js"
   		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -100,7 +107,32 @@
 	function goDown(){
 		$(".item").animate({top:"+=220"},500);
 	} 
-	
+	/*탭 이벤트*/
+	function tab(obj){
+	/* 	var i, defaultTab, tablinks;
+		defaultTab = $(".home");
+		tanlinks = $(".tab");
+		for(i = 0; i<tablinks.length; i++){
+			tanlinks[i].className.replace("active", "");
+		}
+		evt.currentTarget.className += " active"; */
+		var i, tablinks;
+		//탭
+		tablinks = $(".tab");
+		//다른 탭의 선택 효과 지우기
+		for(i = 0; i<tablinks.length; i++){
+			tablinks[i].removeClass(".active");
+		}
+		//현재 클릭한 탭에 효과 넣기
+		//obj.addClass(".selectTab");
+		obj.style.background="white";
+		obj.style.color="black";
+	}
+	function test(obj){
+		//obj.addClass(".selectTab");
+		obj.style.background="white";
+		obj.style.color="black";
+	}
  
 </script>
 </head>
@@ -117,21 +149,23 @@
 		</div>
 		<div class="menu">
 			<ul>
-				<li><a id="add" href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" >추가</a></li>
-				<li><a href="#" onclick="modify()" id="edit">편집</a></li>
-				<li><a href="<%=path%>/LogoutServlet" id="logout">로그아웃</a></li>
+				<li><a href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,toolbar=no,scrollbars=yes');" >
+				추가</a></li>
+				<li><a href="#" onclick="modify()">편집</a></li>
+				<li><a href="<%=path%>/LogoutServlet">로그아웃</a></li>
 			</ul>
 			<ul id="sort">
-				<li><a href="#" id="home">최신 순</a></li>
-				<li><a class="tab" href="<%=path%>/SortServlet?sort=4" id="redTag"><span class="Red"></span>태그1</a></li>
-				<li><a href="<%=path%>/SortServlet?sort=5" id="orangeTag"><span class="Orange"></span>태그2</a></li>
-				<li><a href="<%=path%>/SortServlet?sort=6" id="greenTag"><span class="Green"></span>태그3</a></li>
-				<li><a href="<%=path%>/SortServlet?sort=7" id="blueTag"><span class="Blue"></span>태그4</a></li>
-				<li><a href="<%=path%>/SortServlet?sort=8" id="violetTag"><span class="Violet"></span>태그5</a></li>
-				<li><a onClick="clicks(this)" href="/moamoa/SortServlet?sort=1">높은 가격 순</a></li>
-				<li><a class="tab" href="/moamoa/SortServlet?sort=2">낮은 가격 순</a></li>
-				<li><a class="tab" href="/moamoa/SortServlet?sort=3">북마크</a></li>
+				<li><a class="tab" onclick="tab(this)" href="<%=path%>/SortServlet?sort=4" ><span class="Red"></span>태그1</a></li>
+				<li><a class="tab" onclick="tab(this)" href="<%=path%>/SortServlet?sort=5" ><span class="Orange"></span>태그2</a></li>
+				<li><a class="tab" onclick="tab(this)" href="<%=path%>/SortServlet?sort=6" ><span class="Green"></span>태그3</a></li>
+				<li><a class="tab" onclick="tab(this)" href="<%=path%>/SortServlet?sort=7"><span class="Blue"></span>태그4</a></li>
+				<li><a class="tab" onclick="tab(this)" href="<%=path%>/SortServlet?sort=8"><span class="Violet"></span>태그5</a></li>
+				<li><a class="tab active" onclick="tab(this)" href="<%=path%>/SortServlet?sort=0">등록 순</a></li>
+				<li><a class="tab" onclick="tab(this)" href="/moamoa/SortServlet?sort=1">높은 가격 순</a></li>
+				<li><a class="tab" onclick="tab(this)" href="/moamoa/SortServlet?sort=2">낮은 가격 순</a></li>
+				<li><a class="tab" onclick="tab(this)" href="/moamoa/SortServlet?sort=3">북마크</a></li>
 			</ul>
+			<div class="clear"></div>
 		</div>
 	</nav>
 <!--본문  -->
@@ -144,9 +178,8 @@
 	<!-- item -->
 		<div class="itemList">
 		<!-- 아이템 끝 -->
-			<div class="end"></div>
+			<div class="top"></div>
 			<%	
-			//ArrayList<ItemVO> getList = ItemDAO.getItem();
 			ArrayList<ItemVO> getList = (ArrayList<ItemVO>)request.getAttribute("itemList");
 			  for (ItemVO vo : getList) { 
 			  	item_idx = vo.getItem_idx();
@@ -163,8 +196,8 @@
 			 		continue;
 			 	}
 				// 이미지 소스를 불러오지 못햇을 경우 
-				 if(imgSrc.equals("NULL")){
-				 	imgSrc = "sample.jpg";
+				 if(imgSrc.equals("0")){
+				 	imgSrc = "/sample.jpg";
 				 }
 			 %>
 			<!-- item 박스 -->
@@ -197,7 +230,11 @@
 					</div>
 					<!-- item 정보 : 가격 -->
 					<div class="itemPrice">
-						<%=itemPrice %><span class="won">원</span>
+						<%
+						DecimalFormat Commas = new DecimalFormat("#,###");
+						String itemPrice_comma = (String)Commas.format(itemPrice);
+						%>
+						<%=itemPrice_comma %><span class="won"> 원</span>
 					</div>
 				</div>
 			</div>
@@ -205,13 +242,6 @@
 			<!-- 아이템 끝 -->
 			<div class="end"></div>
 		</div>
-		<!-- <div class="pageList">
-			<ul>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-			</ul>
-		</div> -->
 	</div>
 	
 </body>

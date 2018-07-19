@@ -130,6 +130,8 @@ AUTO_INCREMENT=2
 			sql  = "select * from item where tagColor = 'blueTag'";
 		} else if (st == 8) {
 			sql  = "select * from item where tagColor = 'violetTag'";
+		}else if (st == 0) {
+			sql  = "select * from item";
 		}
 		
 		PreparedStatement pstmt = db.prepareStatement(sql);  // sql 관리 객체

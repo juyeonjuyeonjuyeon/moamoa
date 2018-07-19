@@ -12,7 +12,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font: 10px normal Verdana, Arial, Helvetica, sans-serif;
-	color: #333;
+	color: black;
 }
 h1 {font-size: 3em; margin: 20px 0; color: #FFF;}
 .container {width: 700px; margin: 10px auto;}
@@ -41,7 +41,7 @@ ul.tabs li {
 }
 ul.tabs li a {
 	text-decoration: none;
-	color: white;
+	color: black;
 	display: block;
 	font-size: 1.2em;
 	padding: 0 20px;
