@@ -22,7 +22,6 @@
 @import url('https://fonts.googleapis.com/css?family=Handlee');
 @import url('https://fonts.googleapis.com/css?family=Chela+One');
 @import url('https://fonts.googleapis.com/css?family=Fugaz+One');
-
 *{
 	box-sizing: border-box;
 }
@@ -33,56 +32,72 @@ body{
 .hide{
 	display : none;
 }
+.shadow{
+	 box-shadow: 0 10px 18px #888888;
+}
 #wishPage{
-	padding : 10px 50px;
+	padding : 10px 40px;
 	position:relative;
-	margin:30px 70px;
-	width : 350px;
+	margin:30px 50px;
+	width : 400px;
 	height: 400px;
 	background : white;
-	
 }
 h3{
 	font-size :25px;
 	margin : 0px -10px 20px -20px;
 	font-family: 'Fugaz One', cursive;
 }
-/* 버튼 */
-.btn{
-	width : 50px;
-	height: 30px;
-	background: #c0c0c0;
-	border: none;
-	position :relative;
-	left:70px;
-	bottom : -20px;
-	font-family: 'Fugaz One', cursive;
-	cursor: pointer;
-}
-#okBtn{
-	margin : 0;
-	width : 40px;
-	height: 30px;
-	background : #c0c0c0;
-	border : none;
-	font-family: 'Fugaz One', cursive;
-	cursor: pointer;
-	}
-#okBtn:hover,.btn:hover{
-	box-shadow: 3px 3px #ff8040;
-	animation: bounce 0.5s alternate infinite cubic-bezier(.5,0.05,1,.5);
-}
 /* 입력상자 */
+.label{
+	border-bottom : 1px solid grey;
+	
+}
 [type = "text"]{ 
-	margin : 3px 0px;
+	/* margin : 3px 0px; */
+	border : none;
 	width : 200px;
 	height : 30px;
 }
+/* 버튼 */
+.buttons{
+	clear : both;
+}
+.btn{
+	width :40px;
+	height: 30px;
+	background : none;
+	border: none;
+	position :relative;
+	left:100px;
+	bottom : -20px;
+	font-size : 16px;
+	cursor: pointer;
+}
+.ok{
+	font-family: 'Chela One', cursive;
+	margin : 0;
+	position :static;
+	}
+
+.btn:hover{
+	color : #ff8040;
+}
+.ok:hover{
+	background : #ff8040;
+	color : white;
+	width : 30px;
+	height: 30px;
+	border-radius : 50%;
+	animation: bounce 0.5s alternate infinite cubic-bezier(.5,0.05,1,.5);
+}
+
 
 /* 태그 */
 ul{padding:0;}
 ul li{
 	margin:0;
+	padding-right : 10px;
 	list-style-type: none;
 	float : left;
 }
@@ -91,11 +106,20 @@ ul li{
 .Green{background: green;}
 .Blue{background: blue;}
 .Violet{background: #8000ff;}
-span{
+.tag{
 	display: inline-block;
 	border-radius : 50%;
-	width : 15px;
-	height : 15px;
+	width : 20px;
+	height : 20px;
+	text-align: center;
+	font-weight : bold;
+	color : rgba(0,0,0,1);
+}
+.tag:hover{
+	border : 2.5px solid #ff8040;
+}
+.tag:checked{
+	border : 2.5px solid #ff8040;
 }
 /* 북마크 */
 .bookmark{
@@ -117,7 +141,7 @@ span{
 	display :inline-block;
 	width:100px;
 	height : 100px;
-	margin :0 70px;
+	margin :0 100px;
 }
 /* 애니메이션 */
 @keyframes bounce {
@@ -138,52 +162,64 @@ span{
  <!-- 이미지 (출력부분과 전송부분)-->
 	<img id="itemImg" src="<%=path %>/mycart/sample.jpg" alt="상품이미지"><br>
 	<input id="imgSrc" name="imgSrc" type="text" class="hide">
-<!-- 링크 -->
-	<input name="link" type="text" id="itemLink" placeholder="상품링크 붙여넣기" required>
-	<button id="okBtn" type="button" onclick="getLink()">ok</button><br>
-<!-- 이름 -->
-	<input name="itemName" id="itemName" type="text" placeholder="상품이름 입력"><br>
-<!-- 가격 -->
-	<input name="itemPrice" id="itemPrice" type="text" placeholder="상품가격 입력"><br>
+
+	<table>
+	<!-- 링크 -->
+		<tr><td class="label">링크
+		<input name="link" type="text" id="itemLink" placeholder=" 붙여넣기" required></td>
+		<td id="okShadow"><button class="ok btn" type="button" onclick="getLink()">ok</button></td>
+		</tr>
+		<!-- 이름 -->
+		<tr><td class="label">상품이름
+		<input name="itemName" id="itemName" type="text" placeholder="적어주세요"></td>
+		</tr>
+		<!-- 가격 -->
+		<tr><td class="label">가격은
+		<input name="itemPrice" id="itemPrice" type="text" placeholder="얼마인가요?"></td>
+		</tr>
+	</table>
 <!-- 태그 -->
 	<ul id="tagList">
 			<li>
 				<label>
 				<input type="radio" name="tagColor" value="redTag" checked>
-				<span class="Red"></span>
+				<span class="Red tag"></span>
 				</label>
 			</li>
 			<li>
 				<label>
 				<input type="radio" name="tagColor" value="orangeTag" >
-				<span class="Orange"></span>
+				<span class="Orange tag"></span>
 				</label>
 			</li>
 			<li>
 				<label>
 				<input type="radio" name="tagColor" value="greenTag" >
-				<span class="Green"></span>
+				<span class="Green tag"></span>
 				</label>
 			</li>
 			<li>
 				<label>
 				<input type="radio" name="tagColor" value="blueTag" >
-				<span class="Blue"></span>
+				<span class="Blue tag"></span>
 				</label>
 			</li>
 			<li>
 				<label><input type="radio" name="tagColor" value="violetTag" >
-				<span class="Violet"></span>
+				<span onclick="clicked(this)" class="Violet tag"></span>
 				</label>
 			</li>
 	</ul>
-	<br>
-	
-	<input class="btn addBtn" type="submit" value="O">
-	<input class="btn cancelBtn" type="button" value="X" onClick='self.close()'> 
+	<div class="buttons">
+		<!-- 버튼 -->
+		<input class="btn" type="submit" value="저장">
+		<input class="btn" type="button" value="닫기" onClick='self.close()'> 
+	</div>
 </form>
 <script>
 /* 북마크 버튼 작동 함수  */
+ 
+
 function onCheck(obj){
 	var checkbox = document.getElementById("bookmark"),
 	other = document.getElementById("offBookmark");
@@ -224,10 +260,21 @@ function getLink() {
 			 console.log(data.imgSrc);
 			 console.log(data.itemPrice);
 			 
-			 img.attr("src",data.imgSrc);
-			 imgSrc.val(data.imgSrc);
-			 name.val(data.itemName);
-			 price.val(data.itemPrice);
+			 if(data.itemName == 0){
+				 name.attr("placeholder","직접입력해 주세요");
+			 }else{
+				 name.val(data.itemName);
+			 }
+			 
+			img.attr("src",data.imgSrc);
+			imgSrc.val(data.imgSrc);
+			
+			 if(data.itemPrice == 0){
+				 price.attr("placeholder","직접입력해 주세요");
+			 }else{
+				 price.val(data.itemPrice);
+			 }
+			 
 	    }
 		});
 	}

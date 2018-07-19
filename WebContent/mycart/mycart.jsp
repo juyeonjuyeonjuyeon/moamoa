@@ -38,12 +38,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=4">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=1">
 	<script
   		src="https://code.jquery.com/jquery-3.3.1.js"
   		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   		crossorigin="anonymous"></script>
 <script>
+/*메뉴 탭 css*/
+
 /* 아이템 삭제 */
 	function delItem(item_idx){
 		var item = $("#item"+item_idx);
@@ -100,7 +102,7 @@
 		<div id="comment">
 			<p>안녕하세요. <%=userName%> 님. 총 <%=itemCnt%>개의 상품이 담겨있습니다.</p>
 		</div>
-		<div id="menu">
+		<div class="menu">
 			<ul>
 				<li><a id="add" href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,status=no,scrollbars=yes');" >추가</a></li>
 				<li><a href="#" onclick="modify()" id="edit">편집</a></li>
@@ -108,17 +110,16 @@
 				<li><a href="<%=path%>/main/main.jsp" id="home">홈</a></li>
 			</ul>
 			<ul id="tagList">
-				<li><a href="<%=path%>/SortServlet?sort=4" id="redTag"><span class="Red"></span>태그1</a></li>
-			<li><a href="<%=path%>/SortServlet?sort=5" id="orangeTag"><span class="Orange"></span>태그2</a></li>
-			<li><a href="<%=path%>/SortServlet?sort=6" id="greenTag"><span class="Green"></span>태그3</a></li>
-			<li><a href="<%=path%>/SortServlet?sort=7" id="blueTag"><span class="Blue"></span>태그4</a></li>
-			<li><a href="<%=path%>/SortServlet?sort=8" id="violetTag"><span class="Violet"></span>태그5</a></li>
-			<li><a href="/moamoa/SortServlet?sort=1">높은가격 정렬</a></li>
-			<li><a href="/moamoa/SortServlet?sort=2">낮은가격 정렬</a></li>
-			<li><a href="/moamoa/SortServlet?sort=3">북마크 정렬</a></li>
+				<li><a class="tab" href="<%=path%>/SortServlet?sort=4" id="redTag"><span class="Red"></span>태그1</a></li>
+				<li><a href="<%=path%>/SortServlet?sort=5" id="orangeTag"><span class="Orange"></span>태그2</a></li>
+				<li><a href="<%=path%>/SortServlet?sort=6" id="greenTag"><span class="Green"></span>태그3</a></li>
+				<li><a href="<%=path%>/SortServlet?sort=7" id="blueTag"><span class="Blue"></span>태그4</a></li>
+				<li><a href="<%=path%>/SortServlet?sort=8" id="violetTag"><span class="Violet"></span>태그5</a></li>
+				<li><a onClick="clicks(this)" href="/moamoa/SortServlet?sort=1">높은가격 정렬</a></li>
+				<li><a class="tab" href="/moamoa/SortServlet?sort=2">낮은가격 정렬</a></li>
+				<li><a class="tab" href="/moamoa/SortServlet?sort=3">북마크 정렬</a></li>
 			</ul>
 		</div>
-		
 	</nav>
 <!--본문  -->
 	<div class="main">
@@ -144,7 +145,7 @@
 			 	bookmark = vo.getBookmark();
 			 	
 				// 이미지 소스를 불러오지 못햇을 경우 
-				 if(imgSrc == null){
+				 if(imgSrc.equals("#")){
 				 	imgSrc = "sample.jpg";
 				 }
 			 %>
@@ -154,7 +155,8 @@
 			<div class="modify">
 				<p><%=item_idx%></p>
 				<button class="btn" id="<%=item_idx%>" type="button" onclick="delItem(this.id)">삭제</button>
-				<a class="btn" id="goLink" type="button" href="<%=link%>" target="_blank">구매하기</a>
+				<button class="btn" type="button" onclick="">수정</button>
+				<%-- <a class="btn" id="goLink" type="button" href="<%=link%>" target="_blank">구매하기</a> --%>
 			</div>
 				<!-- item 이미지 영역 -->
 				<div class="itemImg">
