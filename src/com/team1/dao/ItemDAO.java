@@ -34,7 +34,8 @@ AUTO_INCREMENT=2
 		Connection db = DBConn.getConnection();
 		// 쿼리 날려서 상품 정보를 삽입
 		// insert into item (link,imgSrc,itemName,itemPrice,tagColor,bookmark) values (~~~)
-		String sql  = "insert into item (link, imgSrc, itemName, itemPrice, tagColor, bookmark) values (?, ?, ?, ?, ?, ?)";
+		String sql  = "insert into item (link, imgSrc, itemName, itemPrice, tagColor, bookmark, userMail) "
+				+ "values (?, ?, ?, ?, ?, ?, ?)";
 		System.out.println(sql);
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, vo.getLink());
@@ -43,6 +44,7 @@ AUTO_INCREMENT=2
 		pstmt.setInt(4, vo.getItemPrice());
 		pstmt.setString(5, vo.getTagColor());
 		pstmt.setInt(6, vo.getBookmark());
+		pstmt.setString(7, vo.getUserMail());
 		
 		// 쿼리 실행
 		pstmt.executeUpdate();
@@ -68,6 +70,7 @@ AUTO_INCREMENT=2
 			vo.setItemPrice(rs.getInt("itemPrice"));
 			vo.setTagColor(rs.getString("tagColor"));
 			vo.setBookmark(rs.getInt("bookmark"));
+			vo.setUserMail(rs.getString("userMail"));
 		}	
 		db.close();
 		return vo;
@@ -77,7 +80,7 @@ AUTO_INCREMENT=2
 	public static ArrayList<ItemVO> getItem() throws Exception {
 		// DB 접속
 		Connection db = DBConn.getConnection();
-		// 쿼리 날려서 유저 정보를 검색
+		// 쿼리 날려서 아이템 정보를 검색
 		String sql  = "select * from item";   // 사용자 정보 전체 검색 쿼리
 		PreparedStatement pstmt = db.prepareStatement(sql);  // sql 관리 객체
 		ResultSet rs = pstmt.executeQuery();   // 쿼리를 DB에 날려서 rs에 값을 받음
@@ -96,6 +99,7 @@ AUTO_INCREMENT=2
 			vo.setItemPrice(rs.getInt("itemPrice"));
 			vo.setTagColor(rs.getString("tagColor"));
 			vo.setBookmark(rs.getInt("bookmark"));
+			vo.setUserMail(rs.getString("userMail"));
 			itemList.add(vo);   // 사용자 정보 객체를 리스트에 담기
 		}	
 		db.close();  // db 연결 정보 닫기
@@ -145,6 +149,7 @@ AUTO_INCREMENT=2
 			vo.setItemPrice(rs.getInt("itemPrice"));
 			vo.setTagColor(rs.getString("tagColor"));
 			vo.setBookmark(rs.getInt("bookmark"));
+			vo.setUserMail(rs.getString("userMail"));
 			itemList.add(vo);   // 사용자 정보 객체를 리스트에 담기
 		}	
 		db.close();  // db 연결 정보 닫기

@@ -11,12 +11,12 @@
 	private int itemPrice; // 상품가격
 	private String tagColor; // 태그 컬러(1-red,2- orange,3- green,4-blue,5-violet)
 	private int bookmark; //북마크 체크 여부(0-false, 1-true)*/
-
+	//`userMail` VARCHAR(1000) NOT NULL DEFAULT '0'*/
 	//아이템 태그 색깔 : 데이터베이스에서 가져오기
 	
 	String path = request.getContextPath();
-	String userName = (String) session.getAttribute("name");
-
+	String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
+	String email = (String) session.getAttribute("email"); // 로그인한 유저메일
 	/* 아이템 개수 구하기 */
 	int itemCnt = 0;
 	ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();
@@ -25,11 +25,12 @@
   	/*아이템 정보 변수 초기화*/
 	int item_idx = -1;
 	String link = "#";
-	String imgSrc = "item1.jpg";
+	String imgSrc = "sample.jpg";
 	String itemName = "name";
-	int itemPrice = 100;
+	int itemPrice = 0;
 	String tagColor = "redTag";
 	int bookmark = 0;
+	String userMail = "0";//아이템에 저장된 유저메일
 	
 %>
 <!DOCTYPE html>
@@ -143,9 +144,14 @@
 		 		itemPrice = vo.getItemPrice();
 		 		tagColor = vo.getTagColor();
 			 	bookmark = vo.getBookmark();
+			 	userMail = vo.getUserMail();
 			 	
+			 	//아이템에 저장된 메일과 로그인한 메일이 다르면 다음 아이템 호출
+			 	if(!userMail.equals(email)){
+			 		continue;
+			 	}
 				// 이미지 소스를 불러오지 못햇을 경우 
-				 if(imgSrc.equals("#")){
+				 if(imgSrc.equals("NULL")){
 				 	imgSrc = "sample.jpg";
 				 }
 			 %>

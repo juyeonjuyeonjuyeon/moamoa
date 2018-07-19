@@ -46,6 +46,7 @@ public class AddItem extends HttpServlet {
 		String itemPrice = request.getParameter("itemPrice");
 		String tagColor = request.getParameter("tagColor");
 		String bookmark = request.getParameter("bookmark");
+		String userMail = request.getParameter("userMail");
 		if(bookmark == null) {
 			bookmark = "0";
 		}
@@ -69,13 +70,15 @@ public class AddItem extends HttpServlet {
 		ivo.setItemPrice(Integer.parseInt(itemPrice));
 		ivo.setTagColor(tagColor);
 		ivo.setBookmark(Integer.parseInt(bookmark));
+		ivo.setUserMail(userMail);
 		/*DB 성공여부 테스트 출력*/
 		try {
 			ItemDAO.InsertItem(ivo);
 			out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"
 					+ "아이템 저장 성공</a></h1>");	
-			out.println("<img src=' "+imgSrc+" '><br><br>"+
-					"link-"+link+
+			out.println("<img style='width:50px;height:50px' src=' "+imgSrc+" '>"+
+					"<br><br>userMail-"+userMail+
+					"<br><br>link-"+link+
 					"<br><br> name-"+itemName+
 					"<br><br> price-"+itemPrice+
 					"<br><br> tag-"+tagColor+
@@ -84,8 +87,9 @@ public class AddItem extends HttpServlet {
 		} catch (Exception e) {
 			out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"
 					+ "아이템 저장 실패</a></h1>");	
-			out.println("<img src=' "+imgSrc+" '><br><br>"+
-					"link-"+link+
+			out.println("<img style='width:50px;height:50px' src=' "+imgSrc+" '>"+
+					"<br><br>userMail-"+userMail+
+					"<br><br>link-"+link+
 					"<br><br> name-"+itemName+
 					"<br><br> price-"+itemPrice+
 					"<br><br> tag-"+tagColor+

@@ -5,6 +5,7 @@
 	String imgSrc = (String)request.getAttribute("imgSrc");
 	String itemName = (String)request.getAttribute("itemName");
 	String itemPrice = (String)request.getAttribute("itemPrice");
+	String userMail = (String) session.getAttribute("email");
 %>
 <!DOCTYPE html>
 <html>
@@ -174,7 +175,7 @@ ul li{
 		<input name="itemName" id="itemName" type="text" placeholder="적어주세요"></td>
 		</tr>
 		<!-- 가격 -->
-		<tr><td class="label">가격은
+		<tr><td class="label">가격
 		<input name="itemPrice" id="itemPrice" type="text" placeholder="얼마인가요?"></td>
 		</tr>
 	</table>
@@ -215,6 +216,9 @@ ul li{
 		<input class="btn" type="submit" value="저장">
 		<input class="btn" type="button" value="닫기" onClick='self.close()'> 
 	</div>
+	<!-- hide -->
+	<input type="text" name="userMail" value="<%=userMail%>">
+	<!--  -->
 </form>
 <script>
 /* 북마크 버튼 작동 함수  */

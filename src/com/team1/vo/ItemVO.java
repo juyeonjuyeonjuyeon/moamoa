@@ -8,6 +8,7 @@ public class ItemVO {
 	private int itemPrice; // 상품가격
 	private String tagColor; // 태그 컬러(1-red,2- orange,3- green,4-blue,5-violet)
 	private int bookmark; //북마크 체크 여부(0-false, 1-true)
+	private String userMail;//user 메일과 비교하여 유저별 아이템 구별
 	
 	public int getItem_idx() {
 		return item_idx;
@@ -51,6 +52,12 @@ public class ItemVO {
 	}
 	public void setBookmark(int bookmark) {
 		this.bookmark = bookmark;
+	}
+	public String getUserMail() {
+		return userMail;
+	}
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
 	}
 	
 }
