@@ -35,6 +35,7 @@ public class AddItem extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("null")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*한글 깨짐 해결*/
 		request.setCharacterEncoding("UTF-8");
@@ -47,19 +48,23 @@ public class AddItem extends HttpServlet {
 		String tagColor = request.getParameter("tagColor");
 		String bookmark = request.getParameter("bookmark");
 		String userMail = request.getParameter("userMail");
-		if(imgSrc.equals("0")) {
-			imgSrc = "sample.jpg";
-		}
+		
+		System.out.println(itemPrice);
+		System.out.println(imgSrc);
+		System.out.println(itemName);
+		/*if(imgSrc.equals("0")) {
+			imgSrc = "0";
+		}*/
 		if(itemName.equals("0")) {
-			itemName = "이름이 뭐지?";
+			itemName = "0";
 		}
-		if(itemPrice.equals("0")) {
+		if((itemPrice == null) && itemPrice.equals("0")) {
 			itemPrice = "0";
 		}
-		/*if(bookmark == null) {
+		if(bookmark == null) {
 			bookmark = "0";
 		}
-*/
+
 		
 		/*서블릿 확인 출력*/
 		response.setCharacterEncoding("UTF-8");
@@ -71,14 +76,21 @@ public class AddItem extends HttpServlet {
 		String[] array = itemPrice.split(",");
 		itemPrice = array.toString();*/
 		
+		/*System.out.println("--------------");
+		System.out.println(link);
+		System.out.println(imgSrc);
+		System.out.println(itemName);
+		System.out.println(itemPrice);
+		System.out.println(tagColor);
+		System.out.println(bookmark);*/
 		/*DB연결*/
 		ItemVO ivo = new ItemVO();
 		ivo.setLink(link);
 		ivo.setImgSrc(imgSrc);
 		ivo.setItemName(itemName);
-		ivo.setItemPrice(Integer.parseInt(itemPrice));
+		ivo.setItemPrice(Integer.parseInt(itemPrice.trim()));
 		ivo.setTagColor(tagColor);
-		ivo.setBookmark(Integer.parseInt(bookmark));
+		ivo.setBookmark(Integer.parseInt(bookmark.trim()));
 		ivo.setUserMail(userMail);
 		/*DB 성공여부 테스트 출력*/
 		try {

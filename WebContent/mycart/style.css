@@ -43,7 +43,6 @@ nav{
 	overflow : hidden;
 }
 #comment {
-	background : grey;
 	margin : 0;
 	padding : 0 20px;
 	font-weight : bold;
@@ -58,25 +57,30 @@ nav ul{
 	padding:0;
 }
 nav li{
-	border : 1px solid green;
+	border : 1px solid white;
 	list-style-type : none;	
 	margin : 0;
 	padding : 0;
 	float : left;
+	overflow:hidden;
 }
 nav a {
 	display : inline-block;
 	background : none;	
-	padding : 0 20px;
+	padding : 10px 20px;
 	height : 40px;
 	font-size : 16px;
 	color : white;
 	}
 nav a:hover {
-	background : none;
 	color : yellow;
 }
-nav a.active{
+.sort li{
+	margin-left : 5px;
+	border-top-left-radius : 15px;
+	border-top-right-radius : 15px;
+}
+.active{
 	background : white;
 	color : #4a527b;
 }
@@ -100,8 +104,8 @@ nav a.active{
 nav span{
 	display: inline-block;
 	border-radius : 50%;
-	width : 10px;
-	height : 10px;
+	width : 15px;
+	height : 15px;
 }
 .Red{background : red;	}
 .Orange{background : orange;	}
@@ -127,36 +131,43 @@ nav span{
 /*슬라이드 버튼*/
 .remoteBtn {
 	position : absolute;
-	top : 315px;
-	left : -45px;
+	top : 300px;
+	right : -55px;
 	z-index : 10000;
-	width : 1300px;
+	width : 50px;
 	height: 50px;
 }
-.remoteBtn .btn{
+.remoteBtn a{
 	/* border : 1px solid black; */
 	cursor: pointer;
-	display : inline-block;
+	display : block;
 	margin : 0;
 	padding :0;
-	width : 50px;
-	height : 50px;
-	font-family: 'Jua', cursive;
-	font-size : 40px;
-	color : rgba(0,0,0,0.2);
+	width : 30px;
+	height : 30px;
+	font-size : 25px;
+	color : rgba(0,0,0,0.5);
 }
-.remoteBtn .btn:hover{
+.remoteBtn a:hover{
 	color : white;
 }
-.pre{
-	position : absolute;
-	top:0;
-	left:0;
+
+/*위 아래 버튼*/
+#top,#bottom{
+	display : block;
+	width : 1200px;
+	height : auto;
+	color : #4a527b;
+	text-align : center;
 }
-.next{
-	position : absolute;
-	top:0;
-	right:0;
+#top:hover a,#bottom:hover a{
+	background : #4a527b;
+	color : white;
+}
+#top a,#bottom a{
+	display:inline-block;
+	width : 100%;
+	color : #4a527b;
 }
 /*아이템 박스*/
 .itemList{
@@ -165,15 +176,12 @@ nav span{
 	height: 660px;
 	overflow-x: hidden;
   	overflow-y: auto;
-  	overflow
-  	-ms-overflow-style: none; 
+  	overflow-ms-overflow-style: none; 
 }
 .itemList::-webkit-scrollbar {
     display: none;
 }
-.end{
-	display : none;	
-}
+
 /* 편집박스 */
 .modify{
 	display : none;
@@ -204,10 +212,28 @@ nav span{
 	width : 200px;
 	height : 210px;
 	text-align : center;
-	margin-bottom : 10px;
+	margin :10px 0;
 	float : left;
 	overflow : hidden;
 }	
+/*삭제 버튼*/
+.delete.btn{
+	width : 25px;
+	height : 25px;
+	position :absolute;
+	top : 0;
+	right :7px;
+	font-size : 18px;
+	border:none;
+	background : none;
+	cursor: pointer;
+	font-family: 'Fugaz One', cursive
+}
+.delete.btn:hover{
+	border-radius : 50%;
+	background : rgba(0,0,0,0.8);
+	color : white;
+}
 .bookmark{
 	font-family: 'Jua', cursive;
 	font-size: 25px;
@@ -224,11 +250,10 @@ nav span{
 	overflow : hidden;
 	font-weight: bold;
 }
-/* ------------------이름이 왼쪽으로 이동하면서 전체 이름 보여주기 애니메이션--------------------- */
 .itemName:hover{
 	height : auto;
-	background : grey;
-	overflow : visible;
+	color : white
+	overflow : auto;
 }
 .itemName a{
 	color : black;

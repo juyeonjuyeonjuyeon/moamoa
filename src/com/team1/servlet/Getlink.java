@@ -51,9 +51,14 @@ public class Getlink extends HttpServlet {
 		
 		/*input에서 String으로 받아옴*/
 		String link = request.getParameter("link");
-/*-------------------------------추가 : link 값에 http://없을 때 붙여주는 메서드
- * ------------------------------추가 : link 에러 나면 else로 넘기기-------------------------------*/
-		/*link에서 값 가져오기*/
+		//변수선언
+		String imgSrc, itemName, itemPrice,itemPrice_str;
+		Element img,name,price;
+		
+		//link 값에 http://없을 때 붙여주는 메서드
+		if(!link.contains("http://")) {
+			link = "http://"+link+".com";
+		}
 		
 		/*Connection.Response resp = 
 				Jsoup.connect(link)
@@ -63,8 +68,6 @@ public class Getlink extends HttpServlet {
 		String agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/67.0.3396.99 Safari/537.36";
 		Document document = Jsoup.connect(link).userAgent(agent).get();
 		
-		String imgSrc, itemName, itemPrice,itemPrice_str;
-		Element img,name,price;
 		
 		//11번가 -ok
 		if(link.contains("11st.co.kr")) {
@@ -89,7 +92,7 @@ public class Getlink extends HttpServlet {
 		//자라 -가격 no
 		}else if(link.contains("zara.com")) {
 			//div#plain-image img
-			imgSrc = "http:"+ document.select("a._seoImg").last().attr("href");
+			imgSrc = "http:"+ document.select("a._seoImg").first().attr("href");
 			itemName = document.select("h1.product-name").text();
 			itemPrice = "0";
 			//itemPrice = document.select("div.price._product-price span").text();
@@ -103,9 +106,10 @@ public class Getlink extends HttpServlet {
 			itemPrice = itemPrice.replace("원", "");
 		//그외 쇼핑몰
 		}else {
-			imgSrc = "sample.jpg";
+			imgSrc = "0";
 			itemName = "0";
 			itemPrice = "0";
+			System.out.println("else");
 		}
 		
 		/*imgSrc = document.select("div#plain-image img").attr("src");
@@ -118,9 +122,9 @@ public class Getlink extends HttpServlet {
 			
 		/*itemPrice ,없애기 */
 		itemPrice = itemPrice.replace(",", "");
-		System.out.println(imgSrc);
+		/*System.out.println(imgSrc);
 		System.out.println(itemName);
-		System.out.println(itemPrice);
+		System.out.println(itemPrice);*/
 		
 		/*json화*/
 		response.setCharacterEncoding("utf-8");

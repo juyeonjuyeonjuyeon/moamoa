@@ -14,6 +14,9 @@ body{
 	margin : 0;
 	padding : 0;
 }
+body::-webkit-scrollbar {
+    display: none;
+}
 header{
 	background : none;
 	height : 100px;

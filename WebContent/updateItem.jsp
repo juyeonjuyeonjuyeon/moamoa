@@ -33,9 +33,6 @@ body{
 .hide{
 	display : none;
 }
-.clear{
-	clear : both;
-}
 .shadow{
 	 box-shadow: 0 10px 18px #888888;
 }
@@ -143,17 +140,6 @@ ul li{
 .tag:hover{
 	border : 2.5px solid #aaa;
 }
-
-/* .tag:hover + .tag-tooltip{
-	visibility: visible;
-} */
-.tag-tooltip{
-	color : black;
-	width : 350px;
-	font-size : 13px;
-	background : none;
-	border : none;
-}
 		/*체크한 태그만 표시*/
 input:checked + span{ 
 	border : 6px solid #999;
@@ -203,7 +189,7 @@ input:checked + span{
 	<table>
 		<tr>
 		<td class="label">이미지
-		<input id="imgSrc" name="imgSrc" type="text" value ="0" placeholder="링크 붙여넣기"></td>
+		<input id="imgSrc" name="imgSrc" type="text" placeholder="링크 붙여넣기"></td>
 		</tr>
 	<!-- 링크 -->
 		<tr><td class="label">링크
@@ -214,16 +200,15 @@ input:checked + span{
 		</tr>
 		<!-- 이름 -->
 		<tr><td class="label">상품이름
-		<input name="itemName" id="itemName" type="text" placeholder="적어주세요" value ="0"required></td>
+		<input name="itemName" id="itemName" type="text" placeholder="적어주세요" required></td>
 		</tr>
 		<!-- 가격 -->
 		<tr><td class="label">가격
-		<input name="itemPrice" id="itemPrice" type="number" placeholder="얼마인가요?" value ="0"required></td>
+		<input name="itemPrice" id="itemPrice" type="number" placeholder="얼마인가요?" required></td>
 		</tr>
 	</table>
 	
 <!-- 태그 -->
-	<div class="tag-box">
 	<ul id="tagList">
 			<li>
 				<label>
@@ -255,9 +240,6 @@ input:checked + span{
 				</label>
 			</li>
 	</ul>
-	<!-- <div class="clear"></div> -->
-		<div class="tag-tooltip">원하는 태그의 색깔을 선택하세요</div>
-	</div>
 	<!-- 전송 버튼 -->
 	<div class="buttons">
 		<!-- 버튼 -->

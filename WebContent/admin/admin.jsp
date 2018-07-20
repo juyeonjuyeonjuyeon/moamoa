@@ -28,7 +28,6 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 
 <div id="buttons">
 	<!-- <button id="addWish" onclick="goReplace('mycart/mycart.jsp')">add wish</button> -->
-	
 	<a id="addWish" href="#moamoaPage">moa moa</a>
 	<a id="goCart" href="<%=path%>/SortServlet">my cart</a>
 	<a id="logout" href="<%=path%>/LogoutServlet">log out</a>

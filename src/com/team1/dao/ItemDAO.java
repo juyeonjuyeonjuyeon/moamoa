@@ -65,6 +65,7 @@ AUTO_INCREMENT=2
 		if (rs.next()) {
 			vo = new ItemVO();
 			vo.setItem_idx(rs.getInt("item_idx"));
+			vo.setLink(rs.getString("link"));
 			vo.setImgSrc(rs.getString("imgSrc"));
 			vo.setItemName(rs.getString("itemName"));
 			vo.setItemPrice(rs.getInt("itemPrice"));
@@ -158,6 +159,26 @@ AUTO_INCREMENT=2
 		return itemList;   // 사용자 정보 리스트를 메소드 외부로 보내기
 	}
 	
+	/*아이템 수정*/
+	public static void updateItem(ItemVO vo) throws Exception {
+		// DB 접속
+		Connection db = DBConn.getConnection();
+		// 쿼리 날려서 유저 정보를 삽입(link, imgSrc, itemName, itemPrice, tagColor, bookmark, userMail)
+		String sql  = "update user set link=?, imgSrc=?, itemName=?, itemPrice=?, tagColor=?, bookmark=?, userMail=? where item_idx=?";
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		pstmt.setString(1, vo.getLink());    // 이름
+		pstmt.setString(2, vo.getImgSrc());    // 이름
+		pstmt.setString(3, vo.getItemName());    // 이름
+		pstmt.setInt(4, vo.getItemPrice());    // 이름
+		pstmt.setString(5, vo.getTagColor());    // 이름
+		pstmt.setInt(6, vo.getBookmark());    // 이름
+		pstmt.setString(7, vo.getUserMail());    // 이름
+		pstmt.setInt(8, vo.getItem_idx());    // 이름
+		
+		// 쿼리 실행
+		pstmt.executeUpdate();
+		db.close();
+	}
 	/*아이템 삭제*/
 	public static void delItem(String item_idx) throws Exception {
 		// DB 접속
