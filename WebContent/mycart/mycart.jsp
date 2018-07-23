@@ -38,7 +38,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=5">
 	<style>
 		.selecTab{
@@ -132,40 +131,7 @@ function getItemInfo(idx) {
         }, 
     });    //end ajax 
 }
-/*아이템 수정*/
-function updateInfo() {
-	var u_idx = $('input[name=opt]:checked').val();
-	var name = $("#name").val();   // 모달에서 id 값이 name 인 곳에 값 설정
-	var email = $("#email").val();
-	var phone = $("#phone").val();
-	var pw = $("#pwd").val();
-//  	alert(u_idx + " 번호를 수정 해야함");
-//  	return ;
-	// ajax 사용
-	var path = getContextPath();
-    $.ajax({
-        type: 'POST',
-        url: path + "/updateinfo.tm0",
-        data: {
-            "u_idx" : u_idx,
-            "name" : name,
-            "email" : email,
-            "phone" : phone,
-            "pw" : pw
-        },
-        success: function(data){
-        	console.log(data);
-            if($.trim(data) == 'OK'){
-            	console.log('수정 완료');
-            	alert("수정이 완료 되었습니다.");
-            	// 페이지 새로 고침
-            	location.reload();
-            } else { 
-            	console.log('수정 서버 에러');
-            }
-        }, 
-    });    //end ajax 
-}
+
 /* 아이템 삭제 */
 	function delItem(item_idx){
 		var item = $("#item"+item_idx);
@@ -267,6 +233,7 @@ function updateInfo() {
 				추가</a></li>
 				<!-- <li><a href="#" onclick="modify()">편집</a></li> -->
 				<li><a href="<%=path%>/LogoutServlet">로그아웃</a></li>
+				<li><a href="<%=path%>/myinfo.jsp">회원정보</a></li>
 			</ul>
 			<ul class="sort">
 				<li><a class="tab t4" onclick="tab(this)" href="<%=path%>/SortServlet?sort=4" ><span class="Red"></span></a></li>
@@ -278,7 +245,6 @@ function updateInfo() {
 				<li><a class="tab t1" onclick="tab(this)" href="/moamoa/SortServlet?sort=1">높은 가격 순</a></li>
 				<li><a class="tab t2" onclick="tab(this)" href="/moamoa/SortServlet?sort=2">낮은 가격 순</a></li>
 				<li><a class="tab t3" onclick="tab(this)" href="/moamoa/SortServlet?sort=3">북마크</a></li>
-				<li><a class="tab" onclick="tab(this)" href="<%=path%>/myinfo.jsp">회원정보</a></li>
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -428,11 +394,7 @@ function updateInfo() {
 		obj.style.background="white";
 		obj.style.color="black";
 	}
-	function test(obj){
-		//obj.addClass(".selectTab");
-		obj.style.background="white";
-		obj.style.color="black";
-	}
+	
 	</script>
 </body>
 </html>

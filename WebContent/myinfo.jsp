@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
+String u_idx = (String) session.getAttribute("u_idx");
 String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
 String phone = (String) session.getAttribute("phone");
 String email = (String) session.getAttribute("email");
@@ -12,6 +13,7 @@ String pw = (String) session.getAttribute("pw");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원정보</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Jua');
 @import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script');
@@ -24,6 +26,9 @@ String pw = (String) session.getAttribute("pw");
 a{
 	text-decoration: none;
 }
+ul li{
+	list-style: none;
+}
 header{
 	text-align : center;
 	font-family: 'Fugaz One', cursive;
@@ -32,40 +37,129 @@ header a{
 	color : white;
 }
 body { background : #efe492;}
-.page{
+.hide{
+	display : none;
+}
+.wrap{
 		margin : auto;
 		padding : 20px;
 		border : 1px solid white;
 		background : white;
 		width : 500px;
 		height : 500px;
+		font-size : 18px;
 	}
+.page{
+	margin : auto;
+	padding : 0;
+	width : 400px;
+	height : 400px;
+}
+input { 
+	border : none;
+	background : none;
+	font-size : 18px;
+}
+#buttons{
+	margin : auto;
+	width : 500px;
+	height: 50px;
+}
+.btn{
+	border : none;
+	background : none;
+	font-size : 18px;
+	width : 100px;
+	height :40px;
+	cursor: pointer;
+}
+.btn:hover{
+	background : white;
+	color : orange;
+}
 .userImg{
 	margin : auto;
 	width : 150px;
 	height: 150px;
 	border : 1px solid grey;
 }
+
 </style>
 </head>
 <body>
 <header>
 <h1><a href="<%=path%>/main/main.jsp" >MOA MOA</a></h1>
 </header>
-<div class="page">
-<div class="userImg">
-<img src="" alt="유저 정보">
+<div class="wrap">
+	<div class="userImg">
+	<img src="" alt="유저 정보">
+	</div>
+	<form id="update-user" class="page hide">
+		<ul>
+			<li><input type="text" id="u_idx" value="<%=u_idx %>"></li>
+			<li>이름 <input id="name" type ="text" name ="userName" value="<%=userName%>" placeholder="입력하세요"></li>
+			<li>이메일 <input id="email" type ="text" name ="email" value="<%=email%>" disabled></li>
+			<li>비밀번호 <input id="pw" type ="password" name ="pw" placeholder="입력하세요"></li>
+			<li>비밀번호 확인 <input type ="password" name ="confirm-pw" placeholder="입력하세요"></li>
+			<li>전화번호 <input id="phone" type ="text" name ="phone" value="<%=phone%>" ></li>
+		</ul>
+		<input type="button" onclick="updateUser()" value="저장" class="btn">
+	</form>
+	<div id="userinfo" class="page">
+	<span>이름 : </span><%=userName %>
+	<br>
+	<span>전화번호 : </span><%=phone %>
+	<br>
+	<span>이메일 : </span><%=email %>
+	<br>
+	<span>비밀번호 : </span><%=pw %>
+	<br>
+	</div>
 </div>
-<span>이름 : </span><%=userName %>
-<br>
-<span>전화번호 : </span><%=phone %>
-<br>
-<span>이메일 : </span><%=email %>
-<br>
-<span>비밀번호 : </span><%=pw %>
-<br>
-<button>정보수정</button>
-<button>회원탈퇴</button>
+<div id="buttons">
+	<button class="btn" onclick="updateUserPage()">정보수정</button>
+	<button class="btn">회원탈퇴</button>
 </div>
+<script>
+	/*정보 수정 페이지 오픈*/
+ 	function updateUserPage(){
+ 		$("#update-user").toggle(20);
+ 		$("#userinfo").toggle(20);
+ 	}
+	/*유저 정보 수정 */
+ 	function updateUser(){
+ 		var u_idx = $("#u_idx").val();
+ 		var name = $("#name").val();   // 모달에서 id 값이 name 인 곳에 값 설정
+ 		var email = $("#email").val();
+ 		var phone = $("#phone").val();
+ 		var pw = $("#pw").val();
+
+ 		console.log(u_idx + name + email + phone + pw);
+ 		var path = '/' + location.pathname.split('/')[1];
+		var postUrl = path + "/BookmarkItem"; //서버주소
+ 		
+ 	    $.ajax({
+ 	        type: 'POST',
+ 	        url: postUrl,
+ 	        data: {
+ 	            "u_idx" : u_idx,
+ 	            "name" : name,
+ 	            "email" : email,
+ 	            "phone" : phone,
+ 	            "pw" : pw
+ 	        },
+ 	        success: function(data){
+ 	        	console.log(data);
+ 	            if($.trim(data) == 'OK'){
+ 	            	console.log('수정 완료');
+ 	            	alert("수정이 완료 되었습니다.");
+ 	            	location.reload();
+ 	            } else { 
+ 	            	console.log('수정 서버 에러');
+ 	            }
+ 	        }, 
+ 	    });    //end ajax 
+ 	}
+</script>
 </body>
 </html>
