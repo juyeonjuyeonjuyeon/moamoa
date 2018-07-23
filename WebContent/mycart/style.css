@@ -57,7 +57,6 @@ nav ul{
 	padding:0;
 }
 nav li{
-	border : 1px solid white;
 	list-style-type : none;	
 	margin : 0;
 	padding : 0;
@@ -73,10 +72,11 @@ nav a {
 	color : white;
 	}
 nav a:hover {
-	color : yellow;
+	color : #efe492;
 }
 .sort li{
 	margin-left : 5px;
+	border : 1px solid white;
 	border-top-left-radius : 15px;
 	border-top-right-radius : 15px;
 }
@@ -120,7 +120,7 @@ nav span{
 
 /* 본문 */
 .main{
-	border : 1px solid purple;
+	/* border : 1px solid purple; */
 	position:relative;
 	width:1200px;
 	height:660px;
@@ -222,23 +222,29 @@ nav span{
 	height : 25px;
 	position :absolute;
 	top : 0;
-	right :7px;
-	font-size : 18px;
+	right :20px;
+	font-size : 17px;
 	border:none;
 	background : none;
+	color : grey;
 	cursor: pointer;
-	font-family: 'Fugaz One', cursive
 }
 .delete.btn:hover{
-	border-radius : 50%;
-	background : rgba(0,0,0,0.8);
-	color : white;
+	color : black;
+}
+.bookmark-area{
+	display: inline-block;
 }
 .bookmark{
 	font-family: 'Jua', cursive;
 	font-size: 25px;
 	margin : 0;
 	padding : 0;
+}
+#offBookmark,#onBookmark{
+	border : none;
+	background : none;
+	cursor: pointer;
 }
 .itemName{
 	/* border : 1px solid black; */
@@ -277,15 +283,4 @@ nav span{
 	width : 150px;
 	height : 150px;
 }
-.plus{
-	padding : 0;
-	display : inline-block;
-	width : 100px;
-	height : 100px;
-	background : grey;
-	border-radius : 50%;
-	text-decoration : none;
-	color : white;
-	font-size : 90px;
-	font-weight: bold;
-}
+

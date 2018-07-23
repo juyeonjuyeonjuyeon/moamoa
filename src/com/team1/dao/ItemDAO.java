@@ -164,7 +164,7 @@ AUTO_INCREMENT=2
 		// DB 접속
 		Connection db = DBConn.getConnection();
 		// 쿼리 날려서 유저 정보를 삽입(link, imgSrc, itemName, itemPrice, tagColor, bookmark, userMail)
-		String sql  = "update user set link=?, imgSrc=?, itemName=?, itemPrice=?, tagColor=?, bookmark=?, userMail=? where item_idx=?";
+		String sql  = "update item set link=?, imgSrc=?, itemName=?, itemPrice=?, tagColor=?, bookmark=?, userMail=? where item_idx=?";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, vo.getLink());    // 이름
 		pstmt.setString(2, vo.getImgSrc());    // 이름
@@ -187,6 +187,20 @@ AUTO_INCREMENT=2
 		String sql  = "delete from item where item_idx = ?";
 		PreparedStatement pstmt = db.prepareStatement(sql);
 		pstmt.setString(1, item_idx);
+		
+		// 쿼리 실행
+		pstmt.executeUpdate();
+		db.close();
+	}
+	/*아이템 북마크 추가*/
+	public static void bookmarkItem(int bookmark, String item_idx) throws Exception {
+		// DB 접속
+		Connection db = DBConn.getConnection();
+		
+		String sql  = "update item set bookmark=? where item_idx=?";
+		PreparedStatement pstmt = db.prepareStatement(sql);
+		pstmt.setInt(1, bookmark);
+		pstmt.setString(2, item_idx);
 		
 		// 쿼리 실행
 		pstmt.executeUpdate();

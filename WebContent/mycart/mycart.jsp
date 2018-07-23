@@ -6,6 +6,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
+
 	String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
 	String email = (String) session.getAttribute("email"); // 로그인한 유저메일
 	int itemCnt = 0;//아이템 개수
@@ -38,7 +39,7 @@
 	<title>MOAMOA</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=3">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=5">
 	<style>
 		.selecTab{
 			background : white;
@@ -56,29 +57,8 @@ window.onload = function () {
 		//북마크 초기화
 	document.getElementById("bookmark").value = "0";
 	console.log("start"+document.getElementById("bookmark").value);
-	/* 북마크 버튼 작동 함수  */
-	function onCheck(obj){
-		var checkbox = document.getElementById("bookmark"),
-		other = document.getElementById("offBookmark");
-		
-		document.getElementById("bookmark").checked = true;
-		document.getElementById("bookmark").value = "1";
-		
-		obj.style.display = "none";
-		other.style.display = "inline-block";
-		console.log("on"+document.getElementById("bookmark").value);
-	}
-	function offCheck(obj){
-		var checkbox = document.getElementById("bookmark"),
-		other = document.getElementById("onBookmark");
-		
-		document.getElementById("bookmark").checked = false;
-		document.getElementById("bookmark").value = "0";
-		
-		obj.style.display = "none";
-		other.style.display = "inline-block";
-		console.log("off"+document.getElementById("bookmark").value);
-	}
+	
+	
 	/*메뉴 탭 css*/
 	var tab0 = $(".t0"),tab1 = $(".t1"),tab2 = $(".t2")
 	,tab3 = $(".t3"),tab4 = $(".t4"),tab5 = $(".t5")
@@ -214,6 +194,45 @@ function updateInfo() {
 	        }, 
 	    });    //end ajax 
 	}
+	/* 북마크 추가 */
+	function bookmark(item_idx){
+		var item = $("#item"+item_idx),
+		checkbox = $("#bookmark"+item_idx).val();
+		console.log('bookmark');
+		
+		if(checkbox == 0){
+		console.log(checkbox);
+			checkbox.checked = true;
+			checkbox = 1;
+		console.log(checkbox);
+		}else{
+		console.log(checkbox);
+			checkbox.checked = false;
+			checkbox = 0;
+		console.log(checkbox);
+		}
+		
+		// ajax 사용
+		var path = '/' + location.pathname.split('/')[1];
+		var postUrl = path + "/BookmarkItem"; //서버주소
+	    $.ajax({
+	        type: 'POST',
+	        url: postUrl,
+	        data: {
+	            "item_idx" : item_idx,
+	            "bookmark" : checkbox
+	        },
+	        success: function(data){
+	        	console.log(data);
+	            if($.trim(data) == 'OK'){
+	            	console.log('삭제완료');
+	            	location.reload();   // 페이지 새로 고침
+	            } else { 
+	            	console.log('서버 에러');
+	            }
+	        }, 
+	    });    //end ajax 
+	}
 /* 편집창 불러오기 */
 	function modify(){
 	$(".modify").fadeToggle(950);
@@ -227,32 +246,7 @@ function updateInfo() {
 	function goDown(){
 		$(".item").animate({top:"+=220"},500);
 	} 
-	/*탭 이벤트*/
-	function tab(obj){
-	/* 	var i, defaultTab, tablinks;
-		defaultTab = $(".home");
-		tanlinks = $(".tab");
-		for(i = 0; i<tablinks.length; i++){
-			tanlinks[i].className.replace("active", "");
-		}
-		evt.currentTarget.className += " active"; */
-		var i, tablinks;
-		//탭
-		tablinks = $(".tab");
-		//다른 탭의 선택 효과 지우기
-		for(i = 0; i<tablinks.length; i++){
-			tablinks[i].removeClass(".active");
-		}
-		//현재 클릭한 탭에 효과 넣기
-		//obj.addClass(".selectTab");
-		obj.style.background="white";
-		obj.style.color="black";
-	}
-	function test(obj){
-		//obj.addClass(".selectTab");
-		obj.style.background="white";
-		obj.style.color="black";
-	}
+	
  
 </script>
 </head>
@@ -271,7 +265,7 @@ function updateInfo() {
 			<ul>
 				<li><a href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,toolbar=no,scrollbars=yes');" >
 				추가</a></li>
-				<li><a href="#" onclick="modify()">편집</a></li>
+				<!-- <li><a href="#" onclick="modify()">편집</a></li> -->
 				<li><a href="<%=path%>/LogoutServlet">로그아웃</a></li>
 			</ul>
 			<ul class="sort">
@@ -284,6 +278,7 @@ function updateInfo() {
 				<li><a class="tab t1" onclick="tab(this)" href="/moamoa/SortServlet?sort=1">높은 가격 순</a></li>
 				<li><a class="tab t2" onclick="tab(this)" href="/moamoa/SortServlet?sort=2">낮은 가격 순</a></li>
 				<li><a class="tab t3" onclick="tab(this)" href="/moamoa/SortServlet?sort=3">북마크</a></li>
+				<li><a class="tab" onclick="tab(this)" href="<%=path%>/myinfo.jsp">회원정보</a></li>
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -335,11 +330,11 @@ function updateInfo() {
 			<!-- item 박스 -->
 			<div class="item" id="item<%=item_idx%>">
 			<!-- 편집 상자 -->
-			<div class="modify">
+			<%-- <div class="modify">
 				<p><%=item_idx%></p>
 				<button class="btn" type="button" onclick="delItem(<%=item_idx%>)">삭제</button>
 				<button class="btn" type="button" onclick=" getItemInfo(<%=item_idx%>)">수정</button>
-			</div>
+			</div> --%>
 				<button class="btn delete" type="button" onclick="delItem(<%=item_idx%>)">X</button>
 				<!-- item 이미지 영역 -->
 				<div class="itemImg">
@@ -351,14 +346,24 @@ function updateInfo() {
 				<div class="item_info">
 					<!-- item 이름-->
 					<div class="itemName">
+					
 					<!-- item 북마크 : 토글버튼 구현하기 -->
 						<%if(bookmark == 0){%>
+						<div class="bookmark-area">
 						<%-- <span class="bookmark <%=tagColor %>">☆</span> --%>
-						<button type="button" class="bookmark <%=tagColor %>" id="onBookmark" onclick="onCheck(this)">☆</button>
+						<button type="button" class="bookmark <%=tagColor %>" id="onBookmark" onclick="bookmark(<%=item_idx%>)">☆</button>
+						<%-- <button	type="button" class="bookmark <%=tagColor %> hide" id="offBookmark" onclick="offCheck(<%=item_idx%>,this)">★</button> --%>
+						<input id="bookmark<%=item_idx%>" class="hide" name="bookmark" type="checkbox" value="0" />
+						</div>
 						<%}else{%>
+						<div class="bookmark-area">
 						<%-- <span class="bookmark <%=tagColor %>">★</span> --%>
-						<button	type="button" class="bookmark <%=tagColor %> hide" id="offBookmark" onclick="offCheck(this)">★</button>
+						<%-- <button type="button" class="bookmark <%=tagColor %> hide" id="onBookmark" onclick="onCheck(<%=item_idx%>,this)">☆</button> --%>
+						<button	type="button" class="bookmark <%=tagColor %>" id="offBookmark" onclick="bookmark(<%=item_idx%>)">★</button>
+						<input id="bookmark<%=item_idx%>"   class="hide" name="bookmark" type="checkbox" value="1" />
+						</div>
 						<%} %>
+					
 					<!-- item 정보 : 이름 -->
 						<a href="<%=link%>" target="_blank"><%=itemName %></a>
 					</div>
@@ -378,49 +383,56 @@ function updateInfo() {
 			<!-- 아이템 끝 -->
 		</div>
 	</div>
-	 <!-- Modal 시작 -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">아이템 수정</h4>
-        </div>
-        <div class="modal-body">
-           <div class="form-group">
-		    <label for="link">링크</label>
-		    <input type="text" class="form-control" id="link">
-		  </div>
-		  <div class="form-group">
-		    <label for="imgSrc">이미지</label>
-		    <input type="text" class="form-control" id="imgSrc">
-		  </div>
-		  <div class="form-group">
-		    <label for="itemName">이름</label>
-		    <input type="text" class="form-control" id="itemName">
-		  </div>
-		  <div class="form-group">
-		    <label for="itemPrice">가격</label>
-		    <input type="number" class="form-control" id="itemPrice">
-		  </div>
-		  <div class="form-group">
-		    <label for="tagColor">태그</label>
-		    <input type="text" class="form-control" id="tagColor">
-		  </div>
-		  <div class="form-group">
-		    <label for="bookmark">북마크</label>
-		    <input type="text" class="form-control" id="bookmark">
-		  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" onclick="updateInfo()" data-dismiss="modal">저장</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-<!--   모달 끝 -->  
+	<script>
+	/* 북마크 버튼 작동 함수  */
+	function onCheck(id,obj){
+		var checkbox = document.getElementById("bookmark"+id),
+		other = document.getElementById("offBookmark");
+		
+		document.getElementById("bookmark"+id).checked = true;
+		document.getElementById("bookmark"+id).value = "1";
+		
+		obj.style.display = "none";
+		other.style.display = "inline-block";
+		console.log("on"+document.getElementById("bookmark").value);
+	}
+	function offCheck(id,obj){
+		var checkbox = document.getElementById("bookmark"+id),
+		other = document.getElementById("onBookmark");
+		
+		document.getElementById("bookmark"+id).checked = false;
+		document.getElementById("bookmark"+id).value = "0";
+		
+		obj.style.display = "none";
+		other.style.display = "inline-block";
+		console.log("off"+document.getElementById("bookmark").value);
+	}
+	/*탭 이벤트*/
+	function tab(obj){
+	/* 	var i, defaultTab, tablinks;
+		defaultTab = $(".home");
+		tanlinks = $(".tab");
+		for(i = 0; i<tablinks.length; i++){
+			tanlinks[i].className.replace("active", "");
+		}
+		evt.currentTarget.className += " active"; */
+		var i, tablinks;
+		//탭
+		tablinks = $(".tab");
+		//다른 탭의 선택 효과 지우기
+		for(i = 0; i<tablinks.length; i++){
+			tablinks[i].removeClass(".active");
+		}
+		//현재 클릭한 탭에 효과 넣기
+		//obj.addClass(".selectTab");
+		obj.style.background="white";
+		obj.style.color="black";
+	}
+	function test(obj){
+		//obj.addClass(".selectTab");
+		obj.style.background="white";
+		obj.style.color="black";
+	}
+	</script>
 </body>
 </html>

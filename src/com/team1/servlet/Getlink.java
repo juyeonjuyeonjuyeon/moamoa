@@ -101,7 +101,7 @@ public class Getlink extends HttpServlet {
 		// 쿠팡 - ok
 		}else if(link.contains("coupang.com")) {
 			itemName = document.select("h2.prod-buy-header__title").text();
-			itemPrice = document.select("span.total-price strong").text();
+			itemPrice = document.select("span.total-price strong").first().text();
 			imgSrc = "http:"+ document.select("img.prod-image__detail").attr("src");
 			itemPrice = itemPrice.replace("원", "");
 		//그외 쇼핑몰
