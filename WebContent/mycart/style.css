@@ -7,6 +7,10 @@
 *{
 	box-sizing : border-box;
 }
+/* 크롬 인풋 기본 스타일 제거 */
+	input:focus {
+  		outline: none;
+	}
 body{
 	/* background : #14356b; */
 	background-image : url("galaxy.gif");

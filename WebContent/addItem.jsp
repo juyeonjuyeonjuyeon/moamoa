@@ -26,6 +26,10 @@
 *{
 	box-sizing: border-box;
 }
+/* 크롬 인풋 기본 스타일 제거 */
+	input:focus {
+  		outline: none;
+	}
 body{
 	margin:0;
 	background : #ff8040;

@@ -33,56 +33,48 @@ public class LoginProc extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("login dao");
 		// userid 와 userpw를 전달 받아서 eamil, pw
 		String email = request.getParameter("userId");
 		String pw = request.getParameter("userPw");
+		
 		// 잘 넘어 오는지 확인용
-		System.out.println("email: "  + email);
+		System.out.println("email: "  + email + "/pw : "+ pw);
+		
 		// UserVO 를 전달 해도 되고
 		UserVO vo = new UserVO();
 		vo.setEmail(email);
 		vo.setPw(pw);
 		
 		String path = request.getContextPath();
+		String site = "main/main.jsp"; //로그인 실패시 되돌아갈 메인페이지
 		PrintWriter out = response.getWriter();  // 화면 출력
 		
-		
 		try {
-//			if (UserDAO.getUser(vo)) {
 			UserVO uvo  = UserDAO.getUser(email, pw);
-			if (vo.getEmail().equals(uvo.getEmail()) && vo.getPw().equals(uvo.getPw())) {
-
+			if (uvo != null) {
 				HttpSession session = request.getSession();
+				session.setAttribute("u_idx", uvo.getU_idx());
 				session.setAttribute("email", uvo.getEmail());  
 				session.setAttribute("pw", uvo.getPw());
 				session.setAttribute("name", uvo.getName());
-				// 로그인 성공
-				//out.println("YES");
-				System.out.println("y");
-
+				
+				System.out.println("로그인 성공");
+				response.sendRedirect(site);
 			} else {
 				// 로그인 실패
-				//out.println("NO");
-				System.out.println("n");
-
+				System.out.println("로그인 실패");
+				site = "main/login-agin.jsp";
+				response.sendRedirect(site);
+				/*return;*/
 			}
-			
-			response.sendRedirect(path + "/main/main.jsp");
-			
 			//RequestDispatcher dis = request.getRequestDispatcher("main/main.jsp");
 			//dis.forward(request, response);
-			
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
-	}
+	}//doget
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

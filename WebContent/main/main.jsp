@@ -7,45 +7,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MOAMOA</title>
-<link rel="stylesheet" type="text/css" href="<%=path%>/main/style.css?ver=2">
-
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>MOAMOA</title>
+	<link rel="stylesheet" type="text/css" href="<%=path%>/main/style.css?ver=1">
+	<!-- 로그인 값이 있을 경우 admin화면으로 넘어간다 -->
+	<%if (name != null) {%>
+	<script type="text/javascript">location.href="<%=path%>/admin/admin.jsp";</script>
+	<%}%>
 </head>
 <body>
-<!-- 네온사인 간판 헤더 -->
-<header>
-	<h1 id="neonsign"><a href="#">MOA MOA</a></h1>
-</header>
-
-	<%
-		if (name != null) {
-	%>
-	<%=name%>
-	님 환영합니다.
-
-	<script type="text/javascript">
-	location.href="<%=path%>/admin/admin.jsp";	
+	<!-- 네온사인 간판 헤더 -->
+	<header id="neonsign">
+		<h1><a href="#">MOA MOA</a></h1>
+	</header>
 	
-	</script>
-	<%
-		} else{		
-	%>
+	<!-- 메인 페이지 -->
+	<div id="main-page">
+	<div id="buttons">
+		<a class="window" id="goInfo" href="#moamoaPage">moa moa</a>
+		<div class="window" id="goCart"></div>
+		<a class="window" id="login" href="#loginPage">login</a>
+	</div>
 
-	<%} %>
-<!-- 메인 페이지 -->
-<div id="buttons">
-	<!-- <button id="addWish" onclick="goReplace('mycart/mycart.jsp')">add wish</button> -->
-	<a class="window" id="goInfo" href="#moamoaPage">moa moa</a>
-	<div class="window" id="goCart"></div>
-	<a class="window" id="login" href="#loginPage">login</a>
-</div>
-
-
-<div id="night">
-<div id="moon"><div id="moonShadow"></div></div>
-</div>
-
+	<div id="night">
+	<div id="moon"><div id="moonShadow"></div></div>
+	</div>
+	</div>
 <!-- 로그인 페이지 -->
 <div id="loginPage">
 	<form action="<%=path %>/LoginProc" method="post">
@@ -93,7 +80,6 @@
 				<a href="http://www.gmarket.co.kr/" target="_blank">♧ 지마켓</a>
 				<a href="http://www.11st.co.kr/html/main.html" target="_blank">♧ 11번가</a>
 				<a href="http://www.coupang.com/" target="_blank">♧ 쿠팡</a>
-				<a href="http://www.ticketmonster.co.kr/home" target="_blank">♧ 티몬</a>
 				<a href="https://www.zara.com/kr/#utm_referrer=https%3A%2F%2Fwww.google.co.kr%2F" target="_blank">♧ ZARA</a>
 				<br>♣ 이 외의 사이트는 직접 입력
 				<br>♣ 추후 업데이트

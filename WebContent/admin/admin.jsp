@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
 		String path = request.getContextPath();
-		String name = (String) session.getAttribute("name");
+		String email = (String) session.getAttribute("email");
+		String pw = (String) session.getAttribute("pw");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
 <title>MOAMOA</title>
 <link rel="stylesheet" type="text/css" href="<%=path%>/admin/style.css?ver=1">
 <%
-	System.out.println(path);
+	System.out.println(email +" - "+ pw);
 %>
 
 </head>
@@ -27,7 +28,9 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 </header>
 
 <div id="buttons">
-	<!-- <button id="addWish" onclick="goReplace('mycart/mycart.jsp')">add wish</button> -->
+	<%if(email.equals("1")){%>
+	<a id="adminUser" href="<%=path%>/AdminServlet" style="width : 300px; height : 20px;background : none;border:none;font-size : 15px;font-family : sans-serif">회원관리</a>
+	<%}%>
 	<a id="addWish" href="#moamoaPage">moa moa</a>
 	<a id="goCart" href="<%=path%>/SortServlet">my cart</a>
 	<a id="logout" href="<%=path%>/LogoutServlet">log out</a>

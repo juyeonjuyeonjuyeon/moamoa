@@ -1,3 +1,4 @@
+<%@page import="com.team1.vo.ItemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -23,6 +24,10 @@ String pw = (String) session.getAttribute("pw");
 *{
 	box-sizing : border-box;
 }
+/* 크롬 인풋 기본 스타일 제거 */
+	input:focus {
+  		outline: none;
+	}
 a{
 	text-decoration: none;
 }
@@ -37,6 +42,7 @@ header a{
 	color : white;
 }
 body { background : #efe492;}
+
 .hide{
 	display : none;
 }
@@ -82,17 +88,34 @@ input {
 	width : 150px;
 	height: 150px;
 	border : 1px solid grey;
+	border-radius : 50%;
+	overflow : hidden;
+}
+.userImg img{
+	width : 150px;
+	height : 150px;
 }
 
 </style>
 </head>
 <body>
+<%
+/* ArrayList<UserVO> user = UserDAO.getUser(u-idx);
+	for (UserVO vo : user) {
+		String u_idx = vo.
+		String name = vo.getItemName();
+		String phone = vo.getItemPrice();
+		String email = vo.getTagColor();
+		String pw = vo.getBookmark();
+	} */
+
+%>
 <header>
-<h1><a href="<%=path%>/main/main.jsp" >MOA MOA</a></h1>
+		<h1><a href="<%=path%>/main/main.jsp" >MOA MOA</a></h1>
 </header>
 <div class="wrap">
 	<div class="userImg">
-	<img src="" alt="유저 정보">
+	<img class="profile" src="<%=path%>/img/profile.png" alt="유저 정보">
 	</div>
 	<form id="update-user" class="page hide">
 		<ul>
@@ -136,7 +159,7 @@ input {
 
  		console.log(u_idx + name + email + phone + pw);
  		var path = '/' + location.pathname.split('/')[1];
-		var postUrl = path + "/BookmarkItem"; //서버주소
+		var postUrl = path + "/UpdateUser"; //서버주소
  		
  	    $.ajax({
  	        type: 'POST',

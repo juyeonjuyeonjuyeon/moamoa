@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Jua');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script');
+@import url('https://fonts.googleapis.com/css?family=Handlee');
+@import url('https://fonts.googleapis.com/css?family=Chela+One');
+@import url('https://fonts.googleapis.com/css?family=Fugaz+One');
+*
+{
+box-sizing : border-box;
+}
+body{
+	background : #11cdee;
+	background-size : 100% 1000px;
+	margin : 0;
+	padding : 0;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+header{
+	background : none;
+	height : 100px;
+	text-align: center;
+}
+a{
+	color : white;
+	text-decoration: none;
+	font-family: 'Fugaz One', cursive;
+}
+input:focus, button:focus {
+  	outline: 2px solid yellow;
+}
+.btn{
+	cursor: pointer;
+}
+
+/* 로그인 */
+#loginPage a{
+	color : black;
+	text-decoration: none;
+	display : block;
+	text-align: center;
+}
+#loginPage form{
+	margin:auto;
+	width : 500px;
+	height: 500px;
+	background : white;
+	padding : 10px;
+	font-family: 'Fugaz One', cursive;
+}
+#loginPage h3{
+	font-size :25px;
+	margin : 5px -10px 20px 20px;
+}
+[type = "text"],[type = "password"]{ 
+	margin : 3px 10px;
+	width : 200px;
+	height : 30px;
+}
+#loginPage .btn{
+	background:#c0c0c0 ;
+	border: none;
+	font-family: 'Fugaz One', cursive;
+}
+#loginPage table {
+	margin : auto;
+}
+#loginPage .btn:hover{
+	background:#11cdee ;
+	border: none;
+}
+.loginBtn{
+	width : 50px;
+	height: 75px;
+}
+.joinBtn{
+	width : 100px;
+	height: 40px;
+	position: relative;
+	top: 50px;
+	left: 90px;
+}
+.error{
+	display : block;
+	margin : 20px;
+	width : 400px;
+	height : auto;
+	font-family :sans-serif;
+	color : #dd3d00;	
+}
+
+
+
