@@ -38,6 +38,7 @@ header a{
 }
 	/* 메뉴 */
 nav{
+	position : relative;
 	margin:auto;
 	position:relative; 
 	padding:0;
@@ -51,6 +52,40 @@ nav{
 	padding : 0 20px;
 	font-weight : bold;
 	}
+	/*친구 장바구니 찾기 검색창*/
+#search-friend{
+	position : absolute;
+	top : 0;
+	right : 0;
+	display : inline-block;
+	width : 150px;
+	height : 30px;
+}
+#search-friend input{
+	margin : 0;
+	background : none;
+	border : none;
+	border-bottom : 1px solid white;
+	width : 100px;
+	height : 30px;
+	font-size : 12px;
+	color : white;
+}
+#search-friend .btn{
+	margin : 0;
+	display : inline-block;
+	background : none;
+	border: none;
+	width : 40px;
+	height : 30px;
+	color: white;
+	font-family: 'Fugaz One', cursive;
+	cursor: pointer;
+}
+#search-friend .btn:hover{
+	color : orange;
+}
+/*메뉴*/
 .menu{
 	width : 1200px;
 	height : 50px;

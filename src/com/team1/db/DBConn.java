@@ -15,9 +15,9 @@ public class DBConn {
 
 		String user = "root"; // java
 		String pw = "1234!"; // java
-		/*String user = "team1"; // java
-		String pw = "moa1234!"; // java
-*/		
+		//String user = "team1"; // java
+		//String pw = "moa1234!"; // java
+	
 		// 드라이버 로딩(jar 파일 로드)
 		Class.forName(driver);
 		Connection conn = DriverManager.getConnection(url, user, pw);

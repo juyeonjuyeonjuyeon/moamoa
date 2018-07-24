@@ -8,7 +8,8 @@
 	String path = request.getContextPath();
 
 	String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
-	String email = (String) session.getAttribute("email"); // 로그인한 유저메일
+	String friendEmail = (String)request.getAttribute("friendID");
+	// 친구 이메일
 	int itemCnt = 0;//아이템 개수
 	String sortID = "0";//정렬 키 : 0최신순,1고가순,2저가순,3북마크,4레드,5주황,6그린,7블루,8보라)
 	
@@ -26,7 +27,7 @@
 	ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();
   	for (ItemVO vo : getItemCnt) {
   		userMail = vo.getUserMail();
-	 	if(!userMail.equals(email)){
+	 	if(!userMail.equals(friendEmail)){
 	 		continue;
 	 	}
   		itemCnt++;
@@ -186,21 +187,11 @@ function getItemInfo(idx) {
 	<!--메뉴 -->
 	<nav>
 		<div id="comment">
-			<p>안녕하세요. <%=userName%> 님. 총 <%=itemCnt%>개의 상품이 담겨있습니다.</p>
-		</div>
-		<!-- 친구 찾기 -->
-		<div id="search-friend">
-		<form action="<%=path%>/GoFriendCart" method="post">
-			<input id="friendID" name="friendID" type="text" placeholder="친구 아이디 입력">
-			<input type="submit" class="btn" value="go">
-		</form>
+			<p>안녕하세요. <%=userName%> 님. 친구 장바구니에는 총 <%=itemCnt%>개의 상품이 담겨있습니다.</p>
 		</div>
 		<div class="menu">
 			<ul>
-				<li><a href="javascript:window.open('<%=path%>/addItem.jsp','write your wish','width=500,height=500,location=no,toolbar=no,scrollbars=yes');" >
-				추가</a></li>
-				<!-- <li><a href="#" onclick="modify()">편집</a></li> -->
-				<li><a href="<%=path%>/LogoutServlet">로그아웃</a></li>
+				<li><a href="<%=path%>/mycart.jsp">내 장바구니</a></li>
 			<%-- 	<li><a href="<%=path%>/myinfo.jsp">회원정보</a></li> --%>
 			</ul>
 			<ul class="sort">
@@ -242,7 +233,7 @@ function getItemInfo(idx) {
 			 	userMail = vo.getUserMail();
 			 	
 			 	//아이템에 저장된 메일과 로그인한 메일이 다르면 다음 아이템 호출
-			 	if(!userMail.equals(email)){
+			 	if(!userMail.equals(friendEmail)){
 			 		continue;
 			 	}
 				// 이미지 소스를 불러오지 못햇을 경우 
@@ -316,19 +307,19 @@ function getItemInfo(idx) {
 		</div>
 	</div>
 	<script>
-	/* /* 친구찾기 */
+	/* 친구찾기 */
 	function goFriend(){
-		var friendID = $("#friendID").val();
-		console.log(friendID);
-		/* 
-		// ajax 사용
+		var friend = $("#friendID").val();
+		console.log(friend);
+		
+		/* // ajax 사용
 		var path = '/' + location.pathname.split('/')[1];
-		var postUrl = path + "/GoFriendCart"; //서버주소
+		var postUrl = path + "/DelItem"; //서버주소
 	    $.ajax({
 	        type: 'POST',
 	        url: postUrl,
 	        data: {
-	            "friendID" : friendID
+	            "item_idx" : item_idx
 	        },
 	        success: function(data){
 	        	console.log(data);
@@ -339,8 +330,8 @@ function getItemInfo(idx) {
 	            	console.log('서버 에러');
 	            }
 	        }, 
-	    });    */
-	} */
+	    });    //end ajax  */
+	}
 	/* 북마크 버튼 작동 함수  */
 	function onCheck(id,obj){
 		var checkbox = document.getElementById("bookmark"+id),

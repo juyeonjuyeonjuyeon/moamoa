@@ -37,6 +37,7 @@ public class AddItem extends HttpServlet {
 	 */
 	@SuppressWarnings("null")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String site = "addItem.jsp";
 		/*한글 깨짐 해결*/
 		request.setCharacterEncoding("UTF-8");
 		
@@ -92,10 +93,18 @@ public class AddItem extends HttpServlet {
 		ivo.setTagColor(tagColor);
 		ivo.setBookmark(Integer.parseInt(bookmark.trim()));
 		ivo.setUserMail(userMail);
+		
 		/*DB 성공여부 테스트 출력*/
 		try {
 			ItemDAO.InsertItem(ivo);
-			out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"
+			out.println("<script>");
+			out.println("alert('" + "저장되었습니다" + "');");
+			out.println("history.back(-1);");
+			//out.println("location.reload();");
+			out.println("</script>");
+			//response.sendRedirect(site);
+			//test
+			/*out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"
 					+ "아이템 저장 성공</a></h1>");	
 			out.println("<img style='width:50px;height:50px' src=' "+imgSrc+" '>"+
 					"<br><br>userMail-"+userMail+
@@ -103,7 +112,7 @@ public class AddItem extends HttpServlet {
 					"<br><br> name-"+itemName+
 					"<br><br> price-"+itemPrice+
 					"<br><br> tag-"+tagColor+
-					"<br><br> bookmark-"+bookmark);
+					"<br><br> bookmark-"+bookmark);*/
 			
 		} catch (Exception e) {
 			out.println("<h1><a href='addItem.jsp' style='text-decoration:none;color:green;'>"

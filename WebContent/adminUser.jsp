@@ -142,7 +142,12 @@ function updateInfo() {
 //유저 삭제
 function delInfo() {
 	var u_idx = $('input[name=opt]:checked').val();
-	alert(u_idx + " 정보를 삭제 하시겠습니까? ");
+	if (!confirm("삭제 하시겠습니까? ")) {
+        return;
+    }else{
+    	/* var item = $("#item"+item_idx);
+		item.css("display","none"); */
+	}
 	// ajax 사용
 	var path = '/' + location.pathname.split('/')[1];
 	var postUrl = path + "/UpdateUser"; //서버주소

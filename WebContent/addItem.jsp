@@ -276,6 +276,18 @@ window.onload = function () {
 	document.getElementById("bookmark").value = "0";
 	console.log("start"+document.getElementById("bookmark").value);
 }
+/* 인풋박스 자동 선택*/
+$(document).ready(function(){
+  $("#imgSrc").on("click", function(){
+    $(this).select();
+  });
+  $("#itemLink").on("click", function(){
+	    $(this).select();
+	  });
+  $("#itemName").on("click", function(){
+	    $(this).select();
+	  });
+});
 /* 북마크 버튼 작동 함수  */
 function onCheck(obj){
 	var checkbox = document.getElementById("bookmark"),

@@ -21,7 +21,7 @@
 var str = "http://localhost/moamoa/mycart/mycart.jsp";
 function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycart.jsp"); } 
 </script> -->
-
+<div id="main-page">
 <!-- 네온사인 간판 헤더 -->
 <header>
 	<h1 id="neonsign"><a href="#">MOA MOA</a></h1>
@@ -39,7 +39,7 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 <div id="night">
 	<div id="moon"><div id="moonShadow"></div></div>
 </div>
-
+<div id="main-page">
 <!--모아모아 정보 페이지 -->
 <footer>
 	<div id = "moamoaPage">
