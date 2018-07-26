@@ -1,3 +1,4 @@
+<%@page import="com.team1.vo.UserVO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="com.team1.dao.ItemDAO"%>
 <%@page import="com.team1.vo.ItemVO"%>
@@ -6,9 +7,19 @@
     pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
+	
+	UserVO uvo = (UserVO)session.getAttribute("user_vo");
+	if(uvo == null){ %>
+		<script>
+			alert("로그인 하세요");
+			location.href="<%=path%>/main/main.jsp";
+		</script>
+	<% }
+	String userName = uvo.getName(); // 사용자 닉네임 가져오기
+	String email = uvo.getEmail(); // 로그인한 유저메일
 
-	String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
 	String friendEmail = (String)request.getAttribute("friendID");
+	/* ArrayList<ItemVO> itemList = (ArrayList<ItemVO>)request.getAttribute("itemList"); */
 	// 친구 이메일
 	int itemCnt = 0;//아이템 개수
 	String sortID = "0";//정렬 키 : 0최신순,1고가순,2저가순,3북마크,4레드,5주황,6그린,7블루,8보라)
@@ -24,20 +35,22 @@
 	String userMail = "0";//아이템에 저장된 유저메일
 	
 	/*아이템 개수 구하기*/
-	ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();
-  	for (ItemVO vo : getItemCnt) {
+	ArrayList<ItemVO> getList = (ArrayList<ItemVO>)request.getAttribute("itemList");
+/*  	 ArrayList<ItemVO> getItemCnt = ItemDAO.getItem();  */
+/*   	for (ItemVO vo : getItemCnt) {
   		userMail = vo.getUserMail();
 	 	if(!userMail.equals(friendEmail)){
 	 		continue;
 	 	}
   		itemCnt++;
-  	}
+  	}  */
 %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script
@@ -92,79 +105,6 @@ function getItemInfo(idx) {
     });    //end ajax 
 }
 
-/* 아이템 삭제 */
-	function delItem(item_idx){
-		/* var item_idx = $('input[name=opt]:checked').val(); */
-		//confirm(item_idx + "삭제 하시겠습니까? ");
-		if (!confirm(item_idx + "삭제 하시겠습니까? ")) {
-	        return;
-	    }else{
-	    	var item = $("#item"+item_idx);
-			item.css("display","none");
-		}
-		// ajax 사용
-		var path = '/' + location.pathname.split('/')[1];
-		var postUrl = path + "/DelItem"; //서버주소
-	    $.ajax({
-	        type: 'POST',
-	        url: postUrl,
-	        data: {
-	            "item_idx" : item_idx
-	        },
-	        success: function(data){
-	        	console.log(data);
-	            if($.trim(data) == 'OK'){
-	            	console.log('삭제완료');
-	            	location.reload();   // 페이지 새로 고침
-	            } else { 
-	            	console.log('서버 에러');
-	            }
-	        }, 
-	    });    //end ajax 
-	}
-	/* 북마크 추가 */
-	function bookmark(item_idx){
-		var item = $("#item"+item_idx),
-		checkbox = $("#bookmark"+item_idx).val();
-		console.log('bookmark');
-		
-		if(checkbox == 0){
-		console.log(checkbox);
-			checkbox.checked = true;
-			checkbox = 1;
-		console.log(checkbox);
-		}else{
-		console.log(checkbox);
-			checkbox.checked = false;
-			checkbox = 0;
-		console.log(checkbox);
-		}
-		
-		// ajax 사용
-		var path = '/' + location.pathname.split('/')[1];
-		var postUrl = path + "/BookmarkItem"; //서버주소
-	    $.ajax({
-	        type: 'POST',
-	        url: postUrl,
-	        data: {
-	            "item_idx" : item_idx,
-	            "bookmark" : checkbox
-	        },
-	        success: function(data){
-	        	console.log(data);
-	            if($.trim(data) == 'OK'){
-	            	console.log('삭제완료');
-	            	location.reload();   // 페이지 새로 고침
-	            } else { 
-	            	console.log('서버 에러');
-	            }
-	        }, 
-	    });    //end ajax 
-	}
-/* 편집창 불러오기 */
-	function modify(){
-	$(".modify").fadeToggle(950);
-	}
 /*페이지 슬라이드*/
 	/*이전버튼*/
 	function goUp(){
@@ -187,14 +127,13 @@ function getItemInfo(idx) {
 	<!--메뉴 -->
 	<nav>
 		<div id="comment">
-			<p>안녕하세요. <%=userName%> 님. 친구 장바구니에는 총 <%=itemCnt%>개의 상품이 담겨있습니다.</p>
+			<p>안녕하세요. <%=userName%> 님. 친구 <%=friendEmail %>님의 장바구니에는 총 <%=getList.size()%>개의 상품이 담겨있습니다.</p>
 		</div>
 		<div class="menu">
 			<ul>
-				<li><a href="<%=path%>/mycart.jsp">내 장바구니</a></li>
-			<%-- 	<li><a href="<%=path%>/myinfo.jsp">회원정보</a></li> --%>
+				<li><a href="<%=path%>/SortServlet">내 장바구니</a></li>
 			</ul>
-			<ul class="sort">
+			<%-- <ul class="sort">
 				<li><a onclick="tab(this)" href="<%=path%>/SortServlet?sort=4" ><span class="Red"></span></a></li>
 				<li><a onclick="tab(this)" href="<%=path%>/SortServlet?sort=5" ><span class="Orange"></span></a></li>
 				<li><a onclick="tab(this)" href="<%=path%>/SortServlet?sort=6" ><span class="Green"></span></a></li>
@@ -204,7 +143,7 @@ function getItemInfo(idx) {
 				<li><a onclick="tab(this)" href="/moamoa/SortServlet?sort=1">높은 가격 순</a></li>
 				<li><a onclick="tab(this)" href="/moamoa/SortServlet?sort=2">낮은 가격 순</a></li>
 				<li><a onclick="tab(this)" href="/moamoa/SortServlet?sort=3">북마크</a></li>
-			</ul>
+			</ul> --%>
 			<div class="clear"></div>
 		</div>
 	</nav>
@@ -221,7 +160,7 @@ function getItemInfo(idx) {
 		<div id="top"></div>
 		<!-- 아이템 -->
 			<%	
-			ArrayList<ItemVO> getList = (ArrayList<ItemVO>)request.getAttribute("itemList");
+			
 			  for (ItemVO vo : getList) { 
 			  	item_idx = vo.getItem_idx();
 			 	link = vo.getLink();
@@ -231,11 +170,11 @@ function getItemInfo(idx) {
 		 		tagColor = vo.getTagColor();
 			 	bookmark = vo.getBookmark();
 			 	userMail = vo.getUserMail();
-			 	
+			 	System.out.println(link);
 			 	//아이템에 저장된 메일과 로그인한 메일이 다르면 다음 아이템 호출
-			 	if(!userMail.equals(friendEmail)){
+			 /* 	if(!userMail.equals(friendEmail)){
 			 		continue;
-			 	}
+			 	} */
 				// 이미지 소스를 불러오지 못햇을 경우 
 				 if(imgSrc.equals("0")){
 				 	imgSrc = path + "/mycart/sample.jpg";
@@ -250,15 +189,12 @@ function getItemInfo(idx) {
 					 itemPrice = 0;
 				}
 			 %>
-			<!-- item 박스 -->
-			<div class="item" id="item<%=item_idx%>">
-			<!-- 편집 상자 -->
-			<%-- <div class="modify">
-				<p><%=item_idx%></p>
-				<button class="btn" type="button" onclick="delItem(<%=item_idx%>)">삭제</button>
-				<button class="btn" type="button" onclick=" getItemInfo(<%=item_idx%>)">수정</button>
-			</div> --%>
-				<button class="btn delete" type="button" onclick="delItem(<%=item_idx%>)">X</button>
+				<!-- item 박스 -->
+			<div class="friend item" id="item<%=item_idx%>">
+				<!-- 사줄거야?박스 -->
+				<div class="pop">
+					<span>사줄거야? ฅ◕ᴥ◕ฅ </span>
+				</div>
 				<!-- item 이미지 영역 -->
 				<div class="itemImg">
 					<a href="<%=link%>" target="_blank">
@@ -270,20 +206,14 @@ function getItemInfo(idx) {
 					<!-- item 이름-->
 					<div class="itemName">
 					
-					<!-- item 북마크 : 토글버튼 구현하기 -->
+					<!-- item 북마크 -->
 						<%if(bookmark == 0){%>
 						<div class="bookmark-area">
-						<%-- <span class="bookmark <%=tagColor %>">☆</span> --%>
-						<button type="button" class="bookmark <%=tagColor %>" id="onBookmark" onclick="bookmark(<%=item_idx%>)">☆</button>
-						<%-- <button	type="button" class="bookmark <%=tagColor %> hide" id="offBookmark" onclick="offCheck(<%=item_idx%>,this)">★</button> --%>
-						<input id="bookmark<%=item_idx%>" class="hide" name="bookmark" type="checkbox" value="0" />
+						<span class="bookmark <%=tagColor %>">☆</span>
 						</div>
 						<%}else{%>
 						<div class="bookmark-area">
-						<%-- <span class="bookmark <%=tagColor %>">★</span> --%>
-						<%-- <button type="button" class="bookmark <%=tagColor %> hide" id="onBookmark" onclick="onCheck(<%=item_idx%>,this)">☆</button> --%>
-						<button	type="button" class="bookmark <%=tagColor %>" id="offBookmark" onclick="bookmark(<%=item_idx%>)">★</button>
-						<input id="bookmark<%=item_idx%>"   class="hide" name="bookmark" type="checkbox" value="1" />
+						<span class="bookmark <%=tagColor %>">★</span>
 						</div>
 						<%} %>
 					
@@ -332,50 +262,7 @@ function getItemInfo(idx) {
 	        }, 
 	    });    //end ajax  */
 	}
-	/* 북마크 버튼 작동 함수  */
-	function onCheck(id,obj){
-		var checkbox = document.getElementById("bookmark"+id),
-		other = document.getElementById("offBookmark");
-		
-		document.getElementById("bookmark"+id).checked = true;
-		document.getElementById("bookmark"+id).value = "1";
-		
-		obj.style.display = "none";
-		other.style.display = "inline-block";
-		console.log("on"+document.getElementById("bookmark").value);
-	}
-	function offCheck(id,obj){
-		var checkbox = document.getElementById("bookmark"+id),
-		other = document.getElementById("onBookmark");
-		
-		document.getElementById("bookmark"+id).checked = false;
-		document.getElementById("bookmark"+id).value = "0";
-		
-		obj.style.display = "none";
-		other.style.display = "inline-block";
-		console.log("off"+document.getElementById("bookmark").value);
-	}
-	/*탭 이벤트*/
-	function tab(obj){
-	/* 	var i, defaultTab, tablinks;
-		defaultTab = $(".home");
-		tanlinks = $(".tab");
-		for(i = 0; i<tablinks.length; i++){
-			tanlinks[i].className.replace("active", "");
-		}
-		evt.currentTarget.className += " active"; */
-		var i, tablinks;
-		//탭
-		tablinks = $(".tab");
-		//다른 탭의 선택 효과 지우기
-		for(i = 0; i<tablinks.length; i++){
-			tablinks[i].removeClass(".active");
-		}
-		//현재 클릭한 탭에 효과 넣기
-		//obj.addClass(".selectTab");
-		obj.style.background="white";
-		obj.style.color="black";
-	}
+	
 	
 	</script>
 </body>

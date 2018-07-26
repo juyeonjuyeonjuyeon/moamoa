@@ -33,18 +33,25 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("관리자페이지 옴");
 		String site = "adminUser.jsp";
 		
 		// 로그인이 되었는지 체크(세션 session)
 		HttpSession session = request.getSession();
-		String idCheck = (String)session.getAttribute("email");
+		
+		UserVO uvo = (UserVO)session.getAttribute("user_vo");
+		String userName = uvo.getName(); // 사용자 닉네임 가져오기
+		String email = uvo.getEmail(); // 로그인한 유저메일
+		
+		String idCheck = (String)session.getAttribute(email);
 		// 만약에 idCheck 의 값이 있으면 amdin.jsp 로 보내고
 		// 없으면 login.jsp 로 보내고(login.tm0)
-		if (idCheck == null) {
-			site = "main.jsp";
+		/*if (idCheck == null) {
+			System.out.println("아이디 없어 메인으로 고");
+			site = "main/main.jsp";
 			response.sendRedirect(site);   // 로그인 페이지로 리다이렉트
 			return;  // if 문 아래에 코드 진행을 막고 login 페이지로
-		}
+		}*/
 		// 여기에 DB 정보를 불러 와서 사용자 리스트 보여주기
 		// UserDAO 에서 회원 정보 리스트를 받아 오는거 만들기
 		try {
@@ -53,7 +60,6 @@ public class AdminServlet extends HttpServlet {
 			// 전달 할 수 있는 방법이 
 			request.setAttribute("userlist", getList);  // userlist 이름으로 저장
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(site);   // "admin/admin.jsp";

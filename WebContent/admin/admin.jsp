@@ -1,20 +1,33 @@
+<%@page import="com.team1.vo.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 		String path = request.getContextPath();
-		String email = (String) session.getAttribute("email");
-		String pw = (String) session.getAttribute("pw");
+		UserVO uvo = (UserVO)session.getAttribute("user_vo");
+// 		String email = (String) session.getAttribute("email");
+// 		String pw = (String) session.getAttribute("pw");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MOAMOA</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/admin/style.css?ver=1">
 <%
-	System.out.println(email +" - "+ pw);
-%>
 
+// 	System.out.println(email +" - "+ pw);
+%>
+<style>
+	#adminUser{
+		width : 300px;
+		height : 20px;
+		background : none;
+		border:none;
+		font-size : 15px;
+		font-family : sans-serif;
+	}
+</style>
 </head>
 <body background="cityBg.gif">
 <!-- <script type="text/javascript"> 
@@ -26,10 +39,16 @@ function goReplace(str) { location.replace("http://localhost/moamoa/mycart/mycar
 <header>
 	<h1 id="neonsign"><a href="#">MOA MOA</a></h1>
 </header>
-
+<%
+if(uvo == null){ %>
+<script>
+	alert("로그인 하세요");
+	location.href="<%=path%>/main/main.jsp";
+</script>
+<% } %>
 <div id="buttons">
-	<%if(email.equals("1")){%>
-	<a id="adminUser" href="<%=path%>/AdminServlet" style="width : 300px; height : 20px;background : none;border:none;font-size : 15px;font-family : sans-serif">회원관리</a>
+	<%if(uvo.getEmail().equals("1")){%><!-- 아이디가 1일 때만 보임 : 운영자 -->
+	<a id="adminUser" href="<%=path%>/AdminServlet">회원관리</a>
 	<%}%>
 	<a id="addWish" href="#moamoaPage">moa moa</a>
 	<a id="goCart" href="<%=path%>/SortServlet">my cart</a>

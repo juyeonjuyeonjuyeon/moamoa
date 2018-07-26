@@ -1,14 +1,36 @@
+<%@page import="com.team1.vo.UserVO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="com.team1.dao.ItemDAO"%>
 <%@page import="com.team1.vo.ItemVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
+    <% String path = request.getContextPath(); %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>MOAMOA</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
+  		src="https://code.jquery.com/jquery-3.3.1.js"
+  		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  		crossorigin="anonymous"></script>
 
-	String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
-	String email = (String) session.getAttribute("email"); // 로그인한 유저메일
+
+<%	
+	UserVO uvo = (UserVO)session.getAttribute("user_vo");
+	if(uvo == null){ %>
+		<script>
+			alert("로그인 하세요");
+			location.href="<%=path%>/main/main.jsp";
+		</script>
+	<% }
+	String userName = uvo.getName(); // 사용자 닉네임 가져오기
+	String email = uvo.getEmail(); // 로그인한 유저메일
+	
 	int itemCnt = 0;//아이템 개수
 	String sortID = "0";//정렬 키 : 0최신순,1고가순,2저가순,3북마크,4레드,5주황,6그린,7블루,8보라)
 	
@@ -32,17 +54,8 @@
   		itemCnt++;
   	}
 %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>MOAMOA</title>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/mycart/style.css?ver=1">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script
-  		src="https://code.jquery.com/jquery-3.3.1.js"
-  		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  		crossorigin="anonymous"></script>
+</head>
+<body>
 	<script>
 	
 window.onload = function () {
@@ -176,8 +189,6 @@ function getItemInfo(idx) {
 	
  
 </script>
-</head>
-<body>
 	<!--헤더, 로고  -->
 	<header>
 		<h1><a href="<%=path%>/main/main.jsp" >MOA MOA</a></h1>
@@ -201,7 +212,7 @@ function getItemInfo(idx) {
 				추가</a></li>
 				<!-- <li><a href="#" onclick="modify()">편집</a></li> -->
 				<li><a href="<%=path%>/LogoutServlet">로그아웃</a></li>
-			<%-- 	<li><a href="<%=path%>/myinfo.jsp">회원정보</a></li> --%>
+				<li><a href="<%=path%>/myinfo.jsp?u_idx=<%=uvo.getU_idx() %>" >회원정보</a></li> 
 			</ul>
 			<ul class="sort">
 				<li><a onclick="tab(this)" href="<%=path%>/SortServlet?sort=4" ><span class="Red"></span></a></li>
@@ -340,7 +351,7 @@ function getItemInfo(idx) {
 	            }
 	        }, 
 	    });    */
-	} */
+	} 
 	/* 북마크 버튼 작동 함수  */
 	function onCheck(id,obj){
 		var checkbox = document.getElementById("bookmark"+id),

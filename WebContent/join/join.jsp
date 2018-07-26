@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>회원가입</title>
 	<link rel="stylesheet" type="text/css" href="<%=path%>/join/style.css?ver=2">
-	
+	<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
 </head>
 <body>

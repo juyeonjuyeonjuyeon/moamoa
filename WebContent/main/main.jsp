@@ -1,17 +1,19 @@
+<%@page import="com.team1.vo.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 		String path = request.getContextPath();
-		String name = (String) session.getAttribute("name");
+		UserVO uvo = (UserVO)session.getAttribute("user_vo");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<%=path%>/main/style.css?ver=1">
 	<!-- 로그인 값이 있을 경우 admin화면으로 넘어간다 -->
-	<%if (name != null) {%>
+	<%if (uvo != null) {%>
 	<script type="text/javascript">location.href="<%=path%>/admin/admin.jsp";</script>
 	<%}%>
 </head>

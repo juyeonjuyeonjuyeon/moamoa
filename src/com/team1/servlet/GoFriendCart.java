@@ -54,9 +54,10 @@ public class GoFriendCart extends HttpServlet {
 		//친구아이디 존재 확인
 		try {
 			if (UserDAO.EmailCheck(friendID)) {
-				ArrayList<ItemVO> itemList = ItemDAO.getItem();
+				ArrayList<ItemVO> itemList = ItemDAO.getItem(friendID);
 				// getList를 브라우저(jsp)에서 전달을 해줘야 하는데
 				// 전달 할 수 있는 방법이 뭐가있을까
+				request.setAttribute("friendID",friendID);
 				request.setAttribute("itemList", itemList); // userList 이름으로 저장
 				RequestDispatcher dis = request.getRequestDispatcher(site);
 				dis.forward(request, response);
@@ -64,12 +65,13 @@ public class GoFriendCart extends HttpServlet {
 				System.out.println(friendID+"존재");
 				//response.sendRedirect(site);
 			}else {
-				site = "mycart/mycart.jsp";
+				System.out.println(friendID+"미존재");
+				site = "nullfriend.jsp";
 				response.sendRedirect(site);
 			}
 		} catch (Exception e) {
 			System.out.println("존재하지 않음");
-			site = "mycart/mycart.jsp";
+			site = "SortServlet";
 			response.sendRedirect(site);
 			e.printStackTrace();
 		}

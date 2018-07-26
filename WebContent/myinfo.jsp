@@ -1,19 +1,20 @@
+<%@page import="com.team1.dao.UserDAO"%>
+<%@page import="com.team1.vo.UserVO"%>
 <%@page import="com.team1.vo.ItemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
-String u_idx = (String) session.getAttribute("u_idx");
-String userName = (String) session.getAttribute("name"); // 사용자 닉네임 가져오기
-String phone = (String) session.getAttribute("phone");
-String email = (String) session.getAttribute("email");
-String pw = (String) session.getAttribute("pw");
+/* UserVO uvo = (UserVO)session.getAttribute("user_vo"); */
+String u_idx = request.getParameter("u_idx");
+UserVO uvo = UserDAO.getUserInfo(u_idx);
     %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원정보</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Jua');
@@ -57,14 +58,29 @@ body { background : #efe492;}
 	}
 .page{
 	margin : auto;
-	padding : 0;
+	padding : 10PX;
 	width : 400px;
-	height : 400px;
+	height : 25s0px;
+}
+li{
+	margin : 10px;
 }
 input { 
-	border : none;
+	width : 200px;
+	margin-left : 10px;
+	padding : 3px;
+	border : 1px solid #777;
 	background : none;
 	font-size : 18px;
+}
+input:hover {
+	
+}
+input:focus{
+	outline : skyblule;
+}
+input.disable{
+	color : #777;
 }
 #buttons{
 	margin : auto;
@@ -72,7 +88,7 @@ input {
 	height: 50px;
 }
 .btn{
-	border : none;
+	border : 1px solid orange;
 	background : none;
 	font-size : 18px;
 	width : 100px;
@@ -119,29 +135,28 @@ input {
 	</div>
 	<form id="update-user" class="page hide">
 		<ul>
-			<li><input type="text" id="u_idx" value="<%=u_idx %>"></li>
-			<li>이름 <input id="name" type ="text" name ="userName" value="<%=userName%>" placeholder="입력하세요"></li>
-			<li>이메일 <input id="email" type ="text" name ="email" value="<%=email%>" disabled></li>
-			<li>비밀번호 <input id="pw" type ="password" name ="pw" placeholder="입력하세요"></li>
-			<li>비밀번호 확인 <input type ="password" name ="confirm-pw" placeholder="입력하세요"></li>
-			<li>전화번호 <input id="phone" type ="text" name ="phone" value="<%=phone%>" ></li>
+			<li><input class="hide" type="text" id="u_idx" value="<%=uvo.getU_idx() %>"></li>
+			<li>이름 :<input id="name" type ="text" name ="userName" value="<%=uvo.getName()%>" placeholder="입력하세요"></li>
+			<li>전화번호 :<input id="phone" type ="text" name ="phone" value="<%=uvo.getPhone()%>" ></li>
+			<li>이메일 :<input class="disable" id="email" type ="text" name ="email" value="<%=uvo.getEmail()%>" disabled></li>
+			<li>비밀번호 :<input class="disable" id="pw" type ="password" name ="pw" value="<%=uvo.getPw() %>" disabled></li>
+		<!-- 	<li>비밀번호 확인 <input type ="password" name ="confirm-pw" placeholder="입력하세요" required></li> -->
+		
 		</ul>
 		<input type="button" onclick="updateUser()" value="저장" class="btn">
 	</form>
 	<div id="userinfo" class="page">
-	<span>이름 : </span><%=userName %>
-	<br>
-	<span>전화번호 : </span><%=phone %>
-	<br>
-	<span>이메일 : </span><%=email %>
-	<br>
-	<span>비밀번호 : </span><%=pw %>
-	<br>
+		<ul>
+		<li><span>이름 : </span><%=uvo.getName() %></li>
+		<li><span>전화번호 : </span><%=uvo.getPhone() %></li>
+		<li><span>이메일 : </span><%=uvo.getEmail() %></li>
+		<li><span>비밀번호 : </span><%=uvo.getPw() %></li>
+		</ul>
 	</div>
 </div>
 <div id="buttons">
 	<button class="btn" onclick="updateUserPage()">정보수정</button>
-	<button class="btn">회원탈퇴</button>
+	<button class="btn" onclick='location.href="<%=path%>/DelUser?u_idx=<%=uvo.getU_idx()%>"'>회원탈퇴</button>
 </div>
 <script>
 	/*정보 수정 페이지 오픈*/

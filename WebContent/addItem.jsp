@@ -1,16 +1,20 @@
+<%@page import="com.team1.vo.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	UserVO uvo = (UserVO)session.getAttribute("user_vo");
 	String path = request.getContextPath();
 	String imgSrc = (String)request.getAttribute("imgSrc");
 	String itemName = (String)request.getAttribute("itemName");
 	String itemPrice = (String)request.getAttribute("itemPrice");
-	String userMail = (String) session.getAttribute("email");
+/* 	String userMail = (String) session.getAttribute("email"); */
+	String userMail = uvo.getEmail();
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"

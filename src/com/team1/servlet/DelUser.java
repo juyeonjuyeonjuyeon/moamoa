@@ -6,13 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.team1.dao.UserDAO;
 
 /**
  * Servlet implementation class DelInfoServlet
  */
-@WebServlet("/DelInfoServlet")
+@WebServlet("/DelUser")
 public class DelUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,7 +37,10 @@ public class DelUser extends HttpServlet {
 		// UserDAO.삭제 메소드 호출
 		try {
 			UserDAO.delInfo(u_idx);
-			response.getWriter().println("OK");
+			HttpSession session = request.getSession();
+			session.removeAttribute("user_vo");
+			response.sendRedirect("delUser.jsp");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

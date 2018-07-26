@@ -33,8 +33,8 @@ public class LogoutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		session.removeAttribute("email");
-		session.removeAttribute("name");
+		session.removeAttribute("user_vo");
+//		session.removeAttribute("name");
 
 		String site = "main/main.jsp"; // 로그인 페이지로 보내기
 		// 만약 사용자에게 알리고 login 페이지로 보낼려면

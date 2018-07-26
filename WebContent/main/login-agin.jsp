@@ -6,6 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>MOAMOA 로그인</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=path %>/img/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<%=path %>/main/style2.css?ver=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script

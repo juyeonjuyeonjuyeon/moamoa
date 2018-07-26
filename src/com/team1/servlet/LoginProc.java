@@ -53,10 +53,11 @@ public class LoginProc extends HttpServlet {
 			UserVO uvo  = UserDAO.getUser(email, pw);
 			if (uvo != null) {
 				HttpSession session = request.getSession();
-				session.setAttribute("u_idx", uvo.getU_idx());
+				session.setAttribute("user_vo", uvo);
+			/*	session.setAttribute("u_idx", uvo.getU_idx());
 				session.setAttribute("email", uvo.getEmail());  
 				session.setAttribute("pw", uvo.getPw());
-				session.setAttribute("name", uvo.getName());
+				session.setAttribute("name", uvo.getName());*/
 				
 				System.out.println("로그인 성공");
 				response.sendRedirect(site);

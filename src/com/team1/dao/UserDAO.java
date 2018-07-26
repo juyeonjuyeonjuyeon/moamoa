@@ -100,6 +100,7 @@ public class UserDAO {
 			vo = new UserVO();
 			vo.setU_idx(rs.getInt("u_idx"));
 			vo.setName(rs.getString("name"));
+			vo.setPhone(rs.getString("phone"));
 			vo.setEmail(rs.getString("email"));
 			vo.setPw(rs.getString("pw"));
 		}	
@@ -125,7 +126,9 @@ public class UserDAO {
 		ResultSet rs = pstmt.executeQuery();
 		if (rs.next()) {
 			vo = new UserVO();
+			vo.setU_idx(Integer.parseInt(rs.getString("u_idx")));
 			vo.setName(rs.getString("name"));
+			vo.setPhone(rs.getString("phone"));
 			vo.setEmail(rs.getString("email"));
 			vo.setPw(rs.getString("pw"));
 		}	
