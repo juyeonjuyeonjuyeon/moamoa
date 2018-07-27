@@ -50,21 +50,28 @@ public class AddItem extends HttpServlet {
 		String bookmark = request.getParameter("bookmark");
 		String userMail = request.getParameter("userMail");
 		
-		System.out.println(itemPrice);
-		System.out.println(imgSrc);
-		System.out.println(itemName);
-		/*if(imgSrc.equals("0")) {
+		if(imgSrc == null && imgSrc.equals("0")) {
 			imgSrc = "0";
-		}*/
-		if(itemName.equals("0")) {
+		}
+		if(itemName == null && itemName.equals("0")) {
 			itemName = "0";
 		}
-		if((itemPrice == null) && itemPrice.equals("0")) {
+		if(itemPrice == null) {
 			itemPrice = "0";
 		}
 		if(bookmark == null) {
 			bookmark = "0";
 		}
+		System.out.println("잘 받아 오나");
+		System.out.println(link);
+		System.out.println(imgSrc);
+		System.out.println(itemName);
+		System.out.println(itemPrice);
+		System.out.println(tagColor);
+		System.out.println(bookmark);
+		System.out.println(userMail);
+		System.out.println("---------");
+		
 
 		
 		/*서블릿 확인 출력*/

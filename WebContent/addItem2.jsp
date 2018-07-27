@@ -206,33 +206,32 @@ input:checked + span{
     <button type="button" id="onBookmark" class="bookmark" onclick="onCheck(this)">☆</button>
     <button	type="button" id="offBookmark"  class="bookmark hide" onclick="offCheck(this)">★</button>
     <input id="bookmark" class="hide" name="bookmark" type="checkbox" value="0" />
-    
+ <!-- 이미지 (출력부분과 전송부분)-->
+	<img id="itemImg" src="<%=path %>/mycart/sample.jpg" alt="상품이미지"><br>
 	<table>
-<!-- 링크 -->
+		<tr>
+		<td class="label">이미지
+		<input id="imgSrc" name="imgSrc" type="text" value ="0" placeholder="링크 붙여넣기"></td>
+		</tr>
+	<!-- 링크 -->
 		<tr><td class="label">링크
 		<input name="link" type="text" id="itemLink" placeholder=" 붙여넣기" required></td>
 		<td class="ok-tooltip"><button class="ok btn" type="button" onclick="getLink()">ok</button>
 		<span class="tooltip">클릭시 상품 정보를 가져옵니다</span>
 		</td>
 		</tr>
-<!-- 이미지 (출력부분과 전송부분)-->
-		<tr id="imgSrcBox" class="hide">
-		<td class="label">
-		<img id="itemImg" class="hide" src="<%=path %>/mycart/sample.jpg" alt="상품이미지">
-		이미지
-		<input id="imgSrc" name="imgSrc" type="text" value ="0" placeholder="링크 붙여넣기"></td>
-		</tr>
-<!-- 이름 -->
-		<tr id="itemNameBox" class="hide"><td class="label">상품이름
+		<!-- 이름 -->
+		<tr><td class="label">상품이름
 		<input name="itemName" id="itemName" type="text" placeholder="적어주세요" value ="0"required></td>
 		</tr>
-<!-- 가격 -->
-		<tr id="itemPriceBox" class="hide"><td class="label">가격
+		<!-- 가격 -->
+		<tr><td class="label">가격
 		<input name="itemPrice" id="itemPrice" type="number" placeholder="얼마인가요?" value ="0"required></td>
 		</tr>
 	</table>
+	
 <!-- 태그 -->
-	<div id="tagBox" class="tag-box hide">
+	<div class="tag-box">
 	<ul id="tagList">
 			<li>
 				<label>
@@ -264,14 +263,16 @@ input:checked + span{
 				</label>
 			</li>
 	</ul>
+	<!-- <div class="clear"></div> -->
 		<div class="tag-tooltip">원하는 태그의 색깔을 선택하세요</div>
 	</div>
-<!-- 전송 버튼 -->
-	<div id ="submitBtn" class="buttons hide">
+	<!-- 전송 버튼 -->
+	<div class="buttons">
+		<!-- 버튼 -->
 		<input class="btn" type="submit" value="저장">
 		<input class="btn" type="button" value="닫기" onClick='self.close()'> 
 	</div>
-<!-- 유저메일hide -->
+	<!-- hide -->
 	<input class="hide" type="text" name="userMail" value="<%=userMail%>">
 </form>
 <script>
@@ -314,7 +315,6 @@ function offCheck(obj){
 	other.style.display = "inline-block";
 	console.log("off"+document.getElementById("bookmark").value);
 }
-
 /*링크 따오기*/
 function getLink() {
 	var path = '/' + location.pathname.split('/')[1];
@@ -324,15 +324,7 @@ function getLink() {
 		imgSrc=$("#imgSrc"), //저장할 이미지 소스
 		name=$("#itemName"), 
 		price=$("#itemPrice"); // 받아올 데이터
-		
-	//링크 가져온 후 보여주는 이벤트
-	var imgShow = $("#itemImgBox"),
-	imgSrcShow = $("#imgSrcBox"),
-	nameShow = $("#itemNameBox"),
-	priceShow = $("#itemPriceBox"),
-	tagShow = $("#tagBox"),
-	btnShow = $("#submitBtn");
-	
+		console.log(link);
 	$.ajax({
 		  type: "POST",
 		  url: postUrl,
@@ -362,14 +354,6 @@ function getLink() {
 			 
 	    }
 		});
-	
-	//링크 가져온 후 보여주는 이벤트
-	imgShow.slideDown(1000);
-	imgSrcShow.slideDown(1000);
-	nameShow.slideDown(1000);
-	priceShow.slideDown(1000);
-	tagShow.slideDown(1000);
-	btnShow.slideDown(1000);
 	}
 
 </script>
